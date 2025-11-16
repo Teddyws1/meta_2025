@@ -71,6 +71,7 @@ body {
     box-shadow: none;
 }
 
+
 /* =====================================================================
    ABAS DE NAVEGAÇÃO
    ===================================================================== */
@@ -352,7 +353,6 @@ body {
     background-color: #0c9c29cc;
     color: #ffffff;
 }
-
 /* HEADER PADRÃO DESKTOP */
 .header {
     width: 100%;
@@ -394,7 +394,7 @@ body {
     }
 
     .logo {
-        height: 55px;
+        height: 101px;
         left: 15px;
     }
 
@@ -406,12 +406,12 @@ body {
 /* Telas até 480px (CELULAR) */
 @media (max-width: 480px) {
     .header {
-        height: 75px;
+        height: 105px;
         padding: 0 15px;
     }
 
     .logo {
-        height: 40px;   /* tamanho igual ao print */
+        height: 105px;   /* tamanho igual ao print */
         left: 10px;
     }
 
@@ -423,7 +423,7 @@ body {
 /* Telas muito pequenas (320px) */
 @media (max-width: 360px) {
     .header {
-        height: 70px;
+        height: 102px;
     }
 
     .logo {
