@@ -238,14 +238,17 @@ body {
 }
 
 .calc-operator {
-    background-color: var(--btn-operator);
+    text-align: center;
+    background-color:var(--azul-tab);
 }
 
 .calc-equal {
+    text-align: center;
     background-color: var(--btn-equal);
 }
 
 .calc-clear {
+        text-align: center;
     background-color: var(--btn-clear);
 }
 
