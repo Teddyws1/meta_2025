@@ -703,7 +703,7 @@ const clearAllDeposits = () => {
 const privacyModal = document.getElementById('privacyModal');
 const privacyOk = document.getElementById('privacyOk');
 
-// Ativar modal ao carregar a página
+// Abre o modal ao carregar a página
 window.addEventListener('load', () => {
   privacyModal.classList.add('active');
 });
@@ -720,7 +720,7 @@ setTimeout(() => {
 
 // Fecha ao clicar fora da caixa do modal
 privacyModal.addEventListener('click', (e) => {
-  if (e.target === privacyModal) { // apenas se clicar no fundo
+  if (e.target === privacyModal) {
     privacyModal.classList.remove('active');
   }
 });
