@@ -353,20 +353,21 @@ body {
     color: #ffffff;
 }
 
+/* HEADER PADRÃO DESKTOP */
 .header {
     width: 100%;
     height: 120px;
-    background: #161b22;
+    background: transparent; /* igual ao print (sem fundo sólido) */
     display: flex;
     align-items: center;
-    justify-content: center; /* centraliza o título */
+    justify-content: center;
     position: relative;
     padding: 0 20px;
 }
 
 /* LOGO */
 .logo {
-    height: 90%;
+    height: 70px;
     width: auto;
     object-fit: contain;
     position: absolute;
@@ -376,7 +377,7 @@ body {
 /* TÍTULO */
 .site-name {
     color: #fff;
-    font-size: 28px;
+    font-size: 32px;
     font-weight: bold;
     text-align: center;
 }
@@ -389,48 +390,47 @@ body {
 /* Telas até 768px (TABLET) */
 @media (max-width: 768px) {
     .header {
-        height: 100px;
+        height: 90px;
     }
 
     .logo {
-        height: 70%;
+        height: 55px;
         left: 15px;
     }
 
     .site-name {
-        font-size: 24px;
+        font-size: 26px;
     }
 }
 
 /* Telas até 480px (CELULAR) */
 @media (max-width: 480px) {
     .header {
-        height: 85px;
+        height: 75px;
         padding: 0 15px;
     }
 
     .logo {
-        height: 60%;
+        height: 40px;   /* tamanho igual ao print */
         left: 10px;
     }
 
     .site-name {
-        font-size: 20px;
+        font-size: 22px; /* centralizado como no print */
     }
 }
 
 /* Telas muito pequenas (320px) */
 @media (max-width: 360px) {
     .header {
-        height: 75px;
+        height: 70px;
     }
 
     .logo {
-        height: 55%;
-        left: 8px;
+        height: 35px;
     }
 
     .site-name {
-        font-size: 18px;
+        font-size: 20px;
     }
 }
