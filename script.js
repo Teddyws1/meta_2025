@@ -424,7 +424,7 @@ const loadData = () => {
 const setupTabs = () => {
   const tabButtons = document.querySelectorAll(".tab-button");
   const tabContents = document.querySelectorAll(".tab-content");
-
+           
   tabButtons.forEach((button) => {
     button.addEventListener("click", () => {
       const targetTab = button.dataset.tab;
