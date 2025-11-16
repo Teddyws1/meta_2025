@@ -353,84 +353,58 @@ body {
     background-color: #0c9c29cc;
     color: #ffffff;
 }
-/* HEADER PADRÃO DESKTOP */
 .header {
     width: 100%;
     height: 120px;
-    background: transparent; /* igual ao print (sem fundo sólido) */
+    background: transparent; 
     display: flex;
     align-items: center;
-    justify-content: center;
-    position: relative;
+    justify-content: flex-start; /* deixa a logo à esquerda */
     padding: 0 20px;
 }
 
 /* LOGO */
 .logo {
-    height: 70px;
+    height: 90px;    /* tamanho padrão (desktop) */
     width: auto;
     object-fit: contain;
-    position: absolute;
-    left: 20px;
-}
-
-/* TÍTULO */
-.site-name {
-    color: #fff;
-    font-size: 32px;
-    font-weight: bold;
-    text-align: center;
 }
 
 
 /* ===========================
-   RESPONSIVIDADE MOBILE
+   RESPONSIVIDADE
    =========================== */
 
-/* Telas até 768px (TABLET) */
+/* Tablet */
 @media (max-width: 768px) {
     .header {
-        height: 101px;
+        height: 100px;
     }
 
     .logo {
-        height: 101px;
-        left: 15px;
-    }
-
-    .site-name {
-        font-size: 26px;
+        height: 80px;  /* grande no tablet */
     }
 }
 
-/* Telas até 480px (CELULAR) */
+/* Celular */
 @media (max-width: 480px) {
     .header {
-        height: 90px; /* aumenta o header */
-        padding: 0 15px;
+        height: 90px;
+        padding-left: 15px;
     }
 
     .logo {
-        height: 55px;   /* AQUI: tamanho maior da logo */
-        left: 10px;
-    }
-
-    .site-name {
-        font-size: 26px; /* mantém proporcional */
+        height: 75px;  /* 🔥 LOGO GRANDE NO CELULAR */
     }
 }
 
-/* Telas muito pequenas (320px) */
+/* Celulares muito pequenos (ex: 320px) */
 @media (max-width: 360px) {
     .header {
         height: 85px;
     }
 
     .logo {
-        height: 50px;   /* também maior aqui */
-    }
-
-    .site-name {
-        font-size: 24px;
+        height: 70px; /* ainda grande */
     }
 }
