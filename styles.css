@@ -406,31 +406,31 @@ body {
 /* Telas até 480px (CELULAR) */
 @media (max-width: 480px) {
     .header {
-        height: 105px;
+        height: 90px; /* aumenta o header */
         padding: 0 15px;
     }
 
     .logo {
-        height: 105px;   /* tamanho igual ao print */
+        height: 55px;   /* AQUI: tamanho maior da logo */
         left: 10px;
     }
 
     .site-name {
-        font-size: 22px; /* centralizado como no print */
+        font-size: 26px; /* mantém proporcional */
     }
 }
 
 /* Telas muito pequenas (320px) */
 @media (max-width: 360px) {
     .header {
-        height: 102px;
+        height: 85px;
     }
 
     .logo {
-        height: 35px;
+        height: 50px;   /* também maior aqui */
     }
 
     .site-name {
-        font-size: 20px;
+        font-size: 24px;
     }
 }
