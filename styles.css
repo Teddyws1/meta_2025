@@ -137,56 +137,51 @@ body {
 }
 
 /* =====versao===== */
-.version-sample {
-  background: #111827;
-  padding: 10px 14px;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  border-radius: 10px;
-  border: 1px solid #1f2937;
-  margin: 20px auto;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+ /* CSS vai aqui */
+    .version-sample {
+      background: #111827;
+      padding: 10px 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: 10px;
+      border: 1px solid #1f2937;
+      margin: 20px auto;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+      max-width: 90%;
+      width: fit-content;
+    }
 
-  /* Responsividade */
-  max-width: 90%; /* nunca ultrapassa a largura da tela */
-  width: fit-content; /* se ajusta ao conteúdo */
-}
+    .version-sample .version-text {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #8b5cf6;
+      margin: 0;
+      white-space: nowrap;
+    }
 
-/* H5 versão */
-.version-sample .version-text {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: #8b5cf6;
-  margin: 0;
-  white-space: nowrap; /* evita quebra de linha desnecessária */
-}
+    .version-sample .beta-text {
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: #facc15;
+      background: #1f2937;
+      padding: 2px 6px;
+      border-radius: 5px;
+      border: 1px solid #fbbf24;
+      letter-spacing: 0.4px;
+      margin: 0;
+      white-space: nowrap;
+    }
 
-/* H6 Beta */
-.version-sample .beta-text {
-  font-size: 0.65rem;
-  font-weight: 700;
-  color: #facc15;
-  background: #1f2937;
-  padding: 2px 6px;
-  border-radius: 5px;
-  border: 1px solid #fbbf24;
-  letter-spacing: 0.4px;
-  margin: 0;
-  white-space: nowrap;
-}
-
-/* Opcional: ajustar tamanho de fonte em telas muito pequenas */
-@media (max-width: 400px) {
-  .version-sample .version-text {
-    font-size: 0.8rem;
-  }
-  .version-sample .beta-text {
-    font-size: 0.6rem;
-    padding: 1px 4px;
-  }
-}
-
+    @media (max-width: 400px) {
+      .version-sample .version-text {
+        font-size: 0.8rem;
+      }
+      .version-sample .beta-text {
+        font-size: 0.6rem;
+        padding: 1px 4px;
+      }
+    }
 
    /* TABELA DE DEPÓSITOS */
 .deposit-table th, .deposit-table td {
