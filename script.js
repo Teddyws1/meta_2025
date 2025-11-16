@@ -221,18 +221,16 @@ const renderDeposits = () => {
     const row = depositsList.insertRow();
     row.innerHTML = `
             <td>${formatDate(
-              dep.date
-            )}<br><span class="text-xs text-[#8b949e]">${
-      dep.time || "--:--"
-    }</span></td>
+      dep.date
+    )}<br><span class="text-xs text-[#8b949e]">${dep.time || "--:--"
+      }</span></td>
             <td>
                 <span class="value-saved font-bold">${formatCurrency(
-                  dep.amount
-                )}</span>
+        dep.amount
+      )}</span>
                 <br>
-                <span class="text-xs text-[#8b949e]">${
-                  dep.description || "Sem descrição"
-                }</span>
+                <span class="text-xs text-[#8b949e]">${dep.description || "Sem descrição"
+      }</span>
             </td>
             <td>
                 <button onclick="openEditModal(${index})" class="text-blue-400 hover:text-blue-300 text-sm font-semibold mr-2">Editar</button>
@@ -468,8 +466,8 @@ const renderHistory = () => {
       historyItem.className = "history-item";
       historyItem.innerHTML = `
             <div class="history-expression">${item.expression
-              .replace(/\*/g, "x")
-              .replace(/\//g, "÷")}</div>
+          .replace(/\*/g, "x")
+          .replace(/\//g, "÷")}</div>
             <div class="history-result">= ${item.result}</div>
         `;
       historyItem.onclick = () => {
