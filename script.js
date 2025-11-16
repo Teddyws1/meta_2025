@@ -698,3 +698,29 @@ const clearAllDeposits = () => {
     showSuccessMessage("Histórico de Transações Limpo com Sucesso!");
   }
 };
+
+//sobre aviso
+const privacyModal = document.getElementById('privacyModal');
+const privacyOk = document.getElementById('privacyOk');
+
+// Ativar modal ao carregar a página
+window.addEventListener('load', () => {
+  privacyModal.classList.add('active');
+});
+
+// Fecha ao clicar no botão OK
+privacyOk.addEventListener('click', () => {
+  privacyModal.classList.remove('active');
+});
+
+// Fecha automaticamente após 40 segundos
+setTimeout(() => {
+  privacyModal.classList.remove('active');
+}, 40000);
+
+// Fecha ao clicar fora da caixa do modal
+privacyModal.addEventListener('click', (e) => {
+  if (e.target === privacyModal) { // apenas se clicar no fundo
+    privacyModal.classList.remove('active');
+  }
+});
