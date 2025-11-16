@@ -679,3 +679,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
   updateDisplay();
 });
+// A função deve estar definida globalmente ou acessível pelo 'onclick' no HTML
+const clearAllDeposits = () => {
+  // 1. Verifica se há transações para limpar
+  if (deposits.length === 0) {
+    alert("O histórico de transações já está vazio.");
+    return;
+  }
+
+  // 2. Mensagem de AVISO e Confirmação
+  const confirmation = confirm(
+    "🚨 AVISO: Você tem certeza que deseja EXCLUIR PERMANENTEMENTE TODAS as transações de depósito? \n\nEsta ação não pode ser desfeita e zerará o seu 'Valor Arrecadado'."
+  );
+
+  // 3. Execução
+  if (confirmation) {
+    deposits = []; // Limpa o array
+    saveData(); // Salva o estado vazio no LocalStorage
+    updateGoalUI(); // Atualiza a interface (progresso e lista)
+    showSuccessMessage("Histórico de Transações Limpo com Sucesso!");
+  }
+};

@@ -1,13 +1,19 @@
-/* Paleta de Cores e Estilos Base */
+/* =====================================================================
+   PALETA DE CORES E VARIÁVEIS GERAIS
+   ===================================================================== */
 :root {
     --bg-principal: #0d1117;
     --card-bg: #1f2428;
     --header-bg: #161b22;
     --border-color: #30363d;
     --text-light: #c9d1d9;
+
+    /* Cores principais */
     --green-primary: #238636;
     --green-dark: #1e702e;
     --purple-tab: #6f42c1;
+
+    /* Calculadora */
     --calc-bg: #1f2428;
     --calc-display: #161b22;
     --btn-default: #30363d;
@@ -16,19 +22,25 @@
     --btn-clear: #e74c3c;
 }
 
+/* =====================================================================
+   ESTILOS GERAIS DO BODY E CONTAINERS
+   ===================================================================== */
 body {
     background-color: var(--bg-principal);
-    /* Fundo sólido */
     color: var(--text-light);
-    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
 }
 
 .container-bg {
-    /* Fundo principal com transparência suave */
     background-color: rgba(22, 27, 34, 0.95);
+    -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
 }
 
+/* =====================================================================
+   INPUTS E BOTÕES PADRÕES
+   ===================================================================== */
 .custom-input {
     background-color: var(--bg-principal);
     border: 1px solid var(--border-color);
@@ -59,7 +71,9 @@ body {
     box-shadow: none;
 }
 
-/* Abas de Navegação */
+/* =====================================================================
+   ABAS DE NAVEGAÇÃO
+   ===================================================================== */
 .tab-button {
     padding: 0.5rem 1rem;
     font-weight: 600;
@@ -67,7 +81,8 @@ body {
     transition: all 0.2s;
 }
 
-.tab-button:not(.active) {
+.tab-button:not(.active),
+.tab-button.inactive-tab {
     color: #8b949e;
     background-color: transparent;
 }
@@ -79,11 +94,9 @@ body {
     box-shadow: 0 0 10px rgba(111, 66, 193, 0.5);
 }
 
-.tab-button.inactive-tab {
-    background-color: transparent;
-    color: #8b949e;
-}
-
+/* =====================================================================
+   PROGRESS BAR
+   ===================================================================== */
 .progress-bar-bg {
     background-color: var(--border-color);
 }
@@ -94,12 +107,31 @@ body {
     transition: width 0.5s ease-out;
 }
 
-.info-card {
-    background-color: var(--card-bg);
+.progress-bar-fill {
+    width: 0%;
+    height: 100%;
+    border-radius: 9999px;
+    background-color: #4f46e5;
+    transition: width 0.3s ease;
+}
+
+/* =====================================================================
+   CARDS, SEÇÕES E VALORES
+   ===================================================================== */
+.info-card, .section-box {
+    background-color: rgba(31, 36, 40, 0.9);
     border: 1px solid var(--border-color);
     border-radius: 0.75rem;
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: 4px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-    background-color: rgba(31, 36, 40, 0.9);
+}
+
+.section-box {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(3px);
 }
 
@@ -119,7 +151,9 @@ body {
     color: #56ccf2;
 }
 
-/* Estilos de Tabela de Depósitos */
+/* =====================================================================
+   TABELA DE DEPÓSITOS
+   ===================================================================== */
 .deposit-table th, .deposit-table td {
     padding: 0.75rem;
     border-bottom: 1px solid var(--border-color);
@@ -143,27 +177,27 @@ body {
     flex: 1;
 }
 
-/* Estilos da Calculadora Moderna */
+/* =====================================================================
+   CALCULADORA MODERNA
+   ===================================================================== */
 .calculator-container {
     background-color: var(--calc-bg);
     border-radius: 1rem;
     padding: 1rem;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
     max-width: 320px;
-    margin-left: auto;
-    margin-right: auto;
+    margin: auto;
 }
 
 #calc-expression {
     color: #8b949e;
     font-size: 1.2rem;
     height: 1.5rem;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 #calc-display {
@@ -174,13 +208,12 @@ body {
     min-height: 4rem;
     text-align: right;
     font-size: 3rem;
+    font-weight: 300;
+    margin-bottom: 0.75rem;
     overflow-x: auto;
-    white-space: nowrap;
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    margin-bottom: 0.75rem;
-    font-weight: 300;
 }
 
 .calc-btn {
@@ -192,11 +225,8 @@ body {
     padding: 0.75rem;
     transition: background-color 0.1s, transform 0.1s;
     cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
     height: 60px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .calc-btn:hover {
@@ -219,7 +249,9 @@ body {
     background-color: var(--btn-clear);
 }
 
-/* Estilos para o Histórico */
+/* =====================================================================
+   HISTÓRICO DA CALCULADORA
+   ===================================================================== */
 #calc-history-list {
     max-height: 200px;
     overflow-y: auto;
@@ -248,4 +280,75 @@ body {
     color: white;
     font-weight: bold;
     font-size: 1rem;
+}
+
+/* =====================================================================
+   BOTÕES ESPECIAIS
+   ===================================================================== */
+.btn-edit-goal {
+    width: 100%;
+    padding: 0.5rem 0;
+    font-weight: bold;
+    color: white;
+    border-radius: 0.5rem;
+    background-color: var(--purple-tab);
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.btn-edit-goal:hover {
+    opacity: 0.9;
+}
+
+.btn-clear-history {
+    width: 100%;
+    padding: 0.5rem 0;
+    margin-top: 1rem;
+    border-radius: 0.5rem;
+    font-weight: bold;
+    background-color: var(--btn-clear);
+    color: #fff;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.btn-clear-history:hover {
+    opacity: 0.9;
+}
+
+/* Botão de limpar tabela */
+.btn-clear-deposits {
+    color: #e74c3c;
+    border: 1px solid #e74c3c;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.5rem;
+    background-color: transparent;
+    margin: 5px;
+    transition: background-color 0.15s, color 0.15s;
+}
+
+.btn-clear-deposits:hover {
+    background-color: rgba(231, 76, 60, 0.15);
+    color: #f1c40f;
+}
+
+/* =====================================================================
+   UTILITÁRIOS
+   ===================================================================== */
+.hidden {
+    display: none;
+}
+
+.input-time {
+    padding: 0.4rem;
+    border: 1px solid #ccc;
+    border-radius: 0.4rem;
+    font-size: 1rem;
+}
+
+#success-message {
+    background-color: #0c9c29cc;
+    color: #ffffff;
 }

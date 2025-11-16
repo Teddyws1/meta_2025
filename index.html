@@ -1,14 +1,25 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
   <head>
+    <!-- ===================== META CONFIGURAÇÕES ===================== -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sistema de Metas de Economia</title>
+
+    <!-- ===================== TAILWIND ===================== -->
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- ===================== ARQUIVOS EXTERNOS ===================== -->
     <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
   </head>
+
   <body class="p-4 sm:p-8">
+    <!-- ============================================================
+         CONTAINER PRINCIPAL 
+    ============================================================ -->
     <div class="max-w-xl mx-auto container-bg rounded-xl shadow-2xl p-6 sm:p-8">
+      <!-- ===================== CABEÇALHO ===================== -->
       <header
         class="text-center mb-6 border-b border-[var(--border-color)] pb-4"
       >
@@ -20,6 +31,7 @@
         </p>
       </header>
 
+      <!-- ===================== ABAS ===================== -->
       <div class="flex justify-center mb-6">
         <div
           id="tab-buttons-container"
@@ -35,11 +47,15 @@
         </div>
       </div>
 
+      <!-- ============================================================
+           ABA: MINHA META
+      ============================================================ -->
       <div id="tab-meta" class="tab-content active">
-        <section
-          class="mb-8 p-4 rounded-lg border border-[var(--border-color)]"
-          style="background-color: rgba(31, 36, 40, 0.8)"
-        >
+        <!-- ===================== FORMULÁRIO DE META ===================== -->
+       <section class="section-box">
+  
+</section>
+
           <h2
             class="text-lg font-semibold text-[var(--text-light)] mb-4"
             id="goal-section-title"
@@ -47,19 +63,24 @@
             Definir Nova Meta
           </h2>
 
+          <!-- Área de inputs para cadastrar meta -->
           <div id="goal-input-section">
             <div class="flex flex-col gap-4">
+              <!-- Valor da Meta -->
               <div>
                 <label
                   for="goal-amount"
                   class="block text-sm font-medium text-[#8b949e] mb-1"
-                  >Valor do Objetivo (R$)</label
                 >
+                  Valor do Objetivo (R$)
+                </label>
+
                 <div class="relative">
                   <span
-                    class="absolute left-3 top-1/2 transform -translate-y-1/2 text-[#6fcf97] font-bold text-lg"
+                    class="absolute left-3 top-1/2 -translate-y-1/2 text-[#6fcf97] font-bold text-lg"
                     >R$</span
                   >
+
                   <input
                     type="number"
                     id="goal-amount"
@@ -71,12 +92,15 @@
                 </div>
               </div>
 
+              <!-- Descrição -->
               <div>
                 <label
                   for="goal-description"
                   class="block text-sm font-medium text-[#8b949e] mb-1"
-                  >Descrição da Meta</label
                 >
+                  Descrição da Meta
+                </label>
+
                 <input
                   type="text"
                   id="goal-description"
@@ -85,25 +109,29 @@
                 />
               </div>
 
+              <!-- Datas -->
               <div class="flex flex-col sm:flex-row gap-4">
                 <div class="w-full sm:w-1/2">
                   <label
                     for="goal-start-date"
                     class="block text-sm font-medium text-[#8b949e] mb-1"
-                    >Data de Início</label
                   >
+                    Data de Início
+                  </label>
                   <input
                     type="date"
                     id="goal-start-date"
                     class="custom-input w-full"
                   />
                 </div>
+
                 <div class="w-full sm:w-1/2">
                   <label
                     for="goal-deadline"
                     class="block text-sm font-medium text-[#8b949e] mb-1"
-                    >Data Limite</label
                   >
+                    Data Limite
+                  </label>
                   <input
                     type="date"
                     id="goal-deadline"
@@ -112,6 +140,7 @@
                 </div>
               </div>
 
+              <!-- Botão Salvar -->
               <button
                 id="save-goal-btn"
                 class="w-full text-white font-bold py-3 rounded-lg primary-button text-lg"
@@ -121,25 +150,23 @@
             </div>
           </div>
 
+          <!-- Exibição da Meta já salva -->
           <div id="goal-display-section" class="hidden text-center">
-            <p class="text-2xl font-bold text-white" id="display-goal-amount">
+            <p id="display-goal-amount" class="text-2xl font-bold text-white">
               R$ 0,00
             </p>
             <p
-              class="text-sm text-[#8b949e] mb-2"
               id="display-goal-description"
+              class="text-sm text-[#8b949e] mb-2"
             >
               Sem descrição definida.
             </p>
             <p
-              class="text-xs text-yellow-400 font-bold mb-4"
               id="display-goal-deadline"
+              class="text-xs text-yellow-400 font-bold mb-4"
             ></p>
-            <button
-              onclick="toggleGoalEdit(true)"
-              class="w-full text-white font-bold py-2 rounded-lg"
-              style="background-color: var(--purple-tab)"
-            >
+
+            <button onclick="toggleGoalEdit(true)" class="btn-edit-goal">
               Editar Meta
             </button>
           </div>
@@ -147,30 +174,31 @@
 
         <hr class="border-[var(--border-color)] my-8" />
 
+        <!-- ===================== PROGRESSO ===================== -->
         <section class="mb-8">
           <h2 class="text-xl font-bold text-white mb-5">Progresso da Meta</h2>
 
-          <div class="flex justify-end items-center mb-2">
+          <div class="flex justify-end mb-2">
             <span
               id="saved-amount-display-top"
               class="text-sm font-semibold text-white"
-              >Arrecadado: R$ 0.00</span
             >
+              Arrecadado: R$ 0.00
+            </span>
           </div>
 
+          <!-- Barra de Progresso -->
           <div
             class="w-full progress-bar-bg rounded-full h-8 overflow-hidden relative mb-4"
           >
-            <div
-              id="progress-bar-fill"
-              class="h-full rounded-full"
-              style="width: 0%"
-            ></div>
+            <div id="progress-bar-fill" class="progress-bar-fill"></div>
+
             <span
               id="progress-percent-display"
-              class="absolute inset-0 flex items-center justify-center text-white font-extrabold text-xl z-10 pointer-events-none"
-              >0.0%</span
+              class="absolute inset-0 flex items-center justify-center text-white font-extrabold text-xl z-10"
             >
+              0.0%
+            </span>
           </div>
 
           <div
@@ -183,22 +211,23 @@
 
         <hr class="border-[var(--border-color)] my-8" />
 
+        <!-- ===================== CARDS RESUMO ===================== -->
         <section class="grid grid-cols-2 gap-4 mb-8">
-          <div class="info-card flex flex-col items-center justify-center p-4">
+          <div class="info-card p-4 text-center">
             <p class="text-xs text-[#8b949e] mb-1">Meta Total</p>
             <p id="meta-total-card" class="text-lg font-bold value-meta">
               R$ 0.00
             </p>
           </div>
 
-          <div class="info-card flex flex-col items-center justify-center p-4">
+          <div class="info-card p-4 text-center">
             <p class="text-xs text-[#8b949e] mb-1">Valor Arrecadado</p>
             <p id="valor-arrecadado-card" class="text-lg font-bold value-saved">
               R$ 0.00
             </p>
           </div>
 
-          <div class="info-card flex flex-col items-center justify-center p-4">
+          <div class="info-card p-4 text-center">
             <p class="text-xs text-[#8b949e] mb-1">Porcentagem Concluída</p>
             <p
               id="percent-complete-card"
@@ -208,7 +237,7 @@
             </p>
           </div>
 
-          <div class="info-card flex flex-col items-center justify-center p-4">
+          <div class="info-card p-4 text-center">
             <p class="text-xs text-[#8b949e] mb-1">Valor Restante</p>
             <p
               id="valor-restante-card"
@@ -219,14 +248,16 @@
           </div>
         </section>
 
+        <!-- ===================== TEMPO ===================== -->
         <section class="grid grid-cols-2 gap-4">
-          <div class="info-card flex flex-col items-center justify-center p-4">
+          <div class="info-card p-4 text-center">
             <p class="text-xs text-[#8b949e] mb-1">Dias Restantes</p>
             <p id="dias-restantes-card" class="text-lg font-bold text-red-400">
               --
             </p>
           </div>
-          <div class="info-card flex flex-col items-center justify-center p-4">
+
+          <div class="info-card p-4 text-center">
             <p class="text-xs text-[#8b949e] mb-1">Duração Total (Dias)</p>
             <p id="duracao-total-card" class="text-lg font-bold text-blue-400">
               --
@@ -235,17 +266,23 @@
         </section>
       </div>
 
+      <!-- ============================================================
+           ABA: DEPÓSITOS
+      ============================================================ -->
       <div id="tab-depositos" class="tab-content hidden">
         <h2 class="text-xl font-bold text-white mb-4">Registro de Depósitos</h2>
 
+        <!-- Adicionar Depósito -->
         <div class="info-card p-6 mb-6">
-          <h3 class="font-semibold text-lg mb-4 text-white">
+          <h3 class="font-semibold text-lg text-white mb-4">
             Adicionar Novo Depósito
           </h3>
+
           <form id="deposit-form">
             <div class="flex flex-col gap-4">
+              <!-- Valor + Data -->
               <div class="flex flex-col sm:flex-row gap-4">
-                <div class="deposit-form-group">
+                <div>
                   <label
                     for="deposit-amount"
                     class="text-sm font-medium text-[#8b949e]"
@@ -254,14 +291,15 @@
                   <input
                     type="number"
                     id="deposit-amount"
-                    placeholder="0.00"
                     class="custom-input"
+                    placeholder="0.00"
                     min="0.01"
                     step="0.01"
                     required
                   />
                 </div>
-                <div class="deposit-form-group w-full sm:w-1/3">
+
+                <div class="w-full sm:w-1/3">
                   <label
                     for="deposit-date"
                     class="text-sm font-medium text-[#8b949e]"
@@ -273,12 +311,14 @@
                     class="custom-input"
                     required
                   />
-                  <input type="time" id="deposit-time" class="hidden" />
+                <input type="time" id="deposit-time" class="input-time hidden" placeholder="Selecione o horário" />
+
                 </div>
               </div>
 
-              <div class="flex flex-col sm:flex-row gap-4 items-end">
-                <div class="deposit-form-group flex-1">
+              <!-- Descrição + Botão -->
+              <div class="flex flex-col sm:flex-row items-end gap-4">
+                <div class="flex-1">
                   <label
                     for="deposit-description"
                     class="text-sm font-medium text-[#8b949e]"
@@ -287,14 +327,15 @@
                   <input
                     type="text"
                     id="deposit-description"
-                    placeholder="Ex: Salário, Venda"
                     class="custom-input"
+                    placeholder="Ex: Salário, Venda"
                   />
                 </div>
+
                 <button
                   type="submit"
                   id="add-deposit-btn"
-                  class="text-white font-bold py-2 px-4 rounded-lg primary-button w-full sm:w-auto mt-2 sm:mt-0"
+                  class="primary-button text-white font-bold py-2 px-4 rounded-lg w-full sm:w-auto"
                 >
                   Adicionar
                 </button>
@@ -302,9 +343,12 @@
             </div>
           </form>
         </div>
+
+        <!-- Histórico -->
         <h3 class="font-semibold text-[var(--text-light)] mb-3">
           Histórico de Transações
         </h3>
+        
         <div class="info-card p-0 overflow-x-auto">
           <table class="w-full deposit-table">
             <thead>
@@ -314,6 +358,18 @@
                 <th>Ação</th>
               </tr>
             </thead>
+<div class="flex justify-between items-center mb-3">
+    <h3 class="font-semibold text-[var(--text-light)]">
+        Histórico de Transações
+    </h3>
+    <button 
+        onclick="clearAllDeposits()" 
+        id="clear-deposits-btn" 
+        class="btn-clear-deposits"
+    >
+        Limpar Tudo
+    </button>
+</div>
             <tbody id="deposits-list">
               <tr>
                 <td colspan="3" class="text-center text-[#8b949e]">
@@ -325,17 +381,22 @@
         </div>
       </div>
 
+      <!-- ============================================================
+           ABA: CALCULADORA
+      ============================================================ -->
       <div id="tab-calculadora" class="tab-content hidden">
         <h2 class="text-xl font-bold text-white mb-4 text-center">
           Calculadora Profissional
         </h2>
 
+        <!-- Tela da calculadora -->
         <div class="calculator-container">
           <div id="calc-screen" class="p-2">
             <div id="calc-expression">0</div>
             <div id="calc-display">0</div>
           </div>
 
+          <!-- Botões -->
           <div class="grid grid-cols-4 gap-3">
             <div class="calc-btn calc-clear" onclick="calcClearAll()">AC</div>
             <div class="calc-btn calc-operator" onclick="calcAppend('%')">
@@ -373,53 +434,52 @@
           </div>
         </div>
 
+        <!-- Histórico da calculadora -->
         <h3 class="text-lg font-bold text-white mt-8 mb-3 text-center">
           Histórico de Cálculos
         </h3>
+
         <div class="calculator-container p-4">
           <div id="calc-history-list">
             <p
-              class="text-center text-[#8b949e] py-2"
               id="empty-history-message"
+              class="text-center text-[#8b949e] py-2"
             >
               Nenhum cálculo registrado.
             </p>
           </div>
-          <button
-            onclick="clearHistory()"
-            class="w-full mt-4 py-2 rounded-lg font-bold"
-            style="background-color: var(--btn-clear)"
-          >
-            Apagar Histórico
-          </button>
+
+        <button onclick="clearHistory()" class="btn-clear-history">
+  Apagar Histórico
+</button>
+
         </div>
       </div>
     </div>
 
+    <!-- ===================== TOAST DE SUCESSO ===================== -->
     <div
       id="success-message"
-      class="fixed bottom-5 left-1/2 -translate-x-1/2 p-4 rounded-lg text-white shadow-xl z-50 transition-all duration-500 opacity-0 transform translate-y-full pointer-events-none"
-      style="background-color: #2ecc71"
-    >
+      class="fixed bottom-5 left-1/2 -translate-x-1/2 p-4 rounded-lg text-white shadow-xl z-50 transition-all duration-500 opacity-0 pointer-events-none">
       <p class="font-bold flex items-center">
         <svg
           class="w-6 h-6 mr-2"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
         >
           <path
             stroke-linecap="round"
             stroke-linejoin="round"
             stroke-width="2"
             d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-          ></path>
+          />
         </svg>
         Depósito Adicionado com Sucesso!
       </p>
     </div>
 
+    <!-- ===================== MODAL DE EDIÇÃO ===================== -->
     <div
       id="edit-modal"
       class="fixed inset-0 bg-black bg-opacity-75 z-50 flex items-center justify-center hidden"
@@ -428,9 +488,11 @@
         class="bg-[var(--card-bg)] p-6 rounded-xl w-11/12 max-w-md border border-[var(--border-color)]"
       >
         <h3 class="text-xl font-bold text-white mb-4">Editar Depósito</h3>
+
         <form id="edit-form">
           <input type="hidden" id="edit-deposit-index" />
 
+          <!-- Valor -->
           <div class="mb-4">
             <label for="edit-amount" class="block text-sm font-medium mb-1"
               >Valor (R$)</label
@@ -445,6 +507,7 @@
             />
           </div>
 
+          <!-- Data -->
           <div class="mb-4">
             <label for="edit-date" class="block text-sm font-medium mb-1"
               >Data</label
@@ -457,6 +520,7 @@
             />
           </div>
 
+          <!-- Hora -->
           <div class="mb-4">
             <label for="edit-time" class="block text-sm font-medium mb-1"
               >Hora</label
@@ -469,6 +533,7 @@
             />
           </div>
 
+          <!-- Descrição -->
           <div class="mb-6">
             <label for="edit-description" class="block text-sm font-medium mb-1"
               >Descrição</label
@@ -476,11 +541,12 @@
             <input
               type="text"
               id="edit-description"
-              placeholder="Ex: Salário, Venda de item"
               class="custom-input w-full"
+              placeholder="Ex: Salário, Venda de item"
             />
           </div>
 
+          <!-- Botões -->
           <div class="flex justify-end gap-3">
             <button
               type="button"
@@ -489,17 +555,17 @@
             >
               Cancelar
             </button>
+
             <button
               type="submit"
-              class="text-white font-bold py-2 px-4 rounded-lg primary-button"
+              class="primary-button text-white font-bold py-2 px-4 rounded-lg"
             >
               Salvar
             </button>
+            
           </div>
         </form>
       </div>
     </div>
-
-    <script src="script.js"></script>
   </body>
 </html>

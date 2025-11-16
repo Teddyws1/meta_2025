@@ -1,2 +1,4 @@
 # meta_2025
-testt
+
+versão do sst 0.10v
+controle de CDG 00.20V
