@@ -360,22 +360,77 @@ body {
     display: flex;
     align-items: center;
     justify-content: center; /* centraliza o título */
-    position: relative;      /* permite posicionar a logo */
+    position: relative;
     padding: 0 20px;
 }
 
+/* LOGO */
 .logo {
-    height: 90%; 
+    height: 90%;
     width: auto;
     object-fit: contain;
-
     position: absolute;
-    left: 20px;  /* cola a logo no lado esquerdo */
+    left: 20px;
 }
 
+/* TÍTULO */
 .site-name {
     color: #fff;
     font-size: 28px;
     font-weight: bold;
     text-align: center;
+}
+
+
+/* ===========================
+   RESPONSIVIDADE MOBILE
+   =========================== */
+
+/* Telas até 768px (TABLET) */
+@media (max-width: 768px) {
+    .header {
+        height: 100px;
+    }
+
+    .logo {
+        height: 70%;
+        left: 15px;
+    }
+
+    .site-name {
+        font-size: 24px;
+    }
+}
+
+/* Telas até 480px (CELULAR) */
+@media (max-width: 480px) {
+    .header {
+        height: 85px;
+        padding: 0 15px;
+    }
+
+    .logo {
+        height: 60%;
+        left: 10px;
+    }
+
+    .site-name {
+        font-size: 20px;
+    }
+}
+
+/* Telas muito pequenas (320px) */
+@media (max-width: 360px) {
+    .header {
+        height: 75px;
+    }
+
+    .logo {
+        height: 55%;
+        left: 8px;
+    }
+
+    .site-name {
+        font-size: 18px;
+    }
 }
