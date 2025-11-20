@@ -104,11 +104,25 @@ const toggleGoalEdit = (isEditing) => {
     displayGoalDescription.textContent =
       currentDescription || "Sem descrição definida.";
 
-    let deadlineText = `Data limite: ${formatDate(currentDeadline)}`;
-    if (!currentDeadline) deadlineText = "Prazo não definido";
-    if (currentStartDate)
-      deadlineText += ` | Início: ${formatDate(currentStartDate)}`;
-    displayGoalDeadline.textContent = deadlineText;
+    let deadlineText = "";
+
+// Primeiro: início
+if (currentStartDate) {
+  deadlineText = `Início: ${formatDate(currentStartDate)}`;
+}
+
+// Depois: data limite
+if (currentDeadline) {
+  // adiciona separador apenas se já tiver texto antes
+  deadlineText += (deadlineText ? " | " : "") + `Data de fim: ${formatDate(currentDeadline)}`;
+} else {
+  // sem data limite
+  deadlineText += (deadlineText ? " | " : "") + "Prazo não definido";
+}
+
+// Mantém exatamente como estava:
+displayGoalDeadline.textContent = deadlineText;
+
   }
 };
 
@@ -424,7 +438,7 @@ const loadData = () => {
 const setupTabs = () => {
   const tabButtons = document.querySelectorAll(".tab-button");
   const tabContents = document.querySelectorAll(".tab-content");
-           
+
   tabButtons.forEach((button) => {
     button.addEventListener("click", () => {
       const targetTab = button.dataset.tab;
