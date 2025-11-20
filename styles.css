@@ -246,7 +246,9 @@ body {
         padding: 1px 4px;
     }
 }
-/* modal de beta */
+/* ============================== */
+/*  🔵 MODAL DE BETA              */
+/* ============================== */
 
 .version-sample {
     background: #111827;
@@ -254,50 +256,74 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    border-radius: 16px 16px;
+    border-radius: 16px;
     border: 1px solid #1f2937;
     margin: 20px auto;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.25);
     max-width: 90%;
     width: fit-content;
 }
 
-/* Texto Beta como botão */
+/* Texto "Beta" como botão */
 .beta-text {
     cursor: pointer;
     color: #1F2A7F;
     font-weight: bold;
     text-decoration: underline;
-    
+    transition: color .3s ease;
 }
 
-/* Overlay escuro */
+.beta-text:hover {
+    color: #2ECC71;
+}
+
+/* ============================== */
+/* 🔵 OVERLAY ESCURO             */
+/* ============================== */
+
 .overlay {
     position: fixed;
     inset: 0;
     background: rgba(0,0,0,0.55);
-    -webkit-backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px); /* compatível */
     backdrop-filter: blur(3px);
     opacity: 0;
     pointer-events: none;
-    transition: .3s ease;
+    transition: opacity .3s ease;
     z-index: 998;
 }
 
-/* Modal centralizado */
+.overlay.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* ============================== */
+/* 🔵 MODAL CENTRALIZADO         */
+/* ============================== */
+
 .modal-card {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) scale(.8);
+    -webkit-transform: translate(-50%, -50%) scale(.8); /* compatível */
+
     background-color: #1f2a7f5e;
     max-width: 420px;
+    width: 90%;
     padding: 25px;
     border-radius: 14px;
+    -webkit-border-radius: 14px;
+
     box-shadow: 0 12px 35px rgba(0,0,0,0.25);
+
     opacity: 0;
     pointer-events: none;
-    transition: .3s ease;
+
+    transition: opacity .3s ease, transform .3s ease;
+    -webkit-transition: opacity .3s ease, -webkit-transform .3s ease;
+
     z-index: 999;
 }
 
@@ -306,11 +332,7 @@ body {
     opacity: 1;
     pointer-events: auto;
     transform: translate(-50%, -50%) scale(1);
-}
-
-.overlay.show {
-    opacity: 1;
-    pointer-events: auto;
+    -webkit-transform: translate(-50%, -50%) scale(1);
 }
 
 /* Botão fechar */
@@ -322,24 +344,38 @@ body {
     border: none;
     font-size: 22px;
     cursor: pointer;
+    color: #fff;
+    transition: .2s;
 }
 
+.close-btn:hover {
+    color: #2ECC71;
+}
 
-/* fim card */
-/* abbr do cards */
+/* ============================== */
+/* 🔵  TOOLTIP PARA ABBR         */
+/* ============================== */
+
 abbr {
   position: relative;
   cursor: help;
   font-weight: 600;
-  color: #1F2A7F; /* cor principal do texto */
+  color: #1F2A7F;
   transition: color .3s ease;
 }
 
 abbr:hover {
-  color: #2ECC71; /* muda para verde ao passar o mouse */
+  color: #2ECC71;
 }
 
 /* Tooltip */
+abbr::after,
+abbr::before {
+  opacity: 0;
+  transition: opacity .3s ease;
+  pointer-events: none;
+}
+
 abbr:hover::after {
   content: attr(title);
   position: absolute;
@@ -353,15 +389,9 @@ abbr:hover::after {
   white-space: nowrap;
   font-size: 13px;
   opacity: 1;
-  pointer-events: none;
-  transition: opacity .3s ease;
 }
 
-abbr::after {
-  opacity: 0;
-}
-
-/* Flecha do tooltip */
+/* Flecha */
 abbr:hover::before {
   content: "";
   position: absolute;
@@ -372,10 +402,6 @@ abbr:hover::before {
   border-style: solid;
   border-color: #1F2A7F transparent transparent transparent;
   opacity: 1;
-}
-
-abbr::before {
-  opacity: 0;
 }
 
 
