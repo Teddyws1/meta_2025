@@ -1,6 +1,6 @@
 # meta_2025
 
 versão do sst 1.1.20v
-controle de CDG 10.90V
+controle de CDG 20.00V
  
  versão em testes
