@@ -91,7 +91,7 @@ body {
 
 .tab-button.active {
     
-       position: relative;
+        position: relative;
     padding: 10px 18px;
     background: transparent;
     color: #fff;
@@ -100,11 +100,13 @@ body {
     font-size: 16px;
     border-radius: 8px;
 
-    /* MOBILE FIX */
+    /* Fix Chrome Mobile */
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    outline: none;
 
-    /* Transições mobile-friendly */
+    /* Transição com prefixos */
     -webkit-transition: background 0.25s ease, -webkit-transform 0.15s ease;
     transition: background 0.25s ease, transform 0.15s ease;
 }
@@ -124,7 +126,7 @@ body {
     -webkit-transform: translateX(-50%);
     transform: translateX(-50%);
 
-    /* transição compatível */
+    /* transições */
     -webkit-transition: width 0.25s ease;
     transition: width 0.25s ease;
 }
@@ -134,25 +136,20 @@ body {
     color: #4db8ff;
 }
 
-/* Hover (funciona em desktop e alguns browsers mobile modernos) */
+/* hover (Chrome Desktop) */
 .tab-button.active:hover::after {
     width: 70%;
 }
 
-/* Toque / Clique suave */
-.tab-button.active:active {
-
-    /* transform móvel */
-    -webkit-transform: scale(0.96);
-    transform: scale(0.96);
-
-    -webkit-transition: -webkit-transform 0.1s ease;
-    transition: transform 0.1s ease;
+/* TOQUE MOBILE (Chrome Mobile) */
+.tab-button.active:active::after {
+    width: 70%;
 }
 
-/* Garantir o underline também no toque (iOS não ativa hover) */
-.tab-button.active:active::after {
-    width: 70%; 
+/* clique suave */
+.tab-button.active:active {
+    -webkit-transform: scale(0.96);
+    transform: scale(0.96);
     
 }
 
