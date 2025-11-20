@@ -80,7 +80,7 @@ body {
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s;
-     border-radius: 12px 28px;
+    border-radius: 12px 28px;
 }
 
 .tab-button:not(.active),
@@ -90,8 +90,8 @@ body {
 }
 
 .tab-button.active {
-    
-        position: relative;
+
+    position: relative;
     padding: 10px 18px;
     background: transparent;
     color: #fff;
@@ -103,6 +103,7 @@ body {
     /* Fix Chrome Mobile */
     touch-action: manipulation;
     -webkit-tap-highlight-color: transparent;
+    -webkit-user-select: none;
     user-select: none;
     outline: none;
 
@@ -119,7 +120,7 @@ body {
     left: 50%;
     width: 0;
     height: 2px;
-    background: #4db8ff;
+    background: #383783;
     border-radius: 4px;
 
     /* transform compatível */
@@ -133,7 +134,7 @@ body {
 
 /* Estado ativo */
 .tab-button.active {
-    color: #4db8ff;
+    color: #ffffff;
 }
 
 /* hover (Chrome Desktop) */
@@ -150,7 +151,7 @@ body {
 .tab-button.active:active {
     -webkit-transform: scale(0.96);
     transform: scale(0.96);
-    
+
 }
 
 /* =====================================================================
@@ -172,7 +173,7 @@ body {
     border-radius: 9999px;
     background-color: #4f46e5;
     transition: width 0.3s ease;
-    
+
 }
 
 /* =====================================================================
@@ -194,7 +195,7 @@ body {
     background: linear-gradient(90deg, transparent, #7c3aed, #06b6d4, transparent);
     margin: 1.5rem 0;
     border-radius: 2px;
-    
+
 }
 
 /* =====versao===== */
@@ -269,7 +270,26 @@ body {
     flex: 1;
 }
 
-/* =====================================================================
+/* inputs */
+/*inout de datas*/
+#deposit-date {
+    color: #ffffff;
+    text-align: center;
+}
+
+/*inout de valor*/
+#deposit-amount {
+    color: #ffffff;
+    text-align: justify;
+}
+
+/*inout de descrição*/
+#deposit-description {
+    color: #ffffff
+}
+
+/* 
+=====================================================================
    CALCULADORA MODERNA
    ===================================================================== */
 .calculator-container {
@@ -450,3 +470,75 @@ body {
 }
 
 /* novo sistema */
+/* ======= TÍTULO PROFISSIONAL: HOLOGRAMA PREMIUM ======= */
+
+.pro-title {
+    position: relative;
+    display: inline-block;
+    font-weight: 700;
+
+    /* Cor base profissional */
+    color: transparent;
+    background: linear-gradient(125deg,
+            #383783 0%,
+            #4a48a0 40%,
+            #6b67d6 60%,
+            #383783 100%);
+
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    /* Animação suave e elegante */
+    animation: proShift 5s ease-in-out infinite;
+
+    /* Renderização premium */
+    filter: drop-shadow(0 0 5px rgba(80, 70, 190, 0.12));
+    letter-spacing: 0.5px;
+}
+
+/* brilho holográfico profissional */
+.pro-title::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+
+    background: linear-gradient(135deg,
+            rgba(255, 255, 255, 0.15) 0%,
+            rgba(255, 255, 255, 0.0) 40%);
+    opacity: 0.25;
+
+    mix-blend-mode: screen;
+    animation: proGlow 4s ease-in-out infinite;
+}
+
+/* ==== animação premium ==== */
+@keyframes proShift {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes proGlow {
+    0% {
+        opacity: 0.18;
+    }
+
+    50% {
+        opacity: 0.32;
+    }
+
+    100% {
+        opacity: 0.18;
+    }
+}

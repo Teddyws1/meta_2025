@@ -1,3 +1,4 @@
+
 // --- Referências DOM PRINCIPAIS ---
 const goalAmountInput = document.getElementById("goal-amount");
 const goalDescriptionInput = document.getElementById("goal-description");
@@ -106,22 +107,22 @@ const toggleGoalEdit = (isEditing) => {
 
     let deadlineText = "";
 
-// Primeiro: início
-if (currentStartDate) {
-  deadlineText = `Início: ${formatDate(currentStartDate)}`;
-}
+    // Primeiro: início
+    if (currentStartDate) {
+      deadlineText = `Início: ${formatDate(currentStartDate)}`;
+    }
 
-// Depois: data limite
-if (currentDeadline) {
-  // adiciona separador apenas se já tiver texto antes
-  deadlineText += (deadlineText ? " | " : "") + `Data de fim: ${formatDate(currentDeadline)}`;
-} else {
-  // sem data limite
-  deadlineText += (deadlineText ? " | " : "") + "Prazo não definido";
-}
+    // Depois: data limite
+    if (currentDeadline) {
+      // adiciona separador apenas se já tiver texto antes
+      deadlineText += (deadlineText ? " | " : "") + `Data de fim: ${formatDate(currentDeadline)}`;
+    } else {
+      // sem data limite
+      deadlineText += (deadlineText ? " | " : "") + "Prazo não definido";
+    }
 
-// Mantém exatamente como estava:
-displayGoalDeadline.textContent = deadlineText;
+    // Mantém exatamente como estava:
+    displayGoalDeadline.textContent = deadlineText;
 
   }
 };
