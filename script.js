@@ -722,22 +722,153 @@ const overlay = document.getElementById("overlay");
 
 // abrir o card
 openBtn.addEventListener("click", () => {
-    card.classList.add("show");
-    overlay.classList.add("show");
+  card.classList.add("show");
+  overlay.classList.add("show");
 });
 
 // fechar o card (botão)
 closeBtn.addEventListener("click", () => {
-    card.classList.remove("show");
-    overlay.classList.remove("show");
+  card.classList.remove("show");
+  overlay.classList.remove("show");
 });
 
 // fechar ao clicar no fundo
 overlay.addEventListener("click", () => {
-    card.classList.remove("show");
-    overlay.classList.remove("show");
+  card.classList.remove("show");
+  overlay.classList.remove("show");
 });
 
-//bloqeuar abbr sem css
+//bloqueio de zom copia
+// ==============================
+// SISTEMA DE BLOQUEIO AVANÇADO
+// ==============================
+
+// Senha
+const PASSWORD = "teddy123";
+
+// Salva estado no navegador
+let isUnlocked = localStorage.getItem("unlockState") === "true" ? true : false;
+
+// Painel (criado só via JS)
+let panel = document.createElement("div");
+panel.style.position = "fixed";
+panel.style.top = "0";
+panel.style.left = "0";
+panel.style.width = "100%";
+panel.style.height = "100%";
+panel.style.background = "rgba(0,0,0,0.7)";
+panel.style.display = "none";
+panel.style.justifyContent = "center";
+panel.style.alignItems = "center";
+panel.style.zIndex = "999999";
+
+let box = document.createElement("div");
+box.style.background = "#1f2a7f9c";
+box.style.padding = "25px";
+box.style.borderRadius = "10px";
+box.style.color = "#fff";
+box.style.fontFamily = "Arial";
+box.style.textAlign = "center";
+box.style.minWidth = "260px";
+
+box.innerHTML = `
+    <h3>Desbloquear Sistema</h3>
+    <input id="passInput" type="password" placeholder="Digite a senha" style="
+        width: 90%; padding: 10px; border-radius: 6px;
+        border: none; outline: none; margin-top: 10px;">
+    <br><br>
+    <button id="unlockBtn" style="
+        padding: 10px 20px; border: none; background:#2ecc71; 
+        color:#fff; border-radius: 6px; cursor:pointer;">Desbloquear</button>
+`;
+
+panel.appendChild(box);
+document.body.appendChild(panel);
+
+// =============================
+// FUNÇÕES DE BLOQUEIO
+// =============================
+function applyProtection() {
+    // bloqueia clique direito
+    document.oncontextmenu = () => false;
+
+    // bloqueia copiar
+    document.oncopy = () => false;
+    document.oncut = () => false;
+    document.onpaste = () => false;
+
+    // bloqueia seleção de texto
+    document.onselectstart = () => false;
+
+    // bloqueia zoom (ctrl + scroll ou pinch)
+    document.addEventListener("wheel", e => {
+        if (e.ctrlKey) e.preventDefault();
+    }, { passive: false });
+
+    document.addEventListener("keydown", e => {
+        if (e.ctrlKey && (e.key === "+" || e.key === "-" || e.key === "0")) {
+            e.preventDefault();
+        }
+    });
+
+    console.log("🔒 SISTEMA BLOQUEADO");
+}
+
+function removeProtection() {
+    document.oncontextmenu = null;
+    document.oncopy = null;
+    document.oncut = null;
+    document.onpaste = null;
+    document.onselectstart = null;
+
+    console.log("✔️ SISTEMA DESBLOQUEADO");
+}
+
+// Aplica estado salvo
+if (!isUnlocked) applyProtection();
+else removeProtection();
+
+// =============================
+// ATALHOS DE TECLADO
+// =============================
+document.addEventListener("keydown", e => {
+
+    // CTRL + S → abrir painel
+    if (e.ctrlKey && e.key.toLowerCase() === "s") {
+        e.preventDefault();
+        panel.style.display = "flex";
+        document.getElementById("passInput").focus();
+    }
+
+    // CTRL + F → bloquear novamente
+    if (e.ctrlKey && e.key.toLowerCase() === "f") {
+        e.preventDefault();
+        isUnlocked = false;
+        localStorage.setItem("unlockState", "false");
+        applyProtection();
+        alert("🔒 Sistema BLOQUEADO novamente!");
+    }
+});
+
+// =============================
+// BOTÃO: VALIDAR SENHA
+// =============================
+document.getElementById("unlockBtn").onclick = function () {
+    const pass = document.getElementById("passInput").value;
+
+    if (pass === PASSWORD) {
+        isUnlocked = true;
+        localStorage.setItem("unlockState", "true");
+        removeProtection();
+        panel.style.display = "none";
+        alert("✔️ Sistema Desbloqueado!");
+    } else {
+        alert("❌ Senha incorreta");
+    }
+};
+
+
+
+//novo sistema
 
 
