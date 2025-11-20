@@ -714,26 +714,30 @@ const clearAllDeposits = () => {
   }
 };
 
-//novo sistema
+//beta modal
 const openBtn = document.getElementById("openCard");
 const closeBtn = document.getElementById("closeCard");
 const card = document.getElementById("card");
 const overlay = document.getElementById("overlay");
 
-// abrir
+// abrir o card
 openBtn.addEventListener("click", () => {
     card.classList.add("show");
     overlay.classList.add("show");
 });
 
-// fechar
+// fechar o card (botão)
 closeBtn.addEventListener("click", () => {
     card.classList.remove("show");
     overlay.classList.remove("show");
 });
 
-// fechar clicando no fundo
+// fechar ao clicar no fundo
 overlay.addEventListener("click", () => {
     card.classList.remove("show");
     overlay.classList.remove("show");
 });
+
+//bloqeuar abbr sem css
+
+
