@@ -715,3 +715,25 @@ const clearAllDeposits = () => {
 };
 
 //novo sistema
+const openBtn = document.getElementById("openCard");
+const closeBtn = document.getElementById("closeCard");
+const card = document.getElementById("card");
+const overlay = document.getElementById("overlay");
+
+// abrir
+openBtn.addEventListener("click", () => {
+    card.classList.add("show");
+    overlay.classList.add("show");
+});
+
+// fechar
+closeBtn.addEventListener("click", () => {
+    card.classList.remove("show");
+    overlay.classList.remove("show");
+});
+
+// fechar clicando no fundo
+overlay.addEventListener("click", () => {
+    card.classList.remove("show");
+    overlay.classList.remove("show");
+});

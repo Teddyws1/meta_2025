@@ -10,8 +10,8 @@
 
     /* Cores principais */
     --green-primary: #238636;
-    --green-dark: #1e702e;
-    --azul-tab: #383783;
+    --green-dark: #48C337;
+    --azul-tab: #1F2A7F;
 
     /* Calculadora */
     --calc-bg: #1f2428;
@@ -30,6 +30,7 @@ body {
     color: var(--text-light);
     font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
         "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+        
 }
 
 .container-bg {
@@ -58,7 +59,7 @@ body {
 
 .primary-button {
     background-color: var(--azul-tab);
-    box-shadow: 0 4px 6px -1px rgba(3, 105, 223, 0.4);
+    box-shadow: 0 4px 6px -1px #1f397f;
     transition: opacity 0.2s, transform 0.2s;
 }
 
@@ -206,7 +207,7 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    border-radius: 10px 33px;
+    border-radius: 16px 16px;
     border: 1px solid #1f2937;
     margin: 20px auto;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
@@ -245,7 +246,140 @@ body {
         padding: 1px 4px;
     }
 }
+/* modal de beta */
 
+.version-sample {
+    background: #111827;
+    padding: 10px 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: 16px 16px;
+    border: 1px solid #1f2937;
+    margin: 20px auto;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+    max-width: 90%;
+    width: fit-content;
+}
+
+/* Texto Beta como botão */
+.beta-text {
+    cursor: pointer;
+    color: #1F2A7F;
+    font-weight: bold;
+    text-decoration: underline;
+    
+}
+
+/* Overlay escuro */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.55);
+    -webkit-backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px);
+    opacity: 0;
+    pointer-events: none;
+    transition: .3s ease;
+    z-index: 998;
+}
+
+/* Modal centralizado */
+.modal-card {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(.8);
+    background-color: #1f2a7f5e;
+    max-width: 420px;
+    padding: 25px;
+    border-radius: 14px;
+    box-shadow: 0 12px 35px rgba(0,0,0,0.25);
+    opacity: 0;
+    pointer-events: none;
+    transition: .3s ease;
+    z-index: 999;
+}
+
+/* Estado aberto */
+.modal-card.show {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.overlay.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Botão fechar */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    background: none;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+
+/* fim card */
+/* abbr do cards */
+abbr {
+  position: relative;
+  cursor: help;
+  font-weight: 600;
+  color: #1F2A7F; /* cor principal do texto */
+  transition: color .3s ease;
+}
+
+abbr:hover {
+  color: #2ECC71; /* muda para verde ao passar o mouse */
+}
+
+/* Tooltip */
+abbr:hover::after {
+  content: attr(title);
+  position: absolute;
+  bottom: 130%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1F2A7F;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 6px;
+  white-space: nowrap;
+  font-size: 13px;
+  opacity: 1;
+  pointer-events: none;
+  transition: opacity .3s ease;
+}
+
+abbr::after {
+  opacity: 0;
+}
+
+/* Flecha do tooltip */
+abbr:hover::before {
+  content: "";
+  position: absolute;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px;
+  border-style: solid;
+  border-color: #1F2A7F transparent transparent transparent;
+  opacity: 1;
+}
+
+abbr::before {
+  opacity: 0;
+}
+
+
+/*fim do card*/
 /* TABELA DE DEPÓSITOS */
 .deposit-table th, .deposit-table td {
     padding: 0.75rem;
@@ -465,9 +599,10 @@ body {
 }
 
 #success-message {
-    background-color: #0c9c29cc;
+    background-color: #48C337;
     color: #ffffff;
 }
+
 /* ======= TÍTULO PROFISSIONAL: HOLOGRAMA PREMIUM ======= */
 
 .pro-title {
@@ -477,11 +612,11 @@ body {
 
     /* Cor base profissional */
     color: transparent;
-    background: linear-gradient(125deg,
-            #383783 0%,
-            #4a48a0 40%,
-            #6b67d6 60%,
-            #383783 100%);
+    background: linear-gradient(87deg,
+            #48C337 20%,
+            #1F2A7F 70%,
+            #48C337 20%);
+
 
     background-size: 200% 200%;
     -webkit-background-clip: text;
@@ -540,4 +675,22 @@ body {
         opacity: 0.18;
     }
 }
+
 /* novo sistemas */
+.titulo-header {
+    font-size: 28px;
+    font-weight: 700;
+
+    background: linear-gradient(90deg, #1F2A7F, #48C337);
+
+    /* Compatibilidade total */
+    -webkit-background-clip: text;
+    /* Safari / Chrome */
+    background-clip: text;
+    /* padrão */
+    color: transparent;
+    /* padrão */
+    -webkit-text-fill-color: transparent;
+    /* Safari */
+}
+/* novo sistema */ 

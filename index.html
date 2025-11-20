@@ -15,6 +15,7 @@
   </head>
 
   <body class="p-4 sm:p-8">
+
     <!-- ============================================================
          CONTAINER PRINCIPAL 
     ============================================================ -->
@@ -23,6 +24,7 @@
       <header
         class="text-center mb-6 border-b border-[var(--border-color)] pb-4"
       >
+      
         <h1 class="text-2xl font-bold mb-1 pro-title">Metatup</h1>
 
         <p class="text-sm text-[#8b949e]">
@@ -567,9 +569,24 @@
 <hr class="divider-gradient">
 <!-----versão----->
 <div class="version-sample">
-  <h5 class="version-text">Versão 1.1.20</h5>
-  <h6 class="beta-text">Beta</h6>
+  <h5 class="version-text">Versão 2.2.25</h5>
+
+  <abbr title="ver mais">
+      <h6 class="beta-text" id="openCard">Beta</h6>
+  </abbr>
 </div>
+
+<!-- Overlay e Modal -->
+<div id="overlay" class="overlay"></div>
+
+<div id="card" class="modal-card">
+    <button id="closeCard" class="close-btn">✕</button>
+
+    <h2>Informações Beta</h2>
+    <p>“Esta é uma versão beta, portanto alguns bugs e erros podem ocorrer. Estamos em fase de desenvolvimento e pedimos a compreensão de todos.”
+    </p>
+</div>
+
 <!---novo sistema--->
 
 
