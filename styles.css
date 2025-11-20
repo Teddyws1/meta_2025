@@ -99,6 +99,11 @@ body {
     cursor: pointer;
     font-size: 16px;
     border-radius: 8px;
+
+    /* Transições com fallback */
+    -webkit-transition: background 0.25s ease, -webkit-transform 0.15s ease;
+    -moz-transition: background 0.25s ease, -moz-transform 0.15s ease;
+    -o-transition: background 0.25s ease, -o-transform 0.15s ease;
     transition: background 0.25s ease, transform 0.15s ease;
 }
 
@@ -112,7 +117,18 @@ body {
     height: 2px;
     background: #383783;
     border-radius: 4px;
+
+    /* Transform compatível */
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
     transform: translateX(-50%);
+
+    /* Transição compatível */
+    -webkit-transition: width 0.25s ease;
+    -moz-transition: width 0.25s ease;
+    -o-transition: width 0.25s ease;
     transition: width 0.25s ease;
 }
 
@@ -128,7 +144,18 @@ body {
 
 /* clique suave */
 .tab-button.active:active {
+
+    /* Transform compatível */
+    -webkit-transform: scale(0.96);
+    -moz-transform: scale(0.96);
+    -ms-transform: scale(0.96);
+    -o-transform: scale(0.96);
     transform: scale(0.96);
+
+    /* Transição compatível */
+    -webkit-transition: -webkit-transform 0.1s ease;
+    -moz-transition: -moz-transform 0.1s ease;
+    -o-transition: -o-transform 0.1s ease;
     transition: transform 0.1s ease;
     
 }
