@@ -739,133 +739,264 @@ overlay.addEventListener("click", () => {
 });
 
 //bloqueio de zom copia
-// ==============================
-// SISTEMA DE BLOQUEIO AVANÇADO
-// ==============================
+/* ============================================================
+   SISTEMA COMPLETO EM JS PURO + DESBLOQUEIO PERMANENTE
+=========================================================== */
 
-// Senha
-const PASSWORD = "teddy123";
+let sistemaBloqueado = true;
+let painelAberto = false;
 
-// Salva estado no navegador
-let isUnlocked = localStorage.getItem("unlockState") === "true" ? true : false;
+/* ---------------------------------------
+   0. VERIFICA SE O SISTEMA FOI LIBERADO
+-----------------------------------------*/
+if (localStorage.getItem("sistema_global_off") === "true") {
+    sistemaBloqueado = false;
+}
 
-// Painel (criado só via JS)
-let panel = document.createElement("div");
-panel.style.position = "fixed";
-panel.style.top = "0";
-panel.style.left = "0";
-panel.style.width = "100%";
-panel.style.height = "100%";
-panel.style.background = "rgba(0,0,0,0.7)";
-panel.style.display = "none";
-panel.style.justifyContent = "center";
-panel.style.alignItems = "center";
-panel.style.zIndex = "999999";
+/* ============================================================
+   1. CSS CRIADO PELO JS
+=========================================================== */
+const css = `
+#painelADM {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 360px;
+    padding: 25px;
+    background: #111;
+    color: #fff;
+    border-radius: 12px;
+    display: none;
+    z-index: 99999;
+    box-shadow: 0 0 20px #00eaff;
+    text-align: center;
+    font-family: Arial;
+}
 
-let box = document.createElement("div");
-box.style.background = "#1f2a7f9c";
-box.style.padding = "25px";
-box.style.borderRadius = "10px";
-box.style.color = "#fff";
-box.style.fontFamily = "Arial";
-box.style.textAlign = "center";
-box.style.minWidth = "260px";
+#painelADM h2 {
+    margin-top: 0;
+    color: #00eaff;
+}
 
-box.innerHTML = `
-    <h3>Desbloquear Sistema</h3>
-    <input id="passInput" type="password" placeholder="Digite a senha" style="
-        width: 90%; padding: 10px; border-radius: 6px;
-        border: none; outline: none; margin-top: 10px;">
-    <br><br>
-    <button id="unlockBtn" style="
-        padding: 10px 20px; border: none; background:#2ecc71; 
-        color:#fff; border-radius: 6px; cursor:pointer;">Desbloquear</button>
+#painelADM button {
+    margin-top: 10px;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: #00eaff;
+    color: #000;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#painelADM button:hover {
+    background: #00b7cc;
+}
+
+#painelADM ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+#painelADM li {
+    margin-bottom: 10px;
+}
+
+#fundoEscuro {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,.75);
+    top: 0;
+    left: 0;
+    display: none;
+    z-index: 99998;
+}
+
+input#codigoGlobal {
+    width: 95%;
+    padding: 10px;
+    border-radius: 6px;
+    border: none;
+    margin-bottom: 10px;
+    font-size: 15px;
+}
 `;
+const style = document.createElement("style");
+style.innerHTML = css;
+document.head.appendChild(style);
 
-panel.appendChild(box);
-document.body.appendChild(panel);
+/* ============================================================
+   2. CRIA HTML DO PAINEL DINAMICAMENTE
+=========================================================== */
+const fundo = document.createElement("div");
+fundo.id = "fundoEscuro";
+document.body.appendChild(fundo);
 
-// =============================
-// FUNÇÕES DE BLOQUEIO
-// =============================
-function applyProtection() {
-    // bloqueia clique direito
-    document.oncontextmenu = () => false;
+const painel = document.createElement("div");
+painel.id = "painelADM";
+painel.innerHTML = `
+    <h2>Painel Administrativo</h2>
+    <p id="statusTexto">Status: ---</p>
 
-    // bloqueia copiar
-    document.oncopy = () => false;
-    document.oncut = () => false;
-    document.onpaste = () => false;
+    <button id="toggleBloqueio">Ativar/Desativar Bloqueio</button>
 
-    // bloqueia seleção de texto
-    document.onselectstart = () => false;
+    <ul>
+        <li>
+            <input id="codigoGlobal" type="password" placeholder="Código mestre">
+        </li>
+        <li>
+            <button id="btnDesativarGlobal">Desativar TOTAL (persistente)</button>
+        </li>
+        <li>
+            <button id="btnAtivarGlobal">Reativar sistema</button>
+        </li>
+    </ul>
 
-    // bloqueia zoom (ctrl + scroll ou pinch)
-    document.addEventListener("wheel", e => {
-        if (e.ctrlKey) e.preventDefault();
-    }, { passive: false });
+    <button id="fecharADM">Fechar Painel</button>
+`;
+document.body.appendChild(painel);
 
-    document.addEventListener("keydown", e => {
-        if (e.ctrlKey && (e.key === "+" || e.key === "-" || e.key === "0")) {
+/* ============================================================
+   3. FUNÇÕES DO SISTEMA DE BLOQUEIO
+=========================================================== */
+
+function ativarBloqueio() {
+    if (localStorage.getItem("sistema_global_off") === "true") return;
+
+    sistemaBloqueado = true;
+
+    document.oncontextmenu = e => e.preventDefault();
+    document.onselectstart = e => e.preventDefault();
+    document.oncopy = e => e.preventDefault();
+    document.oncut = e => e.preventDefault();
+    document.onpaste = e => e.preventDefault();
+
+    document.onkeydown = function(e) {
+        if (!sistemaBloqueado) return;
+
+        const k = e.key.toLowerCase();
+
+        if (e.ctrlKey && ["c","v","x","s","a","p","f","+","-"].includes(k))
             e.preventDefault();
-        }
-    });
 
-    console.log("🔒 SISTEMA BLOQUEADO");
+        if (e.keyCode === 123) e.preventDefault();
+        if (e.ctrlKey && e.shiftKey && (k === "i" || k === "j"))
+            e.preventDefault();
+    };
 }
 
-function removeProtection() {
-    document.oncontextmenu = null;
-    document.oncopy = null;
-    document.oncut = null;
-    document.onpaste = null;
-    document.onselectstart = null;
+function desativarBloqueio() {
+    sistemaBloqueado = false;
 
-    console.log("✔️ SISTEMA DESBLOQUEADO");
+    document.oncontextmenu =
+    document.onselectstart =
+    document.oncopy =
+    document.oncut =
+    document.onpaste =
+    document.onkeydown = null;
 }
 
-// Aplica estado salvo
-if (!isUnlocked) applyProtection();
-else removeProtection();
-
-// =============================
-// ATALHOS DE TECLADO
-// =============================
-document.addEventListener("keydown", e => {
-
-    // CTRL + S → abrir painel
-    if (e.ctrlKey && e.key.toLowerCase() === "s") {
+/* ============================================================
+   4. ABRIR PAINEL COM CTRL + A
+=========================================================== */
+document.addEventListener("keydown", function(e) {
+    if (e.ctrlKey && e.key.toLowerCase() === "a") {
         e.preventDefault();
-        panel.style.display = "flex";
-        document.getElementById("passInput").focus();
-    }
 
-    // CTRL + F → bloquear novamente
-    if (e.ctrlKey && e.key.toLowerCase() === "f") {
-        e.preventDefault();
-        isUnlocked = false;
-        localStorage.setItem("unlockState", "false");
-        applyProtection();
-        alert("🔒 Sistema BLOQUEADO novamente!");
+        if (painelAberto) return;
+        painelAberto = true;
+
+        const senha = prompt("Digite a senha:");
+
+        if (senha === "teddy123") abrirPainelADM();
+        else alert("Senha incorreta!");
+
+        painelAberto = false;
     }
 });
 
-// =============================
-// BOTÃO: VALIDAR SENHA
-// =============================
-document.getElementById("unlockBtn").onclick = function () {
-    const pass = document.getElementById("passInput").value;
+/* ============================================================
+   5. FUNÇÕES DO PAINEL ADM
+=========================================================== */
 
-    if (pass === PASSWORD) {
-        isUnlocked = true;
-        localStorage.setItem("unlockState", "true");
-        removeProtection();
-        panel.style.display = "none";
-        alert("✔️ Sistema Desbloqueado!");
+function abrirPainelADM() {
+    fundo.style.display = "block";
+    painel.style.display = "block";
+    atualizarStatus();
+}
+
+function fecharPainel() {
+    fundo.style.display = "none";
+    painel.style.display = "none";
+}
+
+function atualizarStatus() {
+    let txt = "Bloqueado 🔒";
+
+    if (!sistemaBloqueado) txt = "Desbloqueado 🔓";
+    if (localStorage.getItem("sistema_global_off") === "true") 
+        txt = "DESATIVADO PERMANENTE ⚠";
+
+    document.getElementById("statusTexto").innerText = "Status: " + txt;
+}
+
+document.getElementById("toggleBloqueio").onclick = () => {
+    if (sistemaBloqueado) desativarBloqueio();
+    else ativarBloqueio();
+    atualizarStatus();
+};
+
+document.getElementById("fecharADM").onclick = fecharPainel;
+
+/* ============================================================
+   6. BOTÕES DO CÓDIGO GLOBAL
+=========================================================== */
+
+document.getElementById("btnDesativarGlobal").onclick = function () {
+    const codigo = document.getElementById("codigoGlobal").value;
+
+    if (codigo === "liberarTotal999") {
+        localStorage.setItem("sistema_global_off", "true");
+        desativarBloqueio();
+        alert("⚠ SISTEMA DESATIVADO PERMANENTEMENTE!");
+        atualizarStatus();
     } else {
-        alert("❌ Senha incorreta");
+        alert("Código incorreto!");
     }
 };
+
+document.getElementById("btnAtivarGlobal").onclick = function () {
+    localStorage.removeItem("sistema_global_off");
+    ativarBloqueio();
+    alert("🔒 Sistema reativado!");
+    atualizarStatus();
+};
+
+/* ============================================================
+   7. CTRL + B = BLOQUEAR
+=========================================================== */
+document.addEventListener("keydown", function(e) {
+    if (e.ctrlKey && e.key.toLowerCase() === "b") {
+        localStorage.removeItem("sistema_global_off");
+        ativarBloqueio();
+        alert("🔒 Sistema bloqueado novamente!");
+    }
+});
+
+/* ============================================================
+   8. INICIALIZAÇÃO
+=========================================================== */
+
+if (localStorage.getItem("sistema_global_off") === "true") {
+    desativarBloqueio();
+} else {
+    ativarBloqueio();
+}
 
 
 
