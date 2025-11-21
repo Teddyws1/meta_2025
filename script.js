@@ -745,8 +745,8 @@ overlay.addEventListener("click", () => {
    Se o bloqueio estiver atrapalhando quando você for
    modificar o código, digite no teclado:
 
-        CTRL + SHIFT + D  → MODO PROGRAMADOR (DESBLOQUEADO)
-        CTRL + SHIFT + B  → VOLTAR AO BLOQUEIO TOTAL
+        CTRL + SHIFT + a  → MODO PROGRAMADOR (DESBLOQUEADO)
+        CTRL + SHIFT + f  → VOLTAR AO BLOQUEIO TOTAL
 
    Ou, se quiser manualmente:
    - procure por `bloqueioAtivo = true;`
@@ -778,15 +778,15 @@ function desativarBloqueio() {
 // ==========================================
 document.addEventListener("keydown", function (e) {
 
-    // CTRL + SHIFT + D = DESBLOQUEAR (modo programador)
-    if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "d") {
+    // CTRL + SHIFT + a = DESBLOQUEAR (modo programador)
+    if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "a") {
         modoProgramador = true;
         desativarBloqueio();
         alert("🟢 MODO PROGRAMADOR ATIVADO:\nSistema de bloqueio desativado temporariamente.");
     }
 
-    // CTRL + SHIFT + B = REATIVAR BLOQUEIO
-    if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "b") {
+    // CTRL + SHIFT + f = REATIVAR BLOQUEIO
+    if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "f") {
         modoProgramador = false;
         ativarBloqueio();
         alert("🔒 Bloqueio total reativado!");
