@@ -560,21 +560,6 @@ Sem descrição	Editar Excluir */
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
 }
 
-/* Chrome / Edge / Opera scrollbar */
-#calc-history-list::-webkit-scrollbar {
-    width: 6px;
-}
-#calc-history-list::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.25);
-    border-radius: 10px;
-}
-
-/* Firefox scrollbar */
-#calc-history-list {
-    scrollbar-width: thin;
-    scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
-}
-
 /* ===========================================
    ITEM DO HISTÓRICO — CROSS-BROWSER
 =========================================== */
