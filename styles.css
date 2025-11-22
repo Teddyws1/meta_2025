@@ -539,6 +539,10 @@ Sem descrição	Editar Excluir */
 
 /* começo de cal caluc */
 /* input de fundo do histórico de cálculos */
+/* ===========================================
+   LISTA DE HISTÓRICO — COMPATÍVEL MULTI-BROWSER
+=========================================== */
+
 #calc-history-list {
     max-height: 260px;
     overflow-y: auto;
@@ -547,22 +551,32 @@ Sem descrição	Editar Excluir */
 
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.15);
+
+    /* Glassmorphism cross-browser */
     -webkit-backdrop-filter: blur(12px);
     backdrop-filter: blur(12px);
+
+    /* Sombras compatíveis */
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
 }
 
+/* Chrome / Edge / Opera scrollbar */
 #calc-history-list::-webkit-scrollbar {
     width: 6px;
 }
-
 #calc-history-list::-webkit-scrollbar-thumb {
     background: rgba(255, 255, 255, 0.25);
     border-radius: 10px;
 }
 
+/* Firefox scrollbar */
+#calc-history-list {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
+}
+
 /* ===========================================
-   ITEM DO HISTÓRICO (alinhado estilo calculadora)
+   ITEM DO HISTÓRICO — CROSS-BROWSER
 =========================================== */
 
 .history-item {
@@ -577,9 +591,13 @@ Sem descrição	Editar Excluir */
 
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.12);
+
+    /* Safari + Chrome */
     -webkit-backdrop-filter: blur(12px);
     backdrop-filter: blur(8px);
-    transition: 0.25s ease;
+
+    /* Transição compatível */
+    transition: all 0.25s ease;
 }
 
 .history-item:hover {
@@ -587,6 +605,7 @@ Sem descrição	Editar Excluir */
     transform: translateX(6px);
 }
 
+/* EXPRESSÃO */
 .history-expression {
     color: #b8c2cc;
     font-size: 0.92rem;
@@ -596,6 +615,7 @@ Sem descrição	Editar Excluir */
     text-overflow: ellipsis;
 }
 
+/* RESULTADO */
 .history-result {
     color: white;
     font-weight: 700;
@@ -603,20 +623,23 @@ Sem descrição	Editar Excluir */
     min-width: 72px;
     text-align: right;
 
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco,
+                 "Roboto Mono", "Courier New", monospace;
 }
 
-/* ====== SINAL "=" MELHORADO ====== */
+/* "=" ANTES DO RESULTADO */
 .history-result::before {
-    content: "";
+    content: "=";
     margin-right: 8px;
-    color: rgba(255, 255, 255, 0.75);
+    opacity: 0.85;
+
     font-weight: 700;
     text-shadow: 0 0 6px rgba(255, 255, 255, 0.35);
 }
 
 /* ===========================================
    INPUTS MODERNOS — GLASS / MOBILE PREMIUM
+   (COMPATIBILIDADE MÁXIMA)
 =========================================== */
 
 input,
@@ -629,16 +652,23 @@ select {
 
     background: rgba(255, 255, 255, 0.06);
     border: 1px solid rgba(255, 255, 255, 0.2);
+
+    /* Safari + Chrome + Edge + Firefox (polyfill blur natural) */
     -webkit-backdrop-filter: blur(12px);
     backdrop-filter: blur(10px);
+
+    /* Texto */
     font-size: 1.1rem;
     color: #ffffff;
-    outline: none;
-    transition: 0.25s ease;
 
+    outline: none;
+    transition: all 0.25s ease;
+
+    /* Inner shadow cross-browser */
     box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.35);
 }
 
+/* FOCUS */
 input:focus,
 textarea:focus,
 select:focus {
@@ -650,6 +680,8 @@ select:focus {
 input::placeholder {
     color: #a3acb7;
 }
+
+
 
 /* ===========================================
    BOTÃO DE APAGAR HISTÓRICO — PREMIUM

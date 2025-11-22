@@ -856,16 +856,3 @@ ativarBloqueio();
 
 
 //novo sistema
-function openModal() {
-  document.getElementById("overlay").classList.add("show");
-  document.getElementById("modal").classList.add("show");
-  document.body.classList.add("overlay-active");
-}
-
-function closeModal() {
-  document.getElementById("overlay").classList.remove("show");
-  document.getElementById("modal").classList.remove("show");
-  document.body.classList.remove("overlay-active");
-}
-
-
