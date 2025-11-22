@@ -766,7 +766,9 @@ function ativarBloqueio() {
     bloqueioAtivo = true;
     console.log("🔒 BLOQUEIO ATIVADO");
 }
-
+//colcao aqui qualquer coisa para desativa sistema de copia e color
+dsifisfdgh
+//////////////////////
 function desativarBloqueio() {
     bloqueioAtivo = false;
     console.log("🟢 MODO PROGRAMADOR DESATIVOU O BLOQUEIO");
@@ -853,5 +855,16 @@ ativarBloqueio();
 
 
 //novo sistema
+function openModal() {
+    document.getElementById("overlay").classList.add("show");
+    document.getElementById("modal").classList.add("show");
+    document.body.classList.add("overlay-active");
+}
+
+function closeModal() {
+    document.getElementById("overlay").classList.remove("show");
+    document.getElementById("modal").classList.remove("show");
+    document.body.classList.remove("overlay-active");
+}
 
 

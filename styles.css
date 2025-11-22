@@ -33,6 +33,7 @@ body {
 
 }
 
+/* fundo do sistema */
 .container-bg {
     background-color: rgba(22, 27, 34, 0.95);
     -webkit-backdrop-filter: blur(5px);
@@ -40,9 +41,9 @@ body {
 
 }
 
-/* =====================================================================
-   INPUTS E BOTÕES PADRÕES
-   ===================================================================== */
+
+/* inputs padrão todos do sistema */
+
 .custom-input {
     background-color: var(--bg-principal);
     border: 1px solid var(--border-color);
@@ -52,37 +53,45 @@ body {
     transition: border-color 0.2s, box-shadow 0.2s;
 }
 
+
+/* fundo do input editar */
+
 .custom-input:focus {
     border-color: var(--purple-tab);
     box-shadow: 0 0 0 1px var(--purple-tab);
 }
 
+/* butão de adicinar */
 .primary-button {
     background-color: var(--azul-tab);
     box-shadow: 0 4px 6px -1px #1f397f;
     transition: opacity 0.2s, transform 0.2s;
 }
 
+/* botão de salva do editor depósito */
 .primary-button:hover {
     opacity: 0.9;
     transform: translateY(-1px);
 }
 
+/* ao clica em salvar metas aparece a cor no button*/
 .primary-button:active {
     transform: translateY(0);
     box-shadow: none;
+
 }
 
-/* =====================================================================
-   ABAS DE NAVEGAÇÃO
-   ===================================================================== */
+/* button de minha meta,meus depósito, caluladora */
 .tab-button {
     padding: 0.5rem 1rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s;
     border-radius: 12px 28px;
+
 }
+
+/* sisitema de cor ativa ao não usar */
 
 .tab-button:not(.active),
 .tab-button.inactive-tab {
@@ -90,8 +99,9 @@ body {
     background-color: transparent;
 }
 
-.tab-button.active {
+/* efeito em css do button de metas etc */
 
+.tab-button.active {
     position: relative;
     padding: 10px 18px;
     background: transparent;
@@ -113,7 +123,7 @@ body {
     transition: background 0.25s ease, transform 0.15s ease;
 }
 
-/* underline suave */
+/* underline suave linha de baixo do button */
 .tab-button::after {
     content: "";
     position: absolute;
@@ -155,11 +165,11 @@ body {
 
 }
 
-/* =====================================================================
-   PROGRESS BAR
-   ===================================================================== */
+/* fundo da barra de metas */
+
 .progress-bar-bg {
     background-color: var(--border-color);
+
 }
 
 #progress-bar-fill {
@@ -177,9 +187,8 @@ body {
 
 }
 
-/* =====================================================================
-   CARDS, SEÇÕES E VALORES
-   ===================================================================== */
+/* infomação de cards */
+
 .info-card, .section-box {
     background-color: rgba(31, 36, 40, 0.9);
     border: 1px solid var(--border-color);
@@ -215,6 +224,7 @@ body {
     width: fit-content;
 }
 
+/* fundo da versão */
 .version-sample .version-text {
     font-size: 0.9rem;
     font-weight: 600;
@@ -223,6 +233,7 @@ body {
     white-space: nowrap;
 }
 
+/*fundo da meta lado da verão*/
 .version-sample .beta-text {
     font-size: 0.65rem;
     font-weight: 700;
@@ -234,6 +245,7 @@ body {
     letter-spacing: 0.4px;
     margin: 0;
     white-space: nowrap;
+
 }
 
 @media (max-width: 400px) {
@@ -260,6 +272,7 @@ body {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
     max-width: 90%;
     width: fit-content;
+
 }
 
 .beta-text {
@@ -270,11 +283,12 @@ body {
     transition: color .3s ease;
 }
 
+/*cor de fundo da meta ao colcoa mouse em cima */
 .beta-text:hover {
     color: #ffffff;
 }
 
-/* ======= OVERLAY UNIVERSAL ======= */
+/* cor defundo ao abri modal da meta*/
 .overlay {
     position: fixed;
     top: 0;
@@ -287,14 +301,16 @@ body {
     pointer-events: none;
     transition: opacity .3s ease;
     z-index: 998;
+
 }
 
 .overlay.show {
     opacity: 1;
     pointer-events: auto;
+
 }
 
-/* ======= MODAL SEM BUGS ======= */
+/* fundo do modal */
 .modal-card {
     position: fixed;
     top: 50%;
@@ -303,7 +319,7 @@ body {
     width: 90%;
     max-width: 420px;
     padding: 25px;
-    background: #1F2A7F;
+    background-image: linear-gradient(158deg, #ffffff49, #1f2a7fa1 40% 68%, #ffffff49);
     /* sólido (100% compatível) */
     border-radius: 14px;
     box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
@@ -311,15 +327,18 @@ body {
     pointer-events: none;
     transition: opacity .3s ease, transform .3s ease;
     z-index: 999;
+    color: #ffffff;
+    text-align: center;
 }
 
 .modal-card.show {
     opacity: 1;
     pointer-events: auto;
     transform: translate(-50%, -50%) scale(1);
+
 }
 
-/* ======= BOTÃO FECHAR ======= */
+/*fundo do BOTÃO FECHAR modal meta*/
 .close-btn {
     position: absolute;
     top: 10px;
@@ -329,10 +348,12 @@ body {
     font-size: 22px;
     cursor: pointer;
     color: #000000;
+
 }
 
+/* cor do buttom de fechar modal da meta */
 .close-btn:hover {
-    color: #6d6d6d;
+    color: #1930db;
 }
 
 /* ======= TOOLTIP UNIVERSAL ======= */
@@ -340,12 +361,14 @@ abbr {
     position: relative;
     cursor: help;
     font-weight: 600;
-    color: #1F2A7F;
+    color: #7f1f5a;
     transition: .3s;
+
 }
 
 abbr:hover {
     color: #2e9fcc;
+
 }
 
 abbr::after,
@@ -368,6 +391,7 @@ abbr:hover::after {
     white-space: nowrap;
     font-size: 13px;
     opacity: 1;
+
 }
 
 abbr:hover::before {
@@ -380,23 +404,27 @@ abbr:hover::before {
     border-style: solid;
     border-color: #1F2A7F transparent transparent transparent;
     opacity: 1;
-
 }
 
 /*fim do card*/
-/* TABELA DE DEPÓSITOS */
+/* Histórico de Transações como data valor  */
 .deposit-table th, .deposit-table td {
     padding: 0.75rem;
     border-bottom: 1px solid var(--border-color);
     text-align: left;
 }
 
+/* TR das Data/Hora	Valor/Descrição	Ação  */
 .deposit-table th {
     background-color: #2e353b;
     font-weight: 700;
     color: white;
+
 }
 
+/*TR das 28/11/2025
+09:39	R$ 122,00
+Sem descrição	Editar Excluir */
 .deposit-table tbody tr:hover {
     background-color: #272c31;
 }
@@ -409,16 +437,17 @@ abbr:hover::before {
 }
 
 /* inputs */
-/*inout de datas*/
+/*inout de datas 00/00/0000*/
 #deposit-date {
     color: #ffffff;
     text-align: center;
 }
 
-/*inout de valor*/
+/*inout de valor R$0.00*/
 #deposit-amount {
     color: #ffffff;
     text-align: justify;
+
 }
 
 /*inout de descrição*/
@@ -426,10 +455,7 @@ abbr:hover::before {
     color: #ffffff
 }
 
-/* 
-=====================================================================
-   CALCULADORA MODERNA
-   ===================================================================== */
+/* fundo da calculadora */
 .calculator-container {
     background-color: var(--calc-bg);
     border-radius: 1rem;
@@ -439,6 +465,7 @@ abbr:hover::before {
     margin: auto;
 }
 
+/* div que mostra ao digita os numeros */
 #calc-expression {
     color: #8b949e;
     font-size: 1.2rem;
@@ -450,6 +477,7 @@ abbr:hover::before {
     white-space: nowrap;
 }
 
+/* painel da calculadora */
 #calc-display {
     background-color: var(--calc-display);
     color: white;
@@ -466,6 +494,8 @@ abbr:hover::before {
     justify-content: flex-end;
 }
 
+/* butões da calculadora */
+
 .calc-btn {
     text-align: center;
     background-color: var(--btn-default);
@@ -480,6 +510,7 @@ abbr:hover::before {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
+/* cor dos botões ao passa mouse em cima ou dedo */
 .calc-btn:hover {
     opacity: 0.9;
 }
@@ -488,24 +519,25 @@ abbr:hover::before {
     transform: scale(0.95);
 }
 
+/* botão de (%,÷,x,-,+) */
 .calc-operator {
     text-align: center;
     background-color: var(--azul-tab);
 }
 
+/* butão de (=) */
 .calc-equal {
     text-align: center;
     background-color: var(--btn-equal);
 }
 
+/* botões de (AC,)(←-) */
 .calc-clear {
     text-align: center;
     background-color: var(--btn-clear);
 }
 
-/* =====================================================================
-   HISTÓRICO DA CALCULADORA
-   ===================================================================== */
+/* input de fundo do histórico de cálculos */
 #calc-history-list {
     max-height: 200px;
     overflow-y: auto;
@@ -513,6 +545,7 @@ abbr:hover::before {
     border-radius: 0.5rem;
     padding: 0.5rem;
     background-color: var(--calc-display);
+
 }
 
 .history-item {
@@ -521,15 +554,19 @@ abbr:hover::before {
     cursor: pointer;
 }
 
+/* cor de fundo ao passa mouse me cima */
 .history-item:hover {
     background-color: #272c31;
 }
 
+/* div class cor de fundo ao passa mouse em cima */
 .history-expression {
     color: #8b949e;
     font-size: 0.8rem;
+
 }
 
+/* div class cor de fundo ao passa mouse em cima */
 .history-result {
     color: white;
     font-weight: bold;
@@ -539,6 +576,7 @@ abbr:hover::before {
 /* =====================================================================
    BOTÕES ESPECIAIS
    ===================================================================== */
+/*cor de fundo botão de EDITAR METAS */
 .btn-edit-goal {
     width: 40%;
     padding: 0.5rem 0;
@@ -548,12 +586,15 @@ abbr:hover::before {
     background-color: #383783;
     cursor: pointer;
     transition: opacity 0.2s;
+
 }
 
+/* cor de fundo ao passa mouse em cima do botão de edita meta */
 .btn-edit-goal:hover {
     opacity: 0.9;
 }
 
+/* cor de fundo do botão de apaga historico */
 .btn-clear-history {
     width: 100%;
     padding: 0.5rem 0;
@@ -566,6 +607,7 @@ abbr:hover::before {
     transition: opacity 0.2s;
 }
 
+/* cor de fundo ao passa maouse em cima do button de apaga historico */
 .btn-clear-history:hover {
     opacity: 0.9;
 }
@@ -581,6 +623,7 @@ abbr:hover::before {
     background-color: transparent;
     margin: 5px;
     transition: background-color 0.15s, color 0.15s;
+
 }
 
 .btn-clear-deposits:hover {
@@ -600,6 +643,7 @@ abbr:hover::before {
     border: 1px solid #ccc;
     border-radius: 0.4rem;
     font-size: 1rem;
+
 }
 
 #success-message {
