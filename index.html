@@ -450,6 +450,20 @@
         <button onclick="clearHistory()" class="btn-clear-history">
   Apagar Histórico
 </button>
+<!-- ================= MODAL DO HISTÓRICO ================= -->
+<div id="historyModal" class="modal-background hidden">
+  <div class="modal-card">
+    <h2 class="modal-title">Detalhes do Cálculo</h2>
+
+    <p class="modal-expression" id="modalExpression"></p>
+    <p class="modal-result" id="modalResult"></p>
+
+    <div class="modal-buttons">
+      <button id="useResultBtn" class="btn-primary">Usar Resultado</button>
+      <button id="closeModalBtn" class="btn-secondary">Fechar</button>
+    </div>
+  </div>
+</div>
 
         </div>
       </div>

@@ -539,109 +539,183 @@ Sem descrição	Editar Excluir */
 
 /* começo de cal caluc */
 /* input de fundo do histórico de cálculos */
-/* ===========================================
-   HISTÓRICO – LISTA PRINCIPAL
-=========================================== */
 #calc-history-list {
-    max-height: 220px;
+    max-height: 260px;
     overflow-y: auto;
-    padding: 0.75rem;
-    border-radius: 0.75rem;
+    padding: 12px;
+    border-radius: 16px;
 
-    background-color: var(--calc-display);
-    border: 1px solid var(--border-color);
-
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-
-    /* efeito bonito */
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     -webkit-backdrop-filter: blur(12px);
-    backdrop-filter: blur(6px);
-    box-shadow: 0 0 18px rgba(0, 0, 0, 0.25);
-
-    animation: fadeHistory 0.3s ease;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
 }
 
-/* Entrada suave */
-@keyframes fadeHistory {
-    from {
-        opacity: 0;
-        transform: translateY(8px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-
-/* ===========================================
-   ITENS DO HISTÓRICO
-=========================================== */
-.history-item {
-    background: rgba(255, 255, 255, 0.05);
-    padding: 0.65rem 0.8rem;
-    border-radius: 0.5rem;
-    cursor: pointer;
-
-    border: 1px solid rgba(255, 255, 255, 0.08);
-
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-
-    transition: background 0.2s, transform 0.15s;
-}
-
-/* Hover moderno */
-.history-item:hover {
-    background: rgba(255, 255, 255, 0.13);
-    transform: translateX(3px);
-}
-
-
-/* ===========================================
-   EXPRESSÃO (CIMA)
-=========================================== */
-.history-expression {
-    color: #9ca3af;
-    font-size: 0.77rem;
-    letter-spacing: 0.3px;
-}
-
-
-/* ===========================================
-   RESULTADO (BAIXO)
-=========================================== */
-.history-result {
-    color: white;
-    font-weight: 600;
-    font-size: 1rem;
-}
-
-
-/* ===========================================
-   SCROLL PERSONALIZADO
-=========================================== */
 #calc-history-list::-webkit-scrollbar {
-    width: 7px;
-}
-
-#calc-history-list::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
+    width: 6px;
 }
 
 #calc-history-list::-webkit-scrollbar-thumb {
-    background: #4b5563;
+    background: rgba(255, 255, 255, 0.25);
     border-radius: 10px;
 }
 
-#calc-history-list::-webkit-scrollbar-thumb:hover {
-    background: #6b7280;
+/* ===========================================
+   ITEM DO HISTÓRICO (alinhado estilo calculadora)
+=========================================== */
+
+.history-item {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    align-items: center;
+
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    border-radius: 14px;
+
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(8px);
+    transition: 0.25s ease;
 }
+
+.history-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(6px);
+}
+
+.history-expression {
+    color: #b8c2cc;
+    font-size: 0.92rem;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.history-result {
+    color: white;
+    font-weight: 700;
+    font-size: 1rem;
+    min-width: 72px;
+    text-align: right;
+
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Courier New", monospace;
+}
+
+/* ====== SINAL "=" MELHORADO ====== */
+.history-result::before {
+    content: "";
+    margin-right: 8px;
+    color: rgba(255, 255, 255, 0.75);
+    font-weight: 700;
+    text-shadow: 0 0 6px rgba(255, 255, 255, 0.35);
+}
+
+/* ===========================================
+   INPUTS MODERNOS — GLASS / MOBILE PREMIUM
+=========================================== */
+
+input,
+textarea,
+select {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 14px;
+    margin-bottom: 12px;
+
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(10px);
+    font-size: 1.1rem;
+    color: #ffffff;
+    outline: none;
+    transition: 0.25s ease;
+
+    box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.35);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: rgba(0, 162, 255, 0.8);
+    background: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 0 12px rgba(0, 162, 255, 0.8);
+}
+
+input::placeholder {
+    color: #a3acb7;
+}
+
+/* ===========================================
+   BOTÃO DE APAGAR HISTÓRICO — PREMIUM
+=========================================== */
+
+.btn-clear-history {
+    width: 54%;
+    padding: 14px;
+    border-radius: 14px;
+    border: none;
+    margin-top: 14px;
+
+    font-size: 1.1rem;
+    font-weight: 700;
+
+    background: rgba(255, 70, 70, 0.25);
+    border: 1px solid rgba(255, 70, 70, 0.4);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(10px);
+    color: white;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+.btn-clear-history:hover {
+    background: rgba(255, 70, 70, 0.4);
+    box-shadow: 0 0 12px rgba(255, 70, 70, 0.6);
+    transform: translateY(-2px);
+}
+
+.btn-clear-history:active {
+    transform: scale(0.97);
+}
+
+/* ===========================================
+   RESPONSIVO — MOBILE FIRST
+=========================================== */
+
+@media (max-width: 480px) {
+    #calc-history-list {
+        max-height: 220px;
+        padding: 10px;
+    }
+
+    .history-item {
+        padding: 12px;
+    }
+
+    .history-result {
+        min-width: 56px;
+        font-size: 1rem;
+    }
+
+    input,
+    textarea,
+    select {
+        font-size: 1rem;
+        padding: 12px;
+    }
+
+    .btn-clear-history {
+        padding: 12px;
+        font-size: 1rem;
+    }
+}
+
 
 /* =====================================================================
    BOTÕES ESPECIAIS

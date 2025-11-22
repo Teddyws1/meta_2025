@@ -465,6 +465,7 @@ const setupTabs = () => {
 };
 
 // --- Lógica do Histórico da Calculadora ---
+// --- Lógica do Histórico da Calculadora ---
 const renderHistory = () => {
   calcHistoryList.innerHTML = "";
   if (history.length === 0) {
@@ -502,6 +503,7 @@ const clearHistory = () => {
     showSuccessMessage("Histórico de cálculos apagado!");
   }
 };
+
 
 // --- Lógica da Calculadora ---
 
@@ -763,15 +765,14 @@ let modoProgramador = false;
 // FUNÇÕES DE ATIVAR E DESATIVAR O BLOQUEIO
 // ==========================================
 function ativarBloqueio() {
-    bloqueioAtivo = true;
-    console.log("🔒 BLOQUEIO ATIVADO");
+  bloqueioAtivo = true;
+  console.log("🔒 BLOQUEIO ATIVADO");
 }
 //colcao aqui qualquer coisa para desativa sistema de copia e color
 dsifisfdgh
-//////////////////////
 function desativarBloqueio() {
-    bloqueioAtivo = false;
-    console.log("🟢 MODO PROGRAMADOR DESATIVOU O BLOQUEIO");
+  bloqueioAtivo = false;
+  console.log("🟢 MODO PROGRAMADOR DESATIVOU O BLOQUEIO");
 }
 
 
@@ -780,19 +781,19 @@ function desativarBloqueio() {
 // ==========================================
 document.addEventListener("keydown", function (e) {
 
-    // CTRL + SHIFT + a = DESBLOQUEAR (modo programador)
-    if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "a") {
-        modoProgramador = true;
-        desativarBloqueio();
-        alert("🟢 MODO PROGRAMADOR ATIVADO:\nSistema de bloqueio desativado temporariamente.");
-    }
+  // CTRL + SHIFT + a = DESBLOQUEAR (modo programador)
+  if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "a") {
+    modoProgramador = true;
+    desativarBloqueio();
+    alert("🟢 MODO PROGRAMADOR ATIVADO:\nSistema de bloqueio desativado temporariamente.");
+  }
 
-    // CTRL + SHIFT + f = REATIVAR BLOQUEIO
-    if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "f") {
-        modoProgramador = false;
-        ativarBloqueio();
-        alert("🔒 Bloqueio total reativado!");
-    }
+  // CTRL + SHIFT + f = REATIVAR BLOQUEIO
+  if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "f") {
+    modoProgramador = false;
+    ativarBloqueio();
+    alert("🔒 Bloqueio total reativado!");
+  }
 
 });
 
@@ -801,33 +802,33 @@ document.addEventListener("keydown", function (e) {
 // BLOQUEIO GLOBAL (PC + MOBILE)
 // ==========================================
 document.addEventListener("contextmenu", e => {
-    if (bloqueioAtivo) e.preventDefault();
+  if (bloqueioAtivo) e.preventDefault();
 });
 
 document.addEventListener("copy", e => {
-    if (bloqueioAtivo) e.preventDefault();
+  if (bloqueioAtivo) e.preventDefault();
 });
 
 document.addEventListener("cut", e => {
-    if (bloqueioAtivo) e.preventDefault();
+  if (bloqueioAtivo) e.preventDefault();
 });
 
 document.addEventListener("paste", e => {
-    if (bloqueioAtivo) e.preventDefault();
+  if (bloqueioAtivo) e.preventDefault();
 });
 
 document.addEventListener("selectstart", e => {
-    if (bloqueioAtivo) e.preventDefault();
+  if (bloqueioAtivo) e.preventDefault();
 });
 
 // Bloqueio de zoom PC
 document.addEventListener("wheel", e => {
-    if (bloqueioAtivo && (e.ctrlKey || e.metaKey)) e.preventDefault();
+  if (bloqueioAtivo && (e.ctrlKey || e.metaKey)) e.preventDefault();
 }, { passive: false });
 
 // Bloqueio de touch e pinch zoom
 document.addEventListener("touchmove", e => {
-    if (bloqueioAtivo && e.touches.length > 1) e.preventDefault();
+  if (bloqueioAtivo && e.touches.length > 1) e.preventDefault();
 }, { passive: false });
 
 
@@ -835,16 +836,16 @@ document.addEventListener("touchmove", e => {
 // BLOQUEIO DE TECLAS IMPORTANTES
 // ==========================================
 document.addEventListener("keydown", function (e) {
-    if (!bloqueioAtivo) return;
+  if (!bloqueioAtivo) return;
 
-    const k = e.key.toLowerCase();
+  const k = e.key.toLowerCase();
 
-    const proibidas = ["c", "v", "x", "u", "s", "p", "a"];
-    if (e.ctrlKey && proibidas.includes(k)) e.preventDefault();
+  const proibidas = ["c", "v", "x", "u", "s", "p", "a"];
+  if (e.ctrlKey && proibidas.includes(k)) e.preventDefault();
 
-    if (k === "f12") e.preventDefault();
+  if (k === "f12") e.preventDefault();
 
-    if (e.ctrlKey && e.shiftKey && ["i", "c", "j"].includes(k)) e.preventDefault();
+  if (e.ctrlKey && e.shiftKey && ["i", "c", "j"].includes(k)) e.preventDefault();
 });
 
 
@@ -856,15 +857,15 @@ ativarBloqueio();
 
 //novo sistema
 function openModal() {
-    document.getElementById("overlay").classList.add("show");
-    document.getElementById("modal").classList.add("show");
-    document.body.classList.add("overlay-active");
+  document.getElementById("overlay").classList.add("show");
+  document.getElementById("modal").classList.add("show");
+  document.body.classList.add("overlay-active");
 }
 
 function closeModal() {
-    document.getElementById("overlay").classList.remove("show");
-    document.getElementById("modal").classList.remove("show");
-    document.body.classList.remove("overlay-active");
+  document.getElementById("overlay").classList.remove("show");
+  document.getElementById("modal").classList.remove("show");
+  document.body.classList.remove("overlay-active");
 }
 
 
