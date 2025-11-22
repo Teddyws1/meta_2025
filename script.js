@@ -769,7 +769,9 @@ function ativarBloqueio() {
   console.log("🔒 BLOQUEIO ATIVADO");
 }
 //colcao aqui qualquer coisa para desativa sistema de copia e color
-dsifisfdgh
+////////////////////
+
+////////////////////
 function desativarBloqueio() {
   bloqueioAtivo = false;
   console.log("🟢 MODO PROGRAMADOR DESATIVOU O BLOQUEIO");
