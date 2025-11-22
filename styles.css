@@ -609,12 +609,12 @@ Sem descrição	Editar Excluir */
     text-align: right;
 
     font-family: ui-monospace, SFMono-Regular, Menlo, Monaco,
-                 "Roboto Mono", "Courier New", monospace;
+        "Roboto Mono", "Courier New", monospace;
 }
 
 /* "=" ANTES DO RESULTADO */
 .history-result::before {
-    content: "=";
+    content: "";
     margin-right: 8px;
     opacity: 0.85;
 
@@ -903,3 +903,13 @@ input::placeholder {
 }
 
 /* novo sistema */
+#installBtn {
+    display: none;
+    padding: 10px;
+    background: #000;
+    color: #fff;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+}
