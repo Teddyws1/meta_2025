@@ -851,7 +851,4 @@ overlay.addEventListener("click", () => {
 
 })();
 
-
-
-
 //novo sistema
