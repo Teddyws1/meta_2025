@@ -537,40 +537,110 @@ Sem descrição	Editar Excluir */
     background-color: var(--btn-clear);
 }
 
+/* começo de cal caluc */
 /* input de fundo do histórico de cálculos */
+/* ===========================================
+   HISTÓRICO – LISTA PRINCIPAL
+=========================================== */
 #calc-history-list {
-    max-height: 200px;
+    max-height: 220px;
     overflow-y: auto;
-    border: 1px solid var(--border-color);
-    border-radius: 0.5rem;
-    padding: 0.5rem;
+    padding: 0.75rem;
+    border-radius: 0.75rem;
+
     background-color: var(--calc-display);
+    border: 1px solid var(--border-color);
 
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    /* efeito bonito */
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 0 18px rgba(0, 0, 0, 0.25);
+
+    animation: fadeHistory 0.3s ease;
 }
 
+/* Entrada suave */
+@keyframes fadeHistory {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* ===========================================
+   ITENS DO HISTÓRICO
+=========================================== */
 .history-item {
-    padding: 0.5rem;
-    border-bottom: 1px dashed var(--border-color);
+    background: rgba(255, 255, 255, 0.05);
+    padding: 0.65rem 0.8rem;
+    border-radius: 0.5rem;
     cursor: pointer;
+
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+
+    transition: background 0.2s, transform 0.15s;
 }
 
-/* cor de fundo ao passa mouse me cima */
+/* Hover moderno */
 .history-item:hover {
-    background-color: #272c31;
+    background: rgba(255, 255, 255, 0.13);
+    transform: translateX(3px);
 }
 
-/* div class cor de fundo ao passa mouse em cima */
+
+/* ===========================================
+   EXPRESSÃO (CIMA)
+=========================================== */
 .history-expression {
-    color: #8b949e;
-    font-size: 0.8rem;
-
+    color: #9ca3af;
+    font-size: 0.77rem;
+    letter-spacing: 0.3px;
 }
 
-/* div class cor de fundo ao passa mouse em cima */
+
+/* ===========================================
+   RESULTADO (BAIXO)
+=========================================== */
 .history-result {
     color: white;
-    font-weight: bold;
+    font-weight: 600;
     font-size: 1rem;
+}
+
+
+/* ===========================================
+   SCROLL PERSONALIZADO
+=========================================== */
+#calc-history-list::-webkit-scrollbar {
+    width: 7px;
+}
+
+#calc-history-list::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+#calc-history-list::-webkit-scrollbar-thumb {
+    background: #4b5563;
+    border-radius: 10px;
+}
+
+#calc-history-list::-webkit-scrollbar-thumb:hover {
+    background: #6b7280;
 }
 
 /* =====================================================================
@@ -728,7 +798,6 @@ Sem descrição	Editar Excluir */
 .titulo-header {
     font-size: 28px;
     font-weight: 700;
-
     background: linear-gradient(90deg, #1F2A7F, #48C337);
 
     /* Compatibilidade total */
