@@ -741,5 +741,146 @@ overlay.addEventListener("click", () => {
 });
 
 //bloqueio de zom copia
+/* protection.js – Bloqueio com aviso ao tentar dar zoom */
+
+(function () {
+  const UNLOCK_PASSWORD = 'desbloquear123';
+  const STORAGE_KEY = 'site_protection_disabled_v1';
+  let enabled = localStorage.getItem(STORAGE_KEY) !== 'true';
+  let handlers = [];
+
+  // ---- Popup aviso ----
+  function showZoomWarning() {
+    let box = document.getElementById("zoom-warning-box");
+    if (!box) {
+      box = document.createElement("div");
+      box.id = "zoom-warning-box";
+      box.style.position = "fixed";
+      box.style.bottom = "20px";
+      box.style.right = "20px";
+      box.style.padding = "12px 18px";
+      box.style.borderRadius = "10px";
+      box.style.background = "rgba(0, 0, 0, 0.8)";
+      box.style.color = "#fff";
+      box.style.fontSize = "14px";
+      box.style.zIndex = "999999";
+      box.style.boxShadow = "0 4px 12px rgba(0,0,0,0.3)";
+      box.style.transition = "opacity 0.4s ease";
+      document.body.appendChild(box);
+    }
+
+    box.innerText = "👀 Zoom bloqueado !";
+    box.style.opacity = "1";
+
+    ///segundo da mensagem
+
+    setTimeout(() => {
+      box.style.opacity = "0";
+    }, 2000);
+  }
+
+  // ---- Funções auxiliares ----
+  function add(target, evt, fn, opts) {
+    target.addEventListener(evt, fn, opts || false);
+    handlers.push({ target, evt, fn, opts });
+  }
+
+  function removeAll() {
+    handlers.forEach(h =>
+      h.target.removeEventListener(h.evt, h.fn, h.opts || false)
+    );
+    handlers = [];
+  }
+
+  function prevent(e) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+
+  // ---- Inicializa proteção ----
+  function initProtection() {
+    if (!enabled) return;
+
+    // Copiar/colar/seleção/menu direito
+    add(document, 'copy', prevent);
+    add(document, 'paste', prevent);
+    add(document, 'cut', prevent);
+    add(document, 'contextmenu', prevent);
+    add(document, 'selectstart', prevent);
+
+    // Atalhos Ctrl + C/V/X/A etc
+    add(document, 'keydown', function (e) {
+      const key = (e.key || "").toLowerCase();
+      const ctrl = e.ctrlKey || e.metaKey;
+
+      const blocked = ['c', 'v', 'x', 'a', 's', 'u'];
+
+      if (ctrl && blocked.includes(key)) {
+        prevent(e);
+      }
+
+      // bloqueia F12 / DevTools
+      if (
+        e.key === "F12" ||
+        (ctrl && e.shiftKey && (key === "i" || key === "j")) ||
+        (ctrl && key === "u")
+      ) {
+        prevent(e);
+      }
+
+      // Atalho secreto para desbloquear
+      if (ctrl && e.altKey && e.shiftKey && key === "u") {
+        const pwd = prompt("Senha para desbloquear:");
+        if (pwd === UNLOCK_PASSWORD) {
+          disable(true);
+          alert("Proteção desativada!");
+        } else {
+          alert("Senha incorreta.");
+        }
+      }
+    });
+
+    // ---- Bloqueio de Zoom com aviso ----
+    add(document, 'wheel', function (e) {
+      if (e.ctrlKey) {
+        prevent(e);
+        showZoomWarning();
+      }
+    }, { passive: false });
+
+    // pinch zoom (mobile)
+    let pinch = { start: null };
+    function dist(t1, t2) {
+      return Math.hypot(t1.clientX - t2.clientX, t1.clientY - t2.clientY);
+    }
+
+    add(document, 'touchstart', function (e) {
+      if (e.touches.length === 2) {
+        pinch.start = dist(e.touches[0], e.touches[1]);
+      }
+    }, { passive: false });
+
+    add(document, 'touchmove', function (e) {
+      if (e.touches.length === 2 && pinch.start) {
+        let now = dist(e.touches[0], e.touches[1]);
+        if (Math.abs(now - pinch.start) > 5) {
+          prevent(e);
+          showZoomWarning();
+        }
+      }
+    }, { passive: false });
+
+  }
+
+  function disable(persist = true) {
+    removeAll();
+    enabled = false;
+    if (persist) localStorage.setItem(STORAGE_KEY, 'true');
+  }
+
+  initProtection();
+
+})();
+
 
 //novo sistema

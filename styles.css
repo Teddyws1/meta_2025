@@ -903,13 +903,3 @@ input::placeholder {
 }
 
 /* novo sistema */
-#installBtn {
-    display: none;
-    padding: 10px;
-    background: #000;
-    color: #fff;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-    font-size: 15px;
-}
