@@ -168,8 +168,8 @@ body {
 /* fundo da barra de metas */
 
 .progress-bar-bg {
+    background-image: linear-gradient(23deg, #1F2A7F, #095f1b);
     background-color: var(--border-color);
-
 }
 
 #progress-bar-fill {
@@ -812,94 +812,128 @@ input::placeholder {
     color: #ffffff;
 }
 
-/* ======= TÍTULO PROFISSIONAL: HOLOGRAMA PREMIUM ======= */
-
-.pro-title {
-    position: relative;
-    display: inline-block;
-    font-weight: 700;
-
-    /* Cor base profissional */
-    color: transparent;
-    background: linear-gradient(87deg,
-            #48C337 20%,
-            #1F2A7F 70%,
-            #48C337 20%);
-
-
-    background-size: 200% 200%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-
-    /* Animação suave e elegante */
-    animation: proShift 5s ease-in-out infinite;
-
-    /* Renderização premium */
-    filter: drop-shadow(0 0 5px rgba(80, 70, 190, 0.12));
-    letter-spacing: 0.5px;
+/* ======= TÍTULO ======= */
+/* titulo */
+.titulo-container {
+    text-align: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #222A3F;
+    /* mesma vibe da imagem */
+    margin-bottom: 24px;
 }
 
-/* brilho holográfico profissional */
-.pro-title::after {
+/* palavras Meta + tup estilizadas */
+.titulo-metatup {
+    font-size: 48px;
+    /* GRANDE, igual da imagem */
+    font-weight: 800;
+    /* Letras fortes */
+    color: #E2E8F0;
+    /* Meta = branco suave */
+    letter-spacing: 1px;
+}
+
+/* cor da palavra "tup" */
+.titulo-metatup span {
+    color: #48C337;
+    /* verde usado no seu layout */
+}
+
+/* subtítulo */
+.subtitulo {
+    margin-top: 6px;
+    font-size: 14px;
+    color: #8b949e;
+}
+
+
+/* button de div minha meta meus deposito calculadora */
+/* button de minhas metas*/
+.meta-tab::before {
     content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
 
-    background: linear-gradient(135deg,
-            rgba(255, 255, 255, 0.15) 0%,
-            rgba(255, 255, 255, 0.0) 40%);
-    opacity: 0.25;
-
-    mix-blend-mode: screen;
-    animation: proGlow 4s ease-in-out infinite;
+    background-image: url("https://icons.iconarchive.com/icons/github/octicons/24/goal-24-icon.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
-/* ==== animação premium ==== */
-@keyframes proShift {
-    0% {
-        background-position: 0% 50%;
-    }
-
-    50% {
-        background-position: 100% 50%;
-    }
-
-    100% {
-        background-position: 0% 50%;
-    }
+/* ÍCONE FICA BRANCO NO ACTIVE */
+.tab-button.active.meta-tab::before {
+    filter: brightness(0) invert(1);
 }
 
-@keyframes proGlow {
-    0% {
-        opacity: 0.18;
-    }
 
-    50% {
-        opacity: 0.32;
-    }
+/* button de meus depósitos */
 
-    100% {
-        opacity: 0.18;
-    }
+.tab-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 10px;
+    background: transparent;
+    color: #dfe6ee;
+    border: none;
+    cursor: pointer;
 }
 
-/* novo sistemas */
-.titulo-header {
-    font-size: 28px;
-    font-weight: 700;
-    background: linear-gradient(90deg, #1F2A7F, #48C337);
+/* INATIVO */
+.inactive-tab {
+    opacity: 0.6;
+}
 
-    /* Compatibilidade total */
-    -webkit-background-clip: text;
-    /* Safari / Chrome */
-    background-clip: text;
-    /* padrão */
-    color: transparent;
-    /* padrão */
-    -webkit-text-fill-color: transparent;
-    /* Safari */
+/* ATIVO */
+.tab-button.active {
+    background: #1F2A7F;
+    color: #fff;
+    opacity: 1;
+}
+
+/* ==================================
+   ÍCONE PNG — Meus Depósitos
+   ================================== */
+.depositos-tab::before {
+    content: "";
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+
+    background-image: url("https://icons.iconarchive.com/icons/iconoir-team/iconoir/24/safe-arrow-left-icon.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* ÍCONE FICA BRANCO NO ACTIVE */
+.tab-button.active.depositos-tab::before {
+    filter: brightness(0) invert(1);
+}
+
+/* button de calculadora */
+/* ==================================
+   ÍCONE PNG — Calculadora
+   ================================== */
+.calculadora-tab::before {
+    content: "";
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+
+    background-image: url("https://icons.iconarchive.com/icons/pictogrammers/material/24/calculator-variant-icon.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* ÍCONE FICA BRANCO NO ACTIVE */
+.tab-button.active.calculadora-tab::before {
+    filter: brightness(0) invert(1);
 }
 
 /* novo sistema */

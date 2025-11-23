@@ -21,16 +21,15 @@
     ============================================================ -->
     <div class="max-w-xl mx-auto container-bg rounded-xl shadow-2xl p-6 sm:p-8">
       <!-- ===================== CABEÇALHO ===================== -->
-      <header
-        class="text-center mb-6 border-b border-[var(--border-color)] pb-4"
-      >
-      
-        <h1 class="text-2xl font-bold mb-1 pro-title">Metatup</h1>
+  <header class="titulo-container">
+    <h1 class="titulo-metatup">
+        Meta<span>tup</span>
+    </h1>
 
-        <p class="text-sm text-[#8b949e]">
-          Acompanhe seu progresso e suas metas financeiras
-        </p>
-      </header>
+    <p class="subtitulo">
+        Acompanhe seu progresso e suas metas financeiras
+    </p>
+</header>
 
       <!-- ===================== ABAS ===================== -->
       <div class="flex justify-center mb-6">
@@ -38,13 +37,18 @@
           id="tab-buttons-container"
           class="flex p-1 rounded-xl bg-[var(--bg-principal)]"
         >
-          <button class="tab-button active" data-tab="meta">Minha Meta</button>
-          <button class="tab-button inactive-tab ml-2" data-tab="depositos">
-            Meus Depósitos
-          </button>
-          <button class="tab-button inactive-tab ml-2" data-tab="calculadora">
-            Calculadora
-          </button>
+          <button class="tab-button inactive-tab meta-tab" data-tab="meta">
+    Minha Meta
+</button>
+
+         <button class="tab-button inactive-tab ml-2 depositos-tab" data-tab="depositos">
+    Meus Depósitos
+</button>
+
+          <button class="tab-button inactive-tab ml-2 calculadora-tab" data-tab="calculadora">
+    Calculadora
+</button>
+
         </div>
       </div>
 
@@ -583,10 +587,7 @@
 <hr class="divider-gradient">
 <!-----versão----->
 <div class="version-sample">
-  <h5 class="version-text">Versão 2.2.26# meta_2025
-
-versão do sst 2.2.26v
-controle de CDG 30.20V
+  <h5 class="version-text">
  
  versão em testes</h5>
 
