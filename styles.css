@@ -848,108 +848,115 @@ input::placeholder {
 
 
 /* button de div minha meta meus deposito calculadora */
-/* =======================================================
-   BOTÕES — RESPONSIVOS + SUPORTE UNIVERSAL
-======================================================= */
+/* ---------------------------
+   CONTAINER DAS ABAS
+---------------------------- */
+.tabs-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    width: 100%;
+    padding: 10px 0;
+}
 
+/* ---------------------------
+   BOTÃO BASE
+---------------------------- */
 .tab-button {
     display: flex;
     align-items: center;
+    gap: 8px;
 
-    /* Espaçamento do texto e ícone responsivo */
-    gap: clamp(4px, 1vw, 12px);
-
-    /* Padding responsivo */
-    padding: clamp(6px, 1.2vw, 12px) clamp(10px, 2vw, 20px);
-
-    font-size: clamp(13px, 2vw, 16px);
+    padding: 10px 18px;
+    font-size: 15px;
     font-weight: 600;
 
-    border-radius: 10px;
-    background: transparent;
-    color: #dfe6ee;
     border: none;
+    border-radius: 10px;
+
+    background: rgba(255, 255, 255, 0.08);
+    /* discreto e moderno */
+    color: #dfe6ee;
+
     cursor: pointer;
-
-    white-space: nowrap;
-    -webkit-user-select: none;
-    user-select: none;
-    -webkit-tap-highlight-color: transparent;
+    transition: 0.25s;
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(6px);
+    /* efeito vidro */
 }
 
-/* Estado inativo */
+/* HOVER (qualquer navegador) */
+.tab-button:hover {
+    background: rgba(255, 255, 255, 0.14);
+}
+
+/* ---------------------------
+   ABA INATIVA (MELHORADA)
+---------------------------- */
 .inactive-tab {
-    opacity: 0.6;
+    opacity: 0.7;
 }
 
-/* Estado ativo */
+/* ---------------------------
+   ABA ATIVA
+---------------------------- */
 .tab-button.active {
     background: #1F2A7F;
     color: #fff;
     opacity: 1;
+    transform: translateY(-1px);
+    box-shadow: 0 0 10px rgba(31, 42, 127, 0.4);
 }
 
-/* =======================================================
-   ÍCONES PNG UNIVERSAIS — COMPLETO + RESPONSIVO
-======================================================= */
+/* ---------------------------
+   ÍCONES (PADRÃO)
+---------------------------- */
 .tab-button::before {
     content: "";
-    display: inline-block;
-
-    /* Ícone escala automaticamente */
-    width: clamp(18px, 5vw, 28px);
-    height: clamp(18px, 5vw, 28px);
-
+    width: 22px;
+    height: 22px;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-
-    flex-shrink: 0;
 }
 
-/* =======================
-   ÍCONE — Minha Meta
-======================= */
+/* Minha Meta */
 .meta-tab::before {
     background-image: url("https://icons.iconarchive.com/icons/github/octicons/24/goal-24-icon.png");
 }
 
-.tab-button.active.meta-tab::before {
-    filter: brightness(0) invert(1);
-}
-
-/* =======================
-   ÍCONE — Meus Depósitos
-======================= */
+/* Meus Depósitos */
 .depositos-tab::before {
     background-image: url("https://icons.iconarchive.com/icons/iconoir-team/iconoir/24/safe-arrow-left-icon.png");
 }
 
-.tab-button.active.depositos-tab::before {
-    filter: brightness(0) invert(1);
-}
-
-/* =======================
-   ÍCONE — Calculadora
-======================= */
+/* Calculadora */
 .calculadora-tab::before {
     background-image: url("https://icons.iconarchive.com/icons/pictogrammers/material/24/calculator-variant-icon.png");
 }
 
-.tab-button.active.calculadora-tab::before {
+/* DEIXAR ÍCONE BRANCO QUANDO ATIVO */
+.tab-button.active::before {
     filter: brightness(0) invert(1);
 }
 
-/* =======================================================
-   EXTRA — Ajuste fino para telas muito pequenas
-======================================================= */
 
-@media (max-width: 360px) {
+/* ---------------------------
+   SUPER RESPONSIVO
+---------------------------- */
+@media (max-width: 480px) {
     .tab-button {
-        gap: 4px;
+        flex: 1;
+        justify-content: center;
+        padding: 10px 8px;
+        font-size: 14px;
+    }
+
+    .tab-button::before {
+        width: 20px;
+        height: 20px;
     }
 }
-
 
 
 /* novo sistema */
