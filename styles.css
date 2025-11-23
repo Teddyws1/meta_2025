@@ -63,8 +63,8 @@ body {
 
 /* butão de adicinar */
 .primary-button {
-    background-color: var(--azul-tab);
-    box-shadow: 0 4px 6px -1px #1f397f;
+    background-color: #48C337;
+    box-shadow: 0 2px 9px -1px #238636;
     transition: opacity 0.2s, transform 0.2s;
 }
 
@@ -131,9 +131,8 @@ body {
     left: 50%;
     width: 0;
     height: 2px;
-    background: #383783;
+    background-image: linear-gradient(23deg, #48C337 22%, #249618);
     border-radius: 4px;
-
     /* transform compatível */
     -webkit-transform: translateX(-50%);
     transform: translateX(-50%);
@@ -156,6 +155,7 @@ body {
 /* TOQUE MOBILE (Chrome Mobile) */
 .tab-button.active:active::after {
     width: 70%;
+    
 }
 
 /* clique suave */
@@ -384,7 +384,7 @@ abbr:hover::after {
     bottom: 130%;
     left: 50%;
     transform: translateX(-50%);
-    background: #1F2A7F;
+    background: #7f1f44;
     color: #fff;
     padding: 8px 12px;
     border-radius: 6px;
@@ -739,15 +739,16 @@ input::placeholder {
    ===================================================================== */
 /*cor de fundo botão de EDITAR METAS */
 .btn-edit-goal {
-    width: 40%;
-    padding: 0.5rem 0;
+    width: 32%;
+    padding: 0.4rem 0;
     font-weight: bold;
     color: white;
     border-radius: 0.5rem;
-    background-color: #383783;
+    background-color: #48C337;
     cursor: pointer;
-    transition: opacity 0.2s;
-
+    font-size: 104%;
+    box-shadow: 0 2px 9px -1px #238636;
+    transition: opacity 0.2s, transform 0.2s;
 }
 
 /* cor de fundo ao passa mouse em cima do botão de edita meta */
@@ -857,6 +858,7 @@ input::placeholder {
     gap: 12px;
     width: 100%;
     padding: 10px 0;
+    
 }
 
 /* ---------------------------
@@ -901,11 +903,12 @@ input::placeholder {
    ABA ATIVA
 ---------------------------- */
 .tab-button.active {
-    background: #1F2A7F;
+    background: #48C337;
     color: #fff;
     opacity: 1;
     transform: translateY(-1px);
-    box-shadow: 0 0 10px rgba(31, 42, 127, 0.4);
+    box-shadow: 0 0 10px #238636;
+    
 }
 
 /* ---------------------------
