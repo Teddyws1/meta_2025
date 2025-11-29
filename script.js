@@ -741,9 +741,96 @@ overlay.addEventListener("click", () => {
 });
 
 //bloqueio de zoom
+// no-zoom.js
+// Sistema para tentar bloquear zoom (desktop + mobile)
+
+// 1) bloquear Ctrl + roda do mouse (wheel + ctrl)
+document.addEventListener('wheel', function(e) {
+  if (e.ctrlKey) {
+    e.preventDefault();
+  }
+}, { passive: false });
+
+// 2) bloquear teclas de zoom no teclado (Ctrl + + / - / 0) e Ctrl + Scroll em trackpad
+document.addEventListener('keydown', function(e) {
+  // algumas variações de teclas: '+' pode ser '=' com shift em muitos teclados
+  const isCtrl = e.ctrlKey || e.metaKey; // metaKey para Mac (cmd)
+  if (!isCtrl) return;
+
+  const forbidden = [
+    '+', // some layouts
+    '=', // plus
+    '-', 
+    '0'
+  ];
+
+  // e.key pode ser '+' '/'=' '-' '0' ou 'Equal'/'NumpadAdd' etc.
+  if (forbidden.includes(e.key) || e.key === 'NumpadAdd' || e.key === 'NumpadSubtract' || e.key === 'Equal') {
+    e.preventDefault();
+  }
+}, { passive: false });
+
+// 3) bloquear gesto de pinça (touch pinch) - detecta mudança de scale em touchmove (quando disponível)
+document.addEventListener('touchmove', function(e) {
+  // alguns navegadores expõem e.scale em eventos touchmove (WebKit)
+  if (e.scale && e.scale !== 1) {
+    e.preventDefault();
+  }
+
+  // se houver mais de 1 toque (dois dedos) e distância variar rapidamente -> prevenir
+  if (e.touches && e.touches.length > 1) {
+    e.preventDefault();
+  }
+}, { passive: false });
+
+// 4) bloquear double-tap que dá zoom
+let lastTouchEnd = 0;
+document.addEventListener('touchend', function(e) {
+  const now = Date.now();
+  if (now - lastTouchEnd <= 300) {
+    e.preventDefault();
+  }
+  lastTouchEnd = now;
+}, { passive: false });
+
+// 5) bloquear gesturestart (Safari iOS)
+document.addEventListener('gesturestart', function(e) {
+  e.preventDefault();
+}, { passive: false });
+
+// 6) prevenção extra: impedir zoom por "pinch" via pointer events (quando aplicável)
+if (window.PointerEvent) {
+  let pointers = new Map();
+
+  window.addEventListener('pointerdown', e => {
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+  });
+
+  window.addEventListener('pointermove', e => {
+    if (pointers.size > 1) {
+      // se houver múltiplos pointers, prevenimos comportamento para evitar pinch
+      e.preventDefault();
+    }
+  }, { passive: false });
+
+  window.addEventListener('pointerup', e => {
+    pointers.delete(e.pointerId);
+  });
+
+  window.addEventListener('pointercancel', e => {
+    pointers.delete(e.pointerId);
+  });
+}
+
+// 7) fallback: impedir zoom via dblclick (alguns navegadores)
+document.addEventListener('dblclick', function(e) {
+  if (e.target) {
+    e.preventDefault();
+  }
+}, { passive: false });
+
+// Info no console (opcional)
+console.log('[no-zoom.js] Sistema de prevenção de zoom inicializado');
 
 
 //sistema novo
-if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("/meta_2025/service-worker.js");
-}

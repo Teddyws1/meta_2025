@@ -38,6 +38,7 @@ body {
     background-color: rgba(22, 27, 34, 0.95);
     -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
+
 }
 
 
@@ -319,7 +320,7 @@ body {
     max-width: 420px;
     padding: 25px;
     background-color: #1f2a7fa1;
-    
+
     /* sólido (100% compatível) */
     border-radius: 14px;
     box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
@@ -962,4 +963,16 @@ input::placeholder {
 }
 
 
-/* novo sistema */
+/* versãodo modalll */
+.versao-box {
+    color: white;
+    opacity: 0.4;
+    /* Agora relativo ao modal */
+    position: absolute;
+    /* Encostado à esquerda */
+    left: 8px;
+    /* Encostado no fundo */
+    bottom: 1px;
+    /* tamanho da fonte */
+    font-size: 10px;
+}

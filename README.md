@@ -1,6 +1,6 @@
 # meta_2025
 
-versão do sst 2.2.29v
+versão do sst 2.2.31v
 controle de CDG 31.80V
  
  versão em testes

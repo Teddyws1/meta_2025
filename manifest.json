@@ -1,7 +1,7 @@
 {
   "name": "Metatup 2025",
   "short_name": "Metatup 2025",
-  "version": "2.2.30",
+  "version": "2.2.31",
   "start_url": "https://teddyws1.github.io/meta_2025/",
   "scope": "./",
   "display": "standalone",
