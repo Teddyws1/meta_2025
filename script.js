@@ -740,4 +740,30 @@ overlay.addEventListener("click", () => {
   overlay.classList.remove("show");
 });
 
-//novo sistema
+//bloqueio de zoom
+
+// --- Bloqueia zoom por scroll + CTRL (desktop) ---
+document.addEventListener('wheel', function (e) {
+  if (e.ctrlKey) {
+    e.preventDefault();
+  }
+}, { passive: false });
+
+// --- Bloqueia zoom por gestos de pinça (mobile) ---
+document.addEventListener('touchmove', function (e) {
+  if (e.scale !== undefined && e.scale !== 1) {
+    e.preventDefault();
+  }
+}, { passive: false });
+
+// --- Bloqueia zoom por duplo toque (mobile) ---
+let lastTouchEnd = 0;
+document.addEventListener('touchend', function (e) {
+  const now = Date.now();
+  if (now - lastTouchEnd <= 300) {
+    e.preventDefault();
+  }
+  lastTouchEnd = now;
+}, { passive: false });
+
+//sistema novo
