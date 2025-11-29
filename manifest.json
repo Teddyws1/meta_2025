@@ -1,21 +1,23 @@
 {
   "name": "Metatup",
   "short_name": "Metatup",
-  "start_url": "/",
-  "scope": "/",
+  "start_url": "https://teddyws1.github.io/meta_2025/",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#000000",
   "icons": [
     {
-      "src": "/imgs/img_logo_sem__fundo_favicon/android-chrome-192x192.png",
+      "src": "https://teddyws1.github.io/meta_2025/imgs/img_logo_sem__fundo_favicon/android-chrome-192x192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
-      "src": "/imgs/img_logo_sem__fundo_favicon/android-chrome-512x512.png",
+      "src": "https://teddyws1.github.io/meta_2025/imgs/img_logo_sem__fundo_favicon/android-chrome-512x512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     }
   ]
 }
