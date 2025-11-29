@@ -10,7 +10,7 @@
 
     /* Cores principais */
     --green-primary: #238636;
-    --green-dark: #48C337;
+    --green-dark: #48C337;  
     --azul-tab: #1F2A7F;
 
     /* Calculadora */
@@ -103,12 +103,12 @@ body {
 
 .tab-button.active {
     position: relative;
-    padding: 10px 18px;
+    padding: 10px 8px;
     background: transparent;
     color: #fff;
     border: none;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 14px;
     border-radius: 8px;
 
     /* Fix Chrome Mobile */
@@ -237,11 +237,11 @@ body {
 .version-sample .beta-text {
     font-size: 0.65rem;
     font-weight: 700;
-    color: #facc15;
-    background: #1f2937;
+    color: #ffffff;
+    background: #48C337;
     padding: 2px 6px;
     border-radius: 5px;
-    border: 1px solid #fbbf24;
+    border: 1px solid #0f1a61;
     letter-spacing: 0.4px;
     margin: 0;
     white-space: nowrap;
