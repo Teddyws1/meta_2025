@@ -442,6 +442,12 @@ Sem descrição	Editar Excluir */
 #deposit-date {
     color: #ffffff;
     text-align: center;
+    
+}
+.custom-input::-webkit-calendar-picker-indicator {
+    filter: invert(1); /* deixa branco no modo escuro */
+    opacity: 0.7;
+    cursor: pointer;
 }
 
 /*inout de valor R$0.00*/

@@ -833,7 +833,7 @@ document.addEventListener('dblclick', function(e) {
 console.log('[no-zoom.js] Sistema de prevenção de zoom inicializado');
 
 
-//sistema novo
+//sistema scroll
 //--------------------------------------------------
 // ROLAGEM SUAVE UNIVERSAL (MOUSE + TOUCH)
 //--------------------------------------------------
@@ -904,3 +904,6 @@ window.addEventListener("touchmove", (e) => {
 window.addEventListener("touchend", () => {
     isTouching = false;
 });
+
+//sistema novo
+
