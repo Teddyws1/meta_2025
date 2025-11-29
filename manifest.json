@@ -5,8 +5,8 @@
   "start_url": "https://teddyws1.github.io/meta_2025/",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#1F2A7F",
-  "theme_color": "#1F2A7F",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
   "icons": [
     {
       "src": "https://teddyws1.github.io/meta_2025/imgs/img_logo_sem__fundo_favicon/android-chrome-192x192.png",

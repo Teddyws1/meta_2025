@@ -970,7 +970,6 @@ input::placeholder {
     position: absolute;
     left: 8px;
     bottom: 1px;
-
     font-size: 12px;                       /* funciona em todos */
     line-height: 1.2;                      /* evita corte do texto */
     font-family: Arial, Helvetica, sans-serif; /* universal */
