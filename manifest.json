@@ -5,17 +5,22 @@
   "start_url": "https://teddyws1.github.io/meta_2025/",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#ffffff",
+  "background_color": "#000000",
+  "theme_color": "#000000",
   "icons": [
     {
-      "src": "https://teddyws1.github.io/meta_2025/imgs/img_logo_sem__fundo_favicon/android-chrome-192x192.png",
-      "sizes": "192x192",
+      "src": "https://i.postimg.cc/x1qKFqQ4/Gemini-Generated-Image-cc4mbfcc4mbfcc4m.png",
+      "sizes": "512x512",
       "type": "image/png"
     },
     {
-      "src": "https://teddyws1.github.io/meta_2025/imgs/img_logo_sem__fundo_favicon/android-chrome-512x512.png",
-      "sizes": "512x512",
+      "src": "https://i.postimg.cc/x1qKFqQ4/Gemini-Generated-Image-cc4mbfcc4mbfcc4m.png",
+      "sizes": "1024x1024",
+      "type": "image/png"
+    },
+    {
+      "src": "https://i.postimg.cc/x1qKFqQ4/Gemini-Generated-Image-cc4mbfcc4mbfcc4m.png",
+      "sizes": "2048x2048",
       "type": "image/png"
     }
   ]
