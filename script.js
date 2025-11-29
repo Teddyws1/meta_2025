@@ -834,3 +834,73 @@ console.log('[no-zoom.js] Sistema de prevenção de zoom inicializado');
 
 
 //sistema novo
+//--------------------------------------------------
+// ROLAGEM SUAVE UNIVERSAL (MOUSE + TOUCH)
+//--------------------------------------------------
+
+const SCROLL_SPEED = 80;     // Ajuste a velocidade da rolagem
+const DURATION = 400;        // Tempo da animação
+
+let targetScroll = window.scrollY;
+let isTouching = false;
+let lastTouchY = 0;
+
+// Easing para suavidade
+function ease(t) {
+    return t < 0.5
+        ? 4 * t * t * t
+        : 1 - Math.pow(-2 * t + 2, 3) / 2;
+}
+
+// Animação suave sincronizada com 60/120/144Hz
+function animateScroll() {
+    const current = window.scrollY;
+    const diff = targetScroll - current;
+
+    if (Math.abs(diff) > 1) {
+        window.scrollTo(0, current + diff * 0.12); // suavização
+        requestAnimationFrame(animateScroll);
+    }
+}
+
+//--------------------------------------------------
+// 1️⃣ Suavizar SCROLL DO MOUSE (rodinha)
+//--------------------------------------------------
+window.addEventListener("wheel", (e) => {
+    e.preventDefault(); // impede o scroll padrão
+
+    targetScroll += e.deltaY > 0 ? SCROLL_SPEED : -SCROLL_SPEED;
+
+    targetScroll = Math.max(0, Math.min(targetScroll, document.body.scrollHeight - window.innerHeight));
+
+    requestAnimationFrame(animateScroll);
+}, { passive: false });
+
+
+//--------------------------------------------------
+// 2️⃣ Suavizar SCROLL COM O DEDO (touch move)
+//--------------------------------------------------
+window.addEventListener("touchstart", (e) => {
+    isTouching = true;
+    lastTouchY = e.touches[0].clientY;
+}, { passive: true });
+
+window.addEventListener("touchmove", (e) => {
+    if (!isTouching) return;
+
+    let currentY = e.touches[0].clientY;
+    let delta = lastTouchY - currentY; // valor da rolagem
+
+    targetScroll += delta; 
+
+    targetScroll = Math.max(0, Math.min(targetScroll, document.body.scrollHeight - window.innerHeight));
+
+    lastTouchY = currentY;
+
+    e.preventDefault(); // impede scroll padrão
+    requestAnimationFrame(animateScroll);
+}, { passive: false });
+
+window.addEventListener("touchend", () => {
+    isTouching = false;
+});
