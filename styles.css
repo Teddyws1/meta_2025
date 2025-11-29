@@ -965,14 +965,13 @@ input::placeholder {
 
 /* versãodo modalll */
 .versao-box {
-    color: white;
+    color: #ffffff;
     opacity: 0.4;
-    /* Agora relativo ao modal */
     position: absolute;
-    /* Encostado à esquerda */
     left: 8px;
-    /* Encostado no fundo */
     bottom: 1px;
-    /* tamanho da fonte */
-    font-size: 10px;
+
+    font-size: 12px;                       /* funciona em todos */
+    line-height: 1.2;                      /* evita corte do texto */
+    font-family: Arial, Helvetica, sans-serif; /* universal */
 }
