@@ -1,4 +1,3 @@
-
 // --- Referências DOM PRINCIPAIS ---
 const goalAmountInput = document.getElementById("goal-amount");
 const goalDescriptionInput = document.getElementById("goal-description");
@@ -115,7 +114,9 @@ const toggleGoalEdit = (isEditing) => {
     // Depois: data limite
     if (currentDeadline) {
       // adiciona separador apenas se já tiver texto antes
-      deadlineText += (deadlineText ? " | " : "") + `Data de fim: ${formatDate(currentDeadline)}`;
+      deadlineText +=
+        (deadlineText ? " | " : "") +
+        `Data de fim: ${formatDate(currentDeadline)}`;
     } else {
       // sem data limite
       deadlineText += (deadlineText ? " | " : "") + "Prazo não definido";
@@ -123,7 +124,6 @@ const toggleGoalEdit = (isEditing) => {
 
     // Mantém exatamente como estava:
     displayGoalDeadline.textContent = deadlineText;
-
   }
 };
 
@@ -236,16 +236,18 @@ const renderDeposits = () => {
     const row = depositsList.insertRow();
     row.innerHTML = `
             <td>${formatDate(
-      dep.date
-    )}<br><span class="text-xs text-[#8b949e]">${dep.time || "--:--"
-      }</span></td>
+              dep.date
+            )}<br><span class="text-xs text-[#8b949e]">${
+      dep.time || "--:--"
+    }</span></td>
             <td>
                 <span class="value-saved font-bold">${formatCurrency(
-        dep.amount
-      )}</span>
+                  dep.amount
+                )}</span>
                 <br>
-                <span class="text-xs text-[#8b949e]">${dep.description || "Sem descrição"
-      }</span>
+                <span class="text-xs text-[#8b949e]">${
+                  dep.description || "Sem descrição"
+                }</span>
             </td>
             <td>
                 <button onclick="openEditModal(${index})" class="text-blue-400 hover:text-blue-300 text-sm font-semibold mr-2">Editar</button>
@@ -482,8 +484,8 @@ const renderHistory = () => {
       historyItem.className = "history-item";
       historyItem.innerHTML = `
             <div class="history-expression">${item.expression
-          .replace(/\*/g, "x")
-          .replace(/\//g, "÷")}</div>
+              .replace(/\*/g, "x")
+              .replace(/\//g, "÷")}</div>
             <div class="history-result">= ${item.result}</div>
         `;
       historyItem.onclick = () => {
@@ -503,7 +505,6 @@ const clearHistory = () => {
     showSuccessMessage("Histórico de cálculos apagado!");
   }
 };
-
 
 // --- Lógica da Calculadora ---
 
@@ -745,92 +746,274 @@ overlay.addEventListener("click", () => {
 // Sistema para tentar bloquear zoom (desktop + mobile)
 
 // 1) bloquear Ctrl + roda do mouse (wheel + ctrl)
-document.addEventListener('wheel', function(e) {
-  if (e.ctrlKey) {
-    e.preventDefault();
-  }
-}, { passive: false });
+document.addEventListener(
+  "wheel",
+  function (e) {
+    if (e.ctrlKey) {
+      e.preventDefault();
+    }
+  },
+  { passive: false }
+);
 
 // 2) bloquear teclas de zoom no teclado (Ctrl + + / - / 0) e Ctrl + Scroll em trackpad
-document.addEventListener('keydown', function(e) {
-  // algumas variações de teclas: '+' pode ser '=' com shift em muitos teclados
-  const isCtrl = e.ctrlKey || e.metaKey; // metaKey para Mac (cmd)
-  if (!isCtrl) return;
+document.addEventListener(
+  "keydown",
+  function (e) {
+    // algumas variações de teclas: '+' pode ser '=' com shift em muitos teclados
+    const isCtrl = e.ctrlKey || e.metaKey; // metaKey para Mac (cmd)
+    if (!isCtrl) return;
 
-  const forbidden = [
-    '+', // some layouts
-    '=', // plus
-    '-', 
-    '0'
-  ];
+    const forbidden = [
+      "+", // some layouts
+      "=", // plus
+      "-",
+      "0",
+    ];
 
-  // e.key pode ser '+' '/'=' '-' '0' ou 'Equal'/'NumpadAdd' etc.
-  if (forbidden.includes(e.key) || e.key === 'NumpadAdd' || e.key === 'NumpadSubtract' || e.key === 'Equal') {
-    e.preventDefault();
-  }
-}, { passive: false });
+    // e.key pode ser '+' '/'=' '-' '0' ou 'Equal'/'NumpadAdd' etc.
+    if (
+      forbidden.includes(e.key) ||
+      e.key === "NumpadAdd" ||
+      e.key === "NumpadSubtract" ||
+      e.key === "Equal"
+    ) {
+      e.preventDefault();
+    }
+  },
+  { passive: false }
+);
 
 // 3) bloquear gesto de pinça (touch pinch) - detecta mudança de scale em touchmove (quando disponível)
-document.addEventListener('touchmove', function(e) {
-  // alguns navegadores expõem e.scale em eventos touchmove (WebKit)
-  if (e.scale && e.scale !== 1) {
-    e.preventDefault();
-  }
+document.addEventListener(
+  "touchmove",
+  function (e) {
+    // alguns navegadores expõem e.scale em eventos touchmove (WebKit)
+    if (e.scale && e.scale !== 1) {
+      e.preventDefault();
+    }
 
-  // se houver mais de 1 toque (dois dedos) e distância variar rapidamente -> prevenir
-  if (e.touches && e.touches.length > 1) {
-    e.preventDefault();
-  }
-}, { passive: false });
+    // se houver mais de 1 toque (dois dedos) e distância variar rapidamente -> prevenir
+    if (e.touches && e.touches.length > 1) {
+      e.preventDefault();
+    }
+  },
+  { passive: false }
+);
 
 // 4) bloquear double-tap que dá zoom
 let lastTouchEnd = 0;
-document.addEventListener('touchend', function(e) {
-  const now = Date.now();
-  if (now - lastTouchEnd <= 300) {
-    e.preventDefault();
-  }
-  lastTouchEnd = now;
-}, { passive: false });
+document.addEventListener(
+  "touchend",
+  function (e) {
+    const now = Date.now();
+    if (now - lastTouchEnd <= 300) {
+      e.preventDefault();
+    }
+    lastTouchEnd = now;
+  },
+  { passive: false }
+);
 
 // 5) bloquear gesturestart (Safari iOS)
-document.addEventListener('gesturestart', function(e) {
-  e.preventDefault();
-}, { passive: false });
+document.addEventListener(
+  "gesturestart",
+  function (e) {
+    e.preventDefault();
+  },
+  { passive: false }
+);
 
 // 6) prevenção extra: impedir zoom por "pinch" via pointer events (quando aplicável)
 if (window.PointerEvent) {
   let pointers = new Map();
 
-  window.addEventListener('pointerdown', e => {
+  window.addEventListener("pointerdown", (e) => {
     pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
   });
 
-  window.addEventListener('pointermove', e => {
-    if (pointers.size > 1) {
-      // se houver múltiplos pointers, prevenimos comportamento para evitar pinch
-      e.preventDefault();
-    }
-  }, { passive: false });
+  window.addEventListener(
+    "pointermove",
+    (e) => {
+      if (pointers.size > 1) {
+        // se houver múltiplos pointers, prevenimos comportamento para evitar pinch
+        e.preventDefault();
+      }
+    },
+    { passive: false }
+  );
 
-  window.addEventListener('pointerup', e => {
+  window.addEventListener("pointerup", (e) => {
     pointers.delete(e.pointerId);
   });
 
-  window.addEventListener('pointercancel', e => {
+  window.addEventListener("pointercancel", (e) => {
     pointers.delete(e.pointerId);
   });
 }
 
 // 7) fallback: impedir zoom via dblclick (alguns navegadores)
-document.addEventListener('dblclick', function(e) {
-  if (e.target) {
-    e.preventDefault();
-  }
-}, { passive: false });
+document.addEventListener(
+  "dblclick",
+  function (e) {
+    if (e.target) {
+      e.preventDefault();
+    }
+  },
+  { passive: false }
+);
 
 // Info no console (opcional)
-console.log('[no-zoom.js] Sistema de prevenção de zoom inicializado');
+console.log("[no-zoom.js] Sistema de prevenção de zoom inicializado");
 
-//sistema novo
+// ================== EXPORTAR / IMPORTAR DADOS ==================
 
+// Exportar tudo para arquivo
+const exportData = () => {
+  const data = {
+    goalAmount: currentGoal,
+    goalDescription: currentDescription,
+    goalDeadline: currentDeadline,
+    goalStartDate: currentStartDate,
+    deposits,
+    calcHistory: history,
+    exportedAt: new Date().toISOString(),
+    app: "MetaTup",
+  };
+
+  const blob = new Blob([JSON.stringify(data, null, 2)], {
+    type: "application/json",
+  });
+
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+
+  a.href = url;
+  a.download = "metatup-backup.json";
+  document.body.appendChild(a);
+  a.click();
+
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+
+  showSuccessMessage("Backup exportado com sucesso!");
+};
+
+// Importar dados do arquivo
+const importData = (event) => {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+
+  reader.onload = (e) => {
+    try {
+      const data = JSON.parse(e.target.result);
+
+      if (data.app !== "MetaTup") {
+        alert("Arquivo inválido para este sistema.");
+        return;
+      }
+
+      currentGoal = data.goalAmount || 0;
+      currentDescription = data.goalDescription || "";
+      currentDeadline = data.goalDeadline || "";
+      currentStartDate = data.goalStartDate || "";
+      deposits = data.deposits || [];
+      history = data.calcHistory || [];
+
+      saveData();
+      updateGoalUI();
+      renderHistory();
+      toggleGoalEdit(currentGoal === 0);
+
+      showSuccessMessage("Dados importados com sucesso!");
+    } catch (err) {
+      alert("Erro ao importar o arquivo.");
+    }
+  };
+
+  reader.readAsText(file);
+};
+
+// Torna global para o HTML
+window.exportData = exportData;
+window.importData = importData;
+
+//sisteam de json
+const MANIFEST_URL = "/manifest.json";
+const VERSION_KEY = "metatup_manifest_version";
+
+async function loadManifestAutoUpdate() {
+    try {
+        const response = await fetch(
+            `${MANIFEST_URL}?v=${Date.now()}`,
+            { cache: "no-store" }
+        );
+
+        const manifest = await response.json();
+
+        const savedVersion = localStorage.getItem(VERSION_KEY);
+
+        if (savedVersion !== manifest.version) {
+            console.log("🔄 Manifest atualizado:", manifest.version);
+            localStorage.setItem(VERSION_KEY, manifest.version);
+            applyManifestData(manifest);
+        } else {
+            applyManifestData(manifest);
+        }
+
+    } catch (err) {
+        console.error("Erro ao carregar manifest:", err);
+    }
+}
+
+
+function applyManifestData(manifest) {
+    /* Título */
+    document.title = manifest.name || "Metatup 2025";
+
+    /* Favicon */
+    if (manifest.icons && manifest.icons.length > 0) {
+        const icon = manifest.icons[0].src;
+
+        let favicon = document.querySelector("link[rel='icon']");
+        if (!favicon) {
+            favicon = document.createElement("link");
+            favicon.rel = "icon";
+            document.head.appendChild(favicon);
+        }
+        favicon.href = `${icon}?v=${Date.now()}`;
+    }
+
+    /* Meta theme color */
+    let themeMeta = document.querySelector("meta[name='theme-color']");
+    if (!themeMeta) {
+        themeMeta = document.createElement("meta");
+        themeMeta.name = "theme-color";
+        document.head.appendChild(themeMeta);
+    }
+    themeMeta.content = manifest.theme_color || "#ffffff";
+}
+if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("/sw.js").then(reg => {
+
+        if (reg.waiting) {
+            reg.waiting.postMessage("SKIP_WAITING");
+        }
+
+        reg.addEventListener("updatefound", () => {
+            const newWorker = reg.installing;
+
+            newWorker.addEventListener("statechange", () => {
+                if (newWorker.state === "installed" &&
+                    navigator.serviceWorker.controller) {
+
+                    console.log("🔄 Nova versão disponível");
+                    newWorker.postMessage("SKIP_WAITING");
+                    location.reload();
+                }
+            });
+        });
+    });
+}

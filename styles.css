@@ -10,7 +10,7 @@
 
     /* Cores principais */
     --green-primary: #238636;
-    --green-dark: #48C337;  
+    --verde-principal: #48C337;  
     --azul-tab: #1F2A7F;
 
     /* Calculadora */
@@ -312,32 +312,45 @@ body {
 
 /* fundo do modal */
 .modal-card {
+    /* Posicionamento */
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) scale(.8);
+    transform: translate(-50%, -50%) scale(0.8);
+
+    /* Dimensões */
     width: 90%;
     max-width: 420px;
     padding: 25px;
-    background-color: #1f2a7ff8;
 
-    /* sólido (100% compatível) */
+    /* Visual */
+    background-color: #48C337;
+    color: #ffffff;
+    font-size: 17.5px;
+    text-align: center;
     border-radius: 14px;
     box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+
+    /* Estado inicial (fechado) */
     opacity: 0;
     pointer-events: none;
-    transition: opacity .3s ease, transform .3s ease;
+
+    /* Animação */
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
+
+    /* Camada */
     z-index: 999;
-    color: #ffffff;
-    text-align: center;
 }
+
 
 .modal-card.show {
     opacity: 1;
     pointer-events: auto;
     transform: translate(-50%, -50%) scale(1);
-
 }
+
 
 /*fundo do BOTÃO FECHAR modal meta*/
 .close-btn {
@@ -348,13 +361,8 @@ body {
     border: none;
     font-size: 22px;
     cursor: pointer;
-    color: #270b8a;
+    color: #ffffff;
 
-}
-
-/* cor do buttom de fechar modal da meta */
-.close-btn:hover {
-    color: #1930db;
 }
 
 /* ======= TOOLTIP UNIVERSAL ======= */
@@ -385,7 +393,7 @@ abbr:hover::after {
     bottom: 130%;
     left: 50%;
     transform: translateX(-50%);
-    background: #1F2A7F;
+    background:var(--verde-principal);
     color: #fff;
     padding: 8px 12px;
     border-radius: 6px;
@@ -746,12 +754,13 @@ input::placeholder {
    ===================================================================== */
 /*cor de fundo botão de EDITAR METAS */
 .btn-edit-goal {
-    width: 32%;
+    width: 31%;
     padding: 0.4rem 0;
     font-weight: bold;
     color: white;
     border-radius: 0.5rem;
     background-color: #48C337;
+    text-align: center;
     cursor: pointer;
     font-size: 104%;
     box-shadow: 0 2px 9px -1px #238636;
@@ -984,4 +993,24 @@ input::placeholder {
     /* universal */
 }
 
-/* novo sistema  */
+/* aba lateral */
+/* ===============================
+   SIDEBAR (ABA LATERAL)
+================================ */
+
+/* Botão hamburguer */
+.sidebar-toggle {
+    position: fixed;
+    top: 0px;
+    left: -9px;
+    z-index: 1001;
+    font-size: 22px;
+    background: #48C337;
+    color: #fff;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+/* Sidebar */

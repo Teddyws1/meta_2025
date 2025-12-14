@@ -4,30 +4,27 @@
     <!-- ===================== META CONFIGURAÇÕES ===================== -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Metatup 2025</title>
+    <title>Meta_up 2025</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#000000">
-
-    <!-- ===================== TAILWIND ===================== -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#000000">
     <script src="https://cdn.tailwindcss.com"></script>
-<link rel="shortcut icon" href="imgs/img_logo_sem__fundo_favicon/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="imgs/img_logo_sem__fundo_favicon/favicon.ico" type="image/x-icon">
     <!-- ===================== ARQUIVOS EXTERNOS ===================== -->
     <link rel="stylesheet" href="styles.css" />
     <script src="script.js" defer></script>
   </head>
-
   <body class="p-4 sm:p-8">
-
-    <!-- ============================================================
-         CONTAINER PRINCIPAL 
-    ============================================================ -->
     <div class="max-w-xl mx-auto container-bg rounded-xl shadow-2xl p-6 sm:p-8">
       <!-- ===================== CABEÇALHO ===================== -->
   <header class="titulo-container">
+
+
+<!-- FUNDO ESCURO -->
+<div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
     <h1 class="titulo-metatup">
-        Meta<span>tup</span>
+        Meta<span>_up</span>
     </h1>
 
     <p class="subtitulo">
@@ -587,6 +584,26 @@
         </form>
       </div>
     </div>
+
+    <!----botão de Exportar/Importar ---->
+
+<div class="flex gap-3 mt-6 justify-center">
+  <button onclick="exportData()" class="btn-edit-goal">
+    Exportar Dados
+  </button>
+
+  <label class="btn-edit-goal">
+    Importar Dados
+    <input
+      type="file"
+      accept=".json"
+      onchange="importData(event)"
+      hidden
+    />
+  </label>
+</div>
+
+
     <!------divisoaria------>
 <hr class="divider-gradient">
 <!-----versão----->
@@ -610,9 +627,8 @@
     <p>“Esta é uma versão beta, portanto alguns bugs e erros podem ocorrer. Estamos em fase de desenvolvimento e pedimos a compreensão de todos.”
     </p>
     <div class="versao-box">
-    Versão: <span id="app-version">2.2.31</span>
+    Versão: <span id="app-version">3.3.32v</span>
 </div>
-
 </div>
 <!---novo sistema--->
 
