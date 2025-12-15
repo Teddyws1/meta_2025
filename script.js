@@ -1018,4 +1018,47 @@ if ("serviceWorker" in navigator) {
     });
 }
 
+const APP_VERSION = "2.2.32";
+
+const savedVersion = localStorage.getItem("app_version");
+
+if (savedVersion && savedVersion !== APP_VERSION) {
+  showUpdateBanner();
+}
+
+localStorage.setItem("app_version", APP_VERSION);
+
+function showUpdateBanner() {
+  const banner = document.createElement("div");
+  banner.innerHTML = `
+    <div style="
+      position:fixed;
+      bottom:20px;
+      left:50%;
+      transform:translateX(-50%);
+      background:#16a34a;
+      color:#fff;
+      padding:15px 20px;
+      border-radius:12px;
+      z-index:9999;
+      box-shadow:0 10px 30px rgba(0,0,0,.3);
+      text-align:center;
+    ">
+      🚀 Nova versão disponível<br>
+      Atualize para aplicar novo ícone e nome
+      <br><br>
+      <button onclick="location.reload()" style="
+        background:#fff;
+        color:#16a34a;
+        border:none;
+        padding:8px 14px;
+        border-radius:8px;
+        cursor:pointer;
+      ">Atualizar agora</button>
+    </div>
+  `;
+  document.body.appendChild(banner);
+}
+document.getElementById("dynamic-favicon").href =
+  "https://i.postimg.cc/445Fmtps/img-meta-up.png";
 
