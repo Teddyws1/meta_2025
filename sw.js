@@ -1,4 +1,4 @@
-const CACHE_NAME = "metaup-cache-v3";
+const CACHE_NAME = "metaup-cache-v4";
 const FILES_TO_IGNORE = [
     "manifest.json"
 ];
