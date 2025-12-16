@@ -1,4 +1,21 @@
-// --- Referências DOM PRINCIPAIS ---
+// ============================================================
+// VARIÁVEIS GLOBAIS E ESTADO
+// ============================================================
+
+let currentGoal = 0;
+let currentDescription = "";
+let currentDeadline = "";
+let currentStartDate = "";
+let deposits = [];
+let currentExpression = "0";
+let currentInput = "0";
+let history = [];
+
+// ============================================================
+// REFERÊNCIAS DOM
+// ============================================================
+
+// Meta
 const goalAmountInput = document.getElementById("goal-amount");
 const goalDescriptionInput = document.getElementById("goal-description");
 const goalDeadlineInput = document.getElementById("goal-deadline");
@@ -13,6 +30,7 @@ const displayGoalDescription = document.getElementById(
 const displayGoalDeadline = document.getElementById("display-goal-deadline");
 const goalSectionTitle = document.getElementById("goal-section-title");
 
+// Progresso
 const progressPercentDisplay = document.getElementById(
   "progress-percent-display"
 );
@@ -21,42 +39,54 @@ const savedAmountDisplayTop = document.getElementById(
 );
 const progressBarFill = document.getElementById("progress-bar-fill");
 const endLabel = document.getElementById("end-label");
+
+// Cards
 const metaTotalCard = document.getElementById("meta-total-card");
 const valorArrecadadoCard = document.getElementById("valor-arrecadado-card");
 const percentCompleteCard = document.getElementById("percent-complete-card");
 const valorRestanteCard = document.getElementById("valor-restante-card");
-
 const diasRestantesCard = document.getElementById("dias-restantes-card");
 const duracaoTotalCard = document.getElementById("duracao-total-card");
 
-// --- Referências DOM DEPÓSITO / MODAL ---
+// Depósitos
 const depositsList = document.getElementById("deposits-list");
 const depositForm = document.getElementById("deposit-form");
-const editModal = document.getElementById("edit-modal");
-const editForm = document.getElementById("edit-form");
 
-// --- Referências DOM CALCULADORA ---
+// Calculadora
 const calcDisplay = document.getElementById("calc-display");
 const calcExpression = document.getElementById("calc-expression");
 const calcHistoryList = document.getElementById("calc-history-list");
+
+// Abas
 const tabButtonsContainer = document.getElementById("tab-buttons-container");
 
-let currentExpression = "0";
-let currentInput = "0";
-let history = [];
+// Modais
+const editModal = document.getElementById("edit-modal");
+const editForm = document.getElementById("edit-form");
 
-// --- Estado Inicial (Usando LocalStorage) ---
-let currentGoal = 0;
-let currentDescription = "";
-let currentDeadline = "";
-let currentStartDate = "";
-let deposits = [];
+// Beta Modal
+const openBtn = document.getElementById("openCard");
+const closeBtn = document.getElementById("closeCard");
+const card = document.getElementById("card");
+const overlay = document.getElementById("overlay");
 
-// Função utilitária para formatar em moeda brasileira
+// ============================================================
+// FUNÇÕES UTILITÁRIAS
+// ============================================================
+
+/**
+ * Formata valor para moeda brasileira
+ * @param {number} amount - Valor a ser formatado
+ * @returns {string} Valor formatado em R$
+ */
 const formatCurrency = (amount) =>
   `R$ ${parseFloat(amount).toFixed(2).replace(".", ",")}`;
 
-// Função utilitária para formatar data (DD/MM/AAAA)
+/**
+ * Formata data para formato brasileiro
+ * @param {string} dateString - Data em formato ISO
+ * @returns {string} Data formatada DD/MM/AAAA
+ */
 const formatDate = (dateString) => {
   if (!dateString) return "--/--/----";
   const date = new Date(dateString);
@@ -66,6 +96,10 @@ const formatDate = (dateString) => {
   return new Intl.DateTimeFormat("pt-BR").format(offsetDate);
 };
 
+/**
+ * Retorna a hora atual formatada
+ * @returns {string} Hora no formato HH:MM
+ */
 const getCurrentTime = () => {
   const now = new Date();
   const hours = String(now.getHours()).padStart(2, "0");
@@ -73,12 +107,41 @@ const getCurrentTime = () => {
   return `${hours}:${minutes}`;
 };
 
-// --- Lógica de Bloqueio de Abas (AGORA REMOVIDA) ---
-const checkGoalAndControlTabs = (goalAmount) => {
-  // A lógica de bloqueio de abas foi desativada para que todas as abas abram livremente.
+/**
+ * Exibe mensagem de sucesso
+ * @param {string} message - Mensagem a ser exibida
+ */
+const showSuccessMessage = (message) => {
+  const messageElement = document.getElementById("success-message");
+
+  messageElement.querySelector("p").innerHTML = `
+    <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+    </svg>
+    ${message}
+  `;
+
+  messageElement.classList.remove("opacity-0", "pointer-events-none");
+  messageElement.classList.add("opacity-100");
+
+  setTimeout(() => {
+    messageElement.classList.remove("opacity-100");
+    messageElement.classList.add("opacity-0");
+
+    setTimeout(() => {
+      messageElement.classList.add("pointer-events-none");
+    }, 500);
+  }, 3000);
 };
 
-// --- Lógica de Alternância de Seção ---
+// ============================================================
+// FUNÇÕES DE META
+// ============================================================
+
+/**
+ * Alterna entre modo de edição e visualização da meta
+ * @param {boolean} isEditing - Se está editando ou visualizando
+ */
 const toggleGoalEdit = (isEditing) => {
   if (isEditing) {
     goalDisplaySection.classList.add("hidden");
@@ -105,32 +168,67 @@ const toggleGoalEdit = (isEditing) => {
       currentDescription || "Sem descrição definida.";
 
     let deadlineText = "";
-
-    // Primeiro: início
     if (currentStartDate) {
       deadlineText = `Início: ${formatDate(currentStartDate)}`;
     }
-
-    // Depois: data limite
     if (currentDeadline) {
-      // adiciona separador apenas se já tiver texto antes
       deadlineText +=
         (deadlineText ? " | " : "") +
         `Data de fim: ${formatDate(currentDeadline)}`;
     } else {
-      // sem data limite
       deadlineText += (deadlineText ? " | " : "") + "Prazo não definido";
     }
 
-    // Mantém exatamente como estava:
     displayGoalDeadline.textContent = deadlineText;
   }
 };
 
-// --- Lógica de Cálculo de Prazo e Duração ---
+/**
+ * Salva a meta definida pelo usuário
+ */
+const saveGoal = () => {
+  const newGoalAmount = parseFloat(goalAmountInput.value);
+  const newGoalDescription = goalDescriptionInput.value.trim();
+  const newGoalDeadline = goalDeadlineInput.value;
+  const newGoalStartDate = goalStartDateInput.value;
+
+  if (isNaN(newGoalAmount) || newGoalAmount <= 0) {
+    alert("Por favor, insira um valor de meta válido (maior que zero).");
+    return;
+  }
+  if (
+    newGoalStartDate &&
+    newGoalDeadline &&
+    new Date(newGoalStartDate) >= new Date(newGoalDeadline)
+  ) {
+    alert("A Data de Início deve ser anterior à Data Limite.");
+    return;
+  }
+
+  currentGoal = newGoalAmount;
+  currentDescription = newGoalDescription;
+  currentDeadline = newGoalDeadline;
+  currentStartDate = newGoalStartDate;
+
+  saveData();
+  updateGoalUI();
+  toggleGoalEdit(false);
+
+  alert(`Meta atualizada para ${formatCurrency(newGoalAmount)} com sucesso!`);
+};
+
+// ============================================================
+// FUNÇÕES DE CÁLCULO DE PRAZO
+// ============================================================
+
+/**
+ * Calcula e exibe dias restantes e duração total
+ * @param {number} remainingAmount - Valor restante da meta
+ */
 const calculateDeadline = (remainingAmount) => {
   const ONE_DAY = 1000 * 60 * 60 * 24;
 
+  // Calcula duração total
   let totalDuration = "--";
   if (currentStartDate && currentDeadline) {
     const start = new Date(currentStartDate).getTime();
@@ -140,6 +238,7 @@ const calculateDeadline = (remainingAmount) => {
   }
   duracaoTotalCard.textContent = totalDuration;
 
+  // Calcula dias restantes
   if (!currentDeadline || currentGoal === 0) {
     diasRestantesCard.textContent = "--";
     return;
@@ -160,7 +259,7 @@ const calculateDeadline = (remainingAmount) => {
 
   diasRestantesCard.textContent = diffDays;
 
-  // Estilização do card Dias Restantes
+  // Estilização baseada nos dias restantes
   diasRestantesCard.classList.remove(
     "text-red-600",
     "text-yellow-400",
@@ -175,23 +274,28 @@ const calculateDeadline = (remainingAmount) => {
   }
 };
 
-// --- Lógica Principal: Cálculo e Atualização da UI ---
+// ============================================================
+// FUNÇÕES DE ATUALIZAÇÃO DA INTERFACE
+// ============================================================
+
+/**
+ * Atualiza toda a interface com base nos dados atuais
+ */
 const updateGoalUI = () => {
   const savedTotal = deposits.reduce((sum, dep) => sum + dep.amount, 0);
   const remaining = Math.max(0, currentGoal - savedTotal);
   let percentage = currentGoal > 0 ? (savedTotal / currentGoal) * 100 : 0;
-
   const visualPercentage = Math.min(100, percentage);
 
-  // 1. Atualiza Labels
+  // Atualiza labels
   endLabel.textContent = formatCurrency(currentGoal);
   toggleGoalEdit(currentGoal === 0);
 
-  // 2. Atualiza Barra de Progresso
+  // Atualiza barra de progresso
   progressBarFill.style.width = `${visualPercentage}%`;
   progressPercentDisplay.textContent = `${percentage.toFixed(1)}%`;
 
-  // 3. Atualiza Cards de Detalhes
+  // Atualiza cards
   savedAmountDisplayTop.textContent = `Arrecadado: ${formatCurrency(
     savedTotal
   )}`;
@@ -200,6 +304,7 @@ const updateGoalUI = () => {
   percentCompleteCard.textContent = `${percentage.toFixed(1)}%`;
   valorRestanteCard.textContent = formatCurrency(remaining);
 
+  // Estiliza barra de progresso
   if (visualPercentage >= 100) {
     progressBarFill.style.backgroundImage =
       "linear-gradient(to right, #2ecc71, #2ecc71)";
@@ -208,57 +313,67 @@ const updateGoalUI = () => {
       "linear-gradient(to right, #27ae60, #2ecc71)";
   }
 
-  // 4. Atualiza Cálculo de Prazo e Duração
+  // Atualiza cálculo de prazo
   calculateDeadline(remaining);
 
-  // 5. Controle de Abas (Mantido, mas agora vazio)
-  checkGoalAndControlTabs(currentGoal);
-
+  // Renderiza depósitos
   renderDeposits();
 };
 
-// --- Lógica de Depósitos e Edição ---
+// ============================================================
+// FUNÇÕES DE DEPÓSITOS
+// ============================================================
+
+/**
+ * Renderiza a lista de depósitos na tabela
+ */
 const renderDeposits = () => {
-  const depositAmountInput = document.getElementById("deposit-amount");
-  const depositDateInput = document.getElementById("deposit-date");
-  const depositDescriptionInput = document.getElementById(
-    "deposit-description"
-  );
   depositsList.innerHTML = "";
 
   if (deposits.length === 0) {
-    depositsList.innerHTML =
-      '<tr><td colspan="3" class="text-center text-[#8b949e] py-4">Nenhum depósito registrado.</td></tr>';
+    depositsList.innerHTML = `
+      <tr>
+        <td colspan="3" class="text-center text-[#8b949e] py-4">
+          Nenhum depósito registrado.
+        </td>
+      </tr>
+    `;
     return;
   }
 
   deposits.forEach((dep, index) => {
     const row = depositsList.insertRow();
     row.innerHTML = `
-            <td>${formatDate(
-              dep.date
-            )}<br><span class="text-xs text-[#8b949e]">${
-      dep.time || "--:--"
-    }</span></td>
-            <td>
-                <span class="value-saved font-bold">${formatCurrency(
-                  dep.amount
-                )}</span>
-                <br>
-                <span class="text-xs text-[#8b949e]">${
-                  dep.description || "Sem descrição"
-                }</span>
-            </td>
-            <td>
-                <button onclick="openEditModal(${index})" class="text-blue-400 hover:text-blue-300 text-sm font-semibold mr-2">Editar</button>
-                <button onclick="deleteDeposit(${index})" class="text-red-500 hover:text-red-400 text-sm font-semibold">Excluir</button>
-            </td>
-        `;
+      <td>${formatDate(dep.date)}<br>
+        <span class="text-xs text-[#8b949e]">${dep.time || "--:--"}</span>
+      </td>
+      <td>
+        <span class="value-saved font-bold">${formatCurrency(
+          dep.amount
+        )}</span><br>
+        <span class="text-xs text-[#8b949e]">${
+          dep.description || "Sem descrição"
+        }</span>
+      </td>
+      <td>
+        <button onclick="openEditModal(${index})" class="text-blue-400 hover:text-blue-300 text-sm font-semibold mr-2">
+          Editar
+        </button>
+        <button onclick="deleteDeposit(${index})" class="text-red-500 hover:text-red-400 text-sm font-semibold">
+          Excluir
+        </button>
+      </td>
+    `;
   });
 };
 
+/**
+ * Adiciona um novo depósito
+ * @param {Event} event - Evento do formulário
+ */
 const addDeposit = (event) => {
   event.preventDefault();
+
   const depositAmountInput = document.getElementById("deposit-amount");
   const depositDateInput = document.getElementById("deposit-date");
   const depositDescriptionInput = document.getElementById(
@@ -271,18 +386,12 @@ const addDeposit = (event) => {
   const time = getCurrentTime();
 
   if (currentGoal === 0) {
-    // Mensagem opcional
     alert(
       "Recomendamos definir um valor para sua meta antes de adicionar um depósito, para acompanhar o progresso."
     );
   }
 
-  deposits.push({
-    amount,
-    date,
-    time,
-    description,
-  });
+  deposits.push({ amount, date, time, description });
   saveData();
 
   depositForm.reset();
@@ -294,6 +403,10 @@ const addDeposit = (event) => {
   showSuccessMessage("Depósito Adicionado com Sucesso!");
 };
 
+/**
+ * Exclui um depósito
+ * @param {number} index - Índice do depósito a ser excluído
+ */
 const deleteDeposit = (index) => {
   if (confirm("Tem certeza que deseja excluir este depósito?")) {
     deposits.splice(index, 1);
@@ -303,6 +416,35 @@ const deleteDeposit = (index) => {
   }
 };
 
+/**
+ * Limpa todos os depósitos
+ */
+const clearAllDeposits = () => {
+  if (deposits.length === 0) {
+    alert("O histórico de transações já está vazio.");
+    return;
+  }
+
+  const confirmation = confirm(
+    "🚨 AVISO: Você tem certeza que deseja EXCLUIR PERMANENTEMENTE TODAS as transações de depósito? \n\nEsta ação não pode ser desfeita e zerará o seu 'Valor Arrecadado'."
+  );
+
+  if (confirmation) {
+    deposits = [];
+    saveData();
+    updateGoalUI();
+    showSuccessMessage("Histórico de Transações Limpo com Sucesso!");
+  }
+};
+
+// ============================================================
+// FUNÇÕES DE EDIÇÃO DE DEPÓSITOS (MODAL)
+// ============================================================
+
+/**
+ * Abre o modal de edição de depósito
+ * @param {number} index - Índice do depósito a ser editado
+ */
 const openEditModal = (index) => {
   const deposit = deposits[index];
 
@@ -315,10 +457,17 @@ const openEditModal = (index) => {
   editModal.classList.remove("hidden");
 };
 
+/**
+ * Fecha o modal de edição
+ */
 const closeEditModal = () => {
   editModal.classList.add("hidden");
 };
 
+/**
+ * Salva as alterações do depósito editado
+ * @param {Event} event - Evento do formulário
+ */
 const saveEditedDeposit = (event) => {
   event.preventDefault();
 
@@ -348,67 +497,13 @@ const saveEditedDeposit = (event) => {
   showSuccessMessage("Depósito Editado com Sucesso!");
 };
 
-const showSuccessMessage = (message) => {
-  const messageElement = document.getElementById("success-message");
+// ============================================================
+// FUNÇÕES DE PERSISTÊNCIA (LOCALSTORAGE)
+// ============================================================
 
-  messageElement.querySelector("p").innerHTML = `
-        <svg class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-        ${message}
-    `;
-
-  messageElement.classList.remove(
-    "opacity-0",
-    "translate-y-full",
-    "pointer-events-none"
-  );
-  messageElement.classList.add("opacity-100", "translate-y-0");
-
-  setTimeout(() => {
-    messageElement.classList.remove("opacity-100", "translate-y-0");
-    messageElement.classList.add("opacity-0", "translate-y-full");
-
-    setTimeout(() => {
-      messageElement.classList.add("pointer-events-none");
-    }, 500);
-  }, 3000);
-};
-
-// --- Lógica de Salvar Meta ---
-const saveGoal = () => {
-  const newGoalAmount = parseFloat(goalAmountInput.value);
-  const newGoalDescription = goalDescriptionInput.value.trim();
-  const newGoalDeadline = goalDeadlineInput.value;
-  const newGoalStartDate = goalStartDateInput.value;
-
-  if (isNaN(newGoalAmount) || newGoalAmount <= 0) {
-    alert("Por favor, insira um valor de meta válido (maior que zero).");
-    return;
-  }
-  if (
-    newGoalStartDate &&
-    newGoalDeadline &&
-    new Date(newGoalStartDate) >= new Date(newGoalDeadline)
-  ) {
-    alert("A Data de Início deve ser anterior à Data Limite.");
-    return;
-  }
-
-  currentGoal = newGoalAmount;
-  currentDescription = newGoalDescription;
-  currentDeadline = newGoalDeadline;
-  currentStartDate = newGoalStartDate;
-
-  saveData();
-  updateGoalUI();
-
-  toggleGoalEdit(false);
-
-  checkGoalAndControlTabs(currentGoal);
-
-  alert(`Meta atualizada para ${formatCurrency(newGoalAmount)} com sucesso!`);
-};
-
-// --- Lógica de Persistência (localStorage) ---
+/**
+ * Salva todos os dados no localStorage
+ */
 const saveData = () => {
   localStorage.setItem("goalAmount", currentGoal);
   localStorage.setItem("goalDescription", currentDescription);
@@ -418,6 +513,9 @@ const saveData = () => {
   localStorage.setItem("calcHistory", JSON.stringify(history));
 };
 
+/**
+ * Carrega dados do localStorage
+ */
 const loadData = () => {
   currentGoal = parseFloat(localStorage.getItem("goalAmount") || "0");
   currentDescription = localStorage.getItem("goalDescription") || "";
@@ -437,7 +535,13 @@ const loadData = () => {
   renderHistory();
 };
 
-// --- Lógica das Abas (Tabs) ---
+// ============================================================
+// FUNÇÕES DO SISTEMA DE ABAS
+// ============================================================
+
+/**
+ * Configura o sistema de abas
+ */
 const setupTabs = () => {
   const tabButtons = document.querySelectorAll(".tab-button");
   const tabContents = document.querySelectorAll(".tab-content");
@@ -446,6 +550,7 @@ const setupTabs = () => {
     button.addEventListener("click", () => {
       const targetTab = button.dataset.tab;
 
+      // Atualiza botões
       tabButtons.forEach((btn) => {
         btn.classList.remove("active");
         btn.classList.add("inactive-tab");
@@ -454,11 +559,13 @@ const setupTabs = () => {
       button.classList.add("active");
       button.classList.remove("inactive-tab");
 
+      // Atualiza conteúdo
       tabContents.forEach((content) => {
         content.classList.add("hidden");
       });
       document.getElementById(`tab-${targetTab}`).classList.remove("hidden");
 
+      // Se for calculadora, atualiza display
       if (targetTab === "calculadora") {
         updateDisplay();
       }
@@ -466,48 +573,13 @@ const setupTabs = () => {
   });
 };
 
-// --- Lógica do Histórico da Calculadora ---
-// --- Lógica do Histórico da Calculadora ---
-const renderHistory = () => {
-  calcHistoryList.innerHTML = "";
-  if (history.length === 0) {
-    calcHistoryList.innerHTML =
-      '<p class="text-center text-[#8b949e] py-2" id="empty-history-message">Nenhum cálculo registrado.</p>';
-    return;
-  }
+// ============================================================
+// FUNÇÕES DA CALCULADORA
+// ============================================================
 
-  history
-    .slice()
-    .reverse()
-    .forEach((item, index) => {
-      const historyItem = document.createElement("div");
-      historyItem.className = "history-item";
-      historyItem.innerHTML = `
-            <div class="history-expression">${item.expression
-              .replace(/\*/g, "x")
-              .replace(/\//g, "÷")}</div>
-            <div class="history-result">= ${item.result}</div>
-        `;
-      historyItem.onclick = () => {
-        calcClearAll();
-        currentInput = item.result.replace(",", ".");
-        updateDisplay();
-      };
-      calcHistoryList.appendChild(historyItem);
-    });
-};
-
-const clearHistory = () => {
-  if (confirm("Tem certeza que deseja apagar todo o histórico de cálculos?")) {
-    history = [];
-    saveData();
-    renderHistory();
-    showSuccessMessage("Histórico de cálculos apagado!");
-  }
-};
-
-// --- Lógica da Calculadora ---
-
+/**
+ * Atualiza o display da calculadora
+ */
 const updateDisplay = () => {
   if (currentInput === currentExpression.replace(",", ".")) {
     calcDisplay.textContent = currentExpression.replace(".", ",");
@@ -518,7 +590,6 @@ const updateDisplay = () => {
       .replace(/\//g, "÷");
     const parts = currentInput.split(/[\+\-\*\/%]/).filter((p) => p.length > 0);
     const displayValue = parts.length > 0 ? parts[parts.length - 1] : "0";
-
     calcDisplay.textContent = displayValue.replace(".", ",");
   }
 
@@ -528,17 +599,26 @@ const updateDisplay = () => {
   }
 };
 
+/**
+ * Limpa apenas o input atual da calculadora
+ */
 const calcClear = () => {
   currentInput = "0";
   updateDisplay();
 };
 
+/**
+ * Limpa completamente a calculadora
+ */
 const calcClearAll = () => {
   currentExpression = "0";
   currentInput = "0";
   updateDisplay();
 };
 
+/**
+ * Remove o último caractere do input
+ */
 const calcDelete = () => {
   if (currentInput === "0" || currentInput === "") return;
 
@@ -550,6 +630,10 @@ const calcDelete = () => {
   updateDisplay();
 };
 
+/**
+ * Adiciona um caractere ao input da calculadora
+ * @param {string} value - Valor a ser adicionado
+ */
 const calcAppend = (value) => {
   const isOperator = ["+", "-", "*", "/", "%"].includes(value);
   const isDot = value === ".";
@@ -584,10 +668,12 @@ const calcAppend = (value) => {
   }
 
   if (currentInput === "") currentInput = "0";
-
   updateDisplay();
 };
 
+/**
+ * Realiza o cálculo da expressão atual
+ */
 const calcCalculate = () => {
   let finalExpression = currentInput;
 
@@ -597,7 +683,7 @@ const calcCalculate = () => {
 
     let evaluated = finalExpression;
 
-    // Tratamento da operação de porcentagem
+    // Processa operações de porcentagem
     while (evaluated.includes("%")) {
       const percentMatch = evaluated.match(
         /(\d+\.?\d*)\s*([+\-*\/])\s*(\d+\.?\d*)\s*%/
@@ -634,6 +720,7 @@ const calcCalculate = () => {
     } else {
       result = parseFloat(result.toFixed(8));
 
+      // Adiciona ao histórico
       history.push({
         expression: finalExpression,
         result: result.toLocaleString("pt-BR"),
@@ -660,215 +747,84 @@ const calcCalculate = () => {
   }
 };
 
-// --- Inicialização ---
-document.addEventListener("DOMContentLoaded", () => {
-  // Torna as funções globais para o HTML (para serem usadas nos atributos onclick)
-  window.toggleGoalEdit = toggleGoalEdit;
-  window.deleteDeposit = deleteDeposit;
-  window.openEditModal = openEditModal;
-  window.closeEditModal = closeEditModal;
-  window.calcAppend = calcAppend;
-  window.calcClear = calcClear;
-  window.calcClearAll = calcClearAll;
-  window.calcCalculate = calcCalculate;
-  window.calcDelete = calcDelete;
-  window.clearHistory = clearHistory;
-  window.renderHistory = renderHistory;
+// ============================================================
+// FUNÇÕES DO HISTÓRICO DA CALCULADORA
+// ============================================================
 
-  // Define a data atual como padrão no input de depósito
-  const depositDateInput = document.getElementById("deposit-date");
-  const today = new Date().toISOString().split("T")[0];
-  if (depositDateInput && !depositDateInput.value) {
-    depositDateInput.value = today;
-  }
-
-  loadData();
-  setupTabs();
-
-  const saveGoalBtn = document.getElementById("save-goal-btn");
-  const editForm = document.getElementById("edit-form");
-  const depositForm = document.getElementById("deposit-form");
-
-  saveGoalBtn.addEventListener("click", saveGoal);
-  depositForm.addEventListener("submit", addDeposit);
-  editForm.addEventListener("submit", saveEditedDeposit);
-
-  updateDisplay();
-});
-// A função deve estar definida globalmente ou acessível pelo 'onclick' no HTML
-const clearAllDeposits = () => {
-  // 1. Verifica se há transações para limpar
-  if (deposits.length === 0) {
-    alert("O histórico de transações já está vazio.");
+/**
+ * Renderiza o histórico de cálculos
+ */
+const renderHistory = () => {
+  calcHistoryList.innerHTML = "";
+  if (history.length === 0) {
+    calcHistoryList.innerHTML = `
+      <p class="text-center text-[#8b949e] py-2" id="empty-history-message">
+        Nenhum cálculo registrado.
+      </p>
+    `;
     return;
   }
 
-  // 2. Mensagem de AVISO e Confirmação
-  const confirmation = confirm(
-    "🚨 AVISO: Você tem certeza que deseja EXCLUIR PERMANENTEMENTE TODAS as transações de depósito? \n\nEsta ação não pode ser desfeita e zerará o seu 'Valor Arrecadado'."
-  );
+  history
+    .slice()
+    .reverse()
+    .forEach((item, index) => {
+      const historyItem = document.createElement("div");
+      historyItem.className = "history-item";
+      historyItem.innerHTML = `
+      <div class="history-expression">${item.expression
+        .replace(/\*/g, "x")
+        .replace(/\//g, "÷")}</div>
+      <div class="history-result">= ${item.result}</div>
+    `;
+      historyItem.onclick = () => {
+        calcClearAll();
+        currentInput = item.result.replace(",", ".");
+        updateDisplay();
+      };
+      calcHistoryList.appendChild(historyItem);
+    });
+};
 
-  // 3. Execução
-  if (confirmation) {
-    deposits = []; // Limpa o array
-    saveData(); // Salva o estado vazio no LocalStorage
-    updateGoalUI(); // Atualiza a interface (progresso e lista)
-    showSuccessMessage("Histórico de Transações Limpo com Sucesso!");
+/**
+ * Limpa o histórico de cálculos
+ */
+const clearHistory = () => {
+  if (confirm("Tem certeza que deseja apagar todo o histórico de cálculos?")) {
+    history = [];
+    saveData();
+    renderHistory();
+    showSuccessMessage("Histórico de cálculos apagado!");
   }
 };
 
-//beta modal
-const openBtn = document.getElementById("openCard");
-const closeBtn = document.getElementById("closeCard");
-const card = document.getElementById("card");
-const overlay = document.getElementById("overlay");
+// ============================================================
+// FUNÇÕES DO MODAL BETA
+// ============================================================
 
-// abrir o card
-openBtn.addEventListener("click", () => {
+/**
+ * Abre o modal de informações beta
+ */
+const openBetaModal = () => {
   card.classList.add("show");
   overlay.classList.add("show");
-});
+};
 
-// fechar o card (botão)
-closeBtn.addEventListener("click", () => {
+/**
+ * Fecha o modal de informações beta
+ */
+const closeBetaModal = () => {
   card.classList.remove("show");
   overlay.classList.remove("show");
-});
+};
 
-// fechar ao clicar no fundo
-overlay.addEventListener("click", () => {
-  card.classList.remove("show");
-  overlay.classList.remove("show");
-});
+// ============================================================
+// FUNÇÕES DE EXPORTAÇÃO/IMPORTAÇÃO
+// ============================================================
 
-//bloqueio de zoom
-// no-zoom.js
-// Sistema para tentar bloquear zoom (desktop + mobile)
-
-// 1) bloquear Ctrl + roda do mouse (wheel + ctrl)
-document.addEventListener(
-  "wheel",
-  function (e) {
-    if (e.ctrlKey) {
-      e.preventDefault();
-    }
-  },
-  { passive: false }
-);
-
-// 2) bloquear teclas de zoom no teclado (Ctrl + + / - / 0) e Ctrl + Scroll em trackpad
-document.addEventListener(
-  "keydown",
-  function (e) {
-    // algumas variações de teclas: '+' pode ser '=' com shift em muitos teclados
-    const isCtrl = e.ctrlKey || e.metaKey; // metaKey para Mac (cmd)
-    if (!isCtrl) return;
-
-    const forbidden = [
-      "+", // some layouts
-      "=", // plus
-      "-",
-      "0",
-    ];
-
-    // e.key pode ser '+' '/'=' '-' '0' ou 'Equal'/'NumpadAdd' etc.
-    if (
-      forbidden.includes(e.key) ||
-      e.key === "NumpadAdd" ||
-      e.key === "NumpadSubtract" ||
-      e.key === "Equal"
-    ) {
-      e.preventDefault();
-    }
-  },
-  { passive: false }
-);
-
-// 3) bloquear gesto de pinça (touch pinch) - detecta mudança de scale em touchmove (quando disponível)
-document.addEventListener(
-  "touchmove",
-  function (e) {
-    // alguns navegadores expõem e.scale em eventos touchmove (WebKit)
-    if (e.scale && e.scale !== 1) {
-      e.preventDefault();
-    }
-
-    // se houver mais de 1 toque (dois dedos) e distância variar rapidamente -> prevenir
-    if (e.touches && e.touches.length > 1) {
-      e.preventDefault();
-    }
-  },
-  { passive: false }
-);
-
-// 4) bloquear double-tap que dá zoom
-let lastTouchEnd = 0;
-document.addEventListener(
-  "touchend",
-  function (e) {
-    const now = Date.now();
-    if (now - lastTouchEnd <= 300) {
-      e.preventDefault();
-    }
-    lastTouchEnd = now;
-  },
-  { passive: false }
-);
-
-// 5) bloquear gesturestart (Safari iOS)
-document.addEventListener(
-  "gesturestart",
-  function (e) {
-    e.preventDefault();
-  },
-  { passive: false }
-);
-
-// 6) prevenção extra: impedir zoom por "pinch" via pointer events (quando aplicável)
-if (window.PointerEvent) {
-  let pointers = new Map();
-
-  window.addEventListener("pointerdown", (e) => {
-    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
-  });
-
-  window.addEventListener(
-    "pointermove",
-    (e) => {
-      if (pointers.size > 1) {
-        // se houver múltiplos pointers, prevenimos comportamento para evitar pinch
-        e.preventDefault();
-      }
-    },
-    { passive: false }
-  );
-
-  window.addEventListener("pointerup", (e) => {
-    pointers.delete(e.pointerId);
-  });
-
-  window.addEventListener("pointercancel", (e) => {
-    pointers.delete(e.pointerId);
-  });
-}
-
-// 7) fallback: impedir zoom via dblclick (alguns navegadores)
-document.addEventListener(
-  "dblclick",
-  function (e) {
-    if (e.target) {
-      e.preventDefault();
-    }
-  },
-  { passive: false }
-);
-
-// Info no console (opcional)
-console.log("[no-zoom.js] Sistema de prevenção de zoom inicializado");
-
-// ================== EXPORTAR / IMPORTAR DADOS ==================
-
-// Exportar tudo para arquivo
+/**
+ * Exporta todos os dados para um arquivo JSON
+ */
 const exportData = () => {
   const data = {
     goalAmount: currentGoal,
@@ -878,7 +834,7 @@ const exportData = () => {
     deposits,
     calcHistory: history,
     exportedAt: new Date().toISOString(),
-    app: "MetaTup",
+    app: "Meta_up",
   };
 
   const blob = new Blob([JSON.stringify(data, null, 2)], {
@@ -889,7 +845,7 @@ const exportData = () => {
   const a = document.createElement("a");
 
   a.href = url;
-  a.download = "metatup-backup.json";
+  a.download = "meta_up-backup.json";
   document.body.appendChild(a);
   a.click();
 
@@ -899,7 +855,10 @@ const exportData = () => {
   showSuccessMessage("Backup exportado com sucesso!");
 };
 
-// Importar dados do arquivo
+/**
+ * Importa dados de um arquivo JSON
+ * @param {Event} event - Evento do input de arquivo
+ */
 const importData = (event) => {
   const file = event.target.files[0];
   if (!file) return;
@@ -910,7 +869,7 @@ const importData = (event) => {
     try {
       const data = JSON.parse(e.target.result);
 
-      if (data.app !== "MetaTup") {
+      if (data.app !== "Meta_up") {
         alert("Arquivo inválido para este sistema.");
         return;
       }
@@ -936,129 +895,74 @@ const importData = (event) => {
   reader.readAsText(file);
 };
 
-// Torna global para o HTML
+// ============================================================
+// BLOQUEIO DE ZOOM (REMOVIDO - Função não presente no HTML)
+// ============================================================
+// O código de bloqueio de zoom foi removido pois não há referências
+// no HTML fornecido para essa funcionalidade
+
+// ============================================================
+// INICIALIZAÇÃO
+// ============================================================
+
+/**
+ * Inicializa a aplicação
+ */
+const initializeApp = () => {
+  // Configura data atual no input de depósito
+  const depositDateInput = document.getElementById("deposit-date");
+  const today = new Date().toISOString().split("T")[0];
+  if (depositDateInput && !depositDateInput.value) {
+    depositDateInput.value = today;
+  }
+
+  // Carrega dados
+  loadData();
+
+  // Configura abas
+  setupTabs();
+
+  // Event listeners
+  saveGoalBtn.addEventListener("click", saveGoal);
+  depositForm.addEventListener("submit", addDeposit);
+  editForm.addEventListener("submit", saveEditedDeposit);
+
+  // Configura modal beta
+  if (openBtn && closeBtn && card && overlay) {
+    openBtn.addEventListener("click", openBetaModal);
+    closeBtn.addEventListener("click", closeBetaModal);
+    overlay.addEventListener("click", closeBetaModal);
+  }
+
+  // Inicializa display da calculadora
+  updateDisplay();
+};
+
+// ============================================================
+// EXPORTAÇÃO DE FUNÇÕES PARA O HTML
+// ============================================================
+
+// Torna as funções globais para serem acessadas pelo HTML
+window.toggleGoalEdit = toggleGoalEdit;
+window.deleteDeposit = deleteDeposit;
+window.openEditModal = openEditModal;
+window.closeEditModal = closeEditModal;
+window.clearAllDeposits = clearAllDeposits;
+window.calcAppend = calcAppend;
+window.calcClear = calcClear;
+window.calcClearAll = calcClearAll;
+window.calcCalculate = calcCalculate;
+window.calcDelete = calcDelete;
+window.clearHistory = clearHistory;
+window.renderHistory = renderHistory;
 window.exportData = exportData;
 window.importData = importData;
+window.openBetaModal = openBetaModal;
+window.closeBetaModal = closeBetaModal;
 
-//sisteam de json
-const MANIFEST_URL = "/manifest.json";
-const VERSION_KEY = "metatup_manifest_version";
+// ============================================================
+// EXECUÇÃO DA APLICAÇÃO
+// ============================================================
 
-async function loadManifestAutoUpdate() {
-    try {
-        const response = await fetch(
-            `${MANIFEST_URL}?v=${Date.now()}`,
-            { cache: "no-store" }
-        );
-
-        const manifest = await response.json();
-
-        const savedVersion = localStorage.getItem(VERSION_KEY);
-
-        if (savedVersion !== manifest.version) {
-            console.log("🔄 Manifest atualizado:", manifest.version);
-            localStorage.setItem(VERSION_KEY, manifest.version);
-            applyManifestData(manifest);
-        } else {
-            applyManifestData(manifest);
-        }
-
-    } catch (err) {
-        console.error("Erro ao carregar manifest:", err);
-    }
-}
-
-
-function applyManifestData(manifest) {
-    /* Título */
-    document.title = manifest.name || "Metatup 2025";
-
-    /* Favicon */
-    if (manifest.icons && manifest.icons.length > 0) {
-        const icon = manifest.icons[0].src;
-
-        let favicon = document.querySelector("link[rel='icon']");
-        if (!favicon) {
-            favicon = document.createElement("link");
-            favicon.rel = "icon";
-            document.head.appendChild(favicon);
-        }
-        favicon.href = `${icon}?v=${Date.now()}`;
-    }
-
-    /* Meta theme color */
-    let themeMeta = document.querySelector("meta[name='theme-color']");
-    if (!themeMeta) {
-        themeMeta = document.createElement("meta");
-        themeMeta.name = "theme-color";
-        document.head.appendChild(themeMeta);
-    }
-    themeMeta.content = manifest.theme_color || "#ffffff";
-}
-if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("/sw.js").then(reg => {
-
-        if (reg.waiting) {
-            reg.waiting.postMessage("SKIP_WAITING");
-        }
-
-        reg.addEventListener("updatefound", () => {
-            const newWorker = reg.installing;
-
-            newWorker.addEventListener("statechange", () => {
-                if (newWorker.state === "installed" &&
-                    navigator.serviceWorker.controller) {
-
-                    console.log("🔄 Nova versão disponível");
-                    newWorker.postMessage("SKIP_WAITING");
-                    location.reload();
-                }
-            });
-        });
-    });
-}
-
-const APP_VERSION = "2.2.32";
-
-const savedVersion = localStorage.getItem("app_version");
-
-if (savedVersion && savedVersion !== APP_VERSION) {
-  showUpdateBanner();
-}
-
-localStorage.setItem("app_version", APP_VERSION);
-
-function showUpdateBanner() {
-  const banner = document.createElement("div");
-  banner.innerHTML = `
-    <div style="
-      position:fixed;
-      bottom:20px;
-      left:50%;
-      transform:translateX(-50%);
-      background:#16a34a;
-      color:#fff;
-      padding:15px 20px;
-      border-radius:12px;
-      z-index:9999;
-      box-shadow:0 10px 30px rgba(0,0,0,.3);
-      text-align:center;
-    ">
-      🚀 Nova versão disponível<br>
-      Atualize para aplicar novo ícone e nome
-      <br><br>
-      <button onclick="location.reload()" style="
-        background:#fff;
-        color:#16a34a;
-        border:none;
-        padding:8px 14px;
-        border-radius:8px;
-        cursor:pointer;
-      ">Atualizar agora</button>
-    </div>
-  `;
-  document.body.appendChild(banner);
-}
-document.getElementById("dynamic-favicon").href =
-  "https://i.postimg.cc/445Fmtps/img-meta-up.png";
-
+// Inicializa quando o DOM estiver carregado
+document.addEventListener("DOMContentLoaded", initializeApp);
