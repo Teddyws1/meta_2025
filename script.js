@@ -497,47 +497,6 @@ const saveEditedDeposit = (event) => {
   showSuccessMessage("Depósito Editado com Sucesso!");
 };
 
-// ============================================================
-// FUNÇÕES DE PERSISTÊNCIA (LOCALSTORAGE)
-// ============================================================
-
-/**
- * Salva todos os dados no localStorage
- */
-const saveData = () => {
-  localStorage.setItem("goalAmount", currentGoal);
-  localStorage.setItem("goalDescription", currentDescription);
-  localStorage.setItem("goalDeadline", currentDeadline);
-  localStorage.setItem("goalStartDate", currentStartDate);
-  localStorage.setItem("deposits", JSON.stringify(deposits));
-  localStorage.setItem("calcHistory", JSON.stringify(history));
-};
-
-/**
- * Carrega dados do localStorage
- */
-const loadData = () => {
-  currentGoal = parseFloat(localStorage.getItem("goalAmount") || "0");
-  currentDescription = localStorage.getItem("goalDescription") || "";
-  currentDeadline = localStorage.getItem("goalDeadline") || "";
-  currentStartDate = localStorage.getItem("goalStartDate") || "";
-
-  try {
-    history = JSON.parse(localStorage.getItem("calcHistory")) || [];
-    deposits = JSON.parse(localStorage.getItem("deposits")) || [];
-  } catch (e) {
-    history = [];
-    deposits = [];
-  }
-
-  updateGoalUI();
-  toggleGoalEdit(currentGoal === 0);
-  renderHistory();
-};
-
-// ============================================================
-// FUNÇÕES DO SISTEMA DE ABAS
-// ============================================================
 
 /**
  * Configura o sistema de abas
@@ -825,6 +784,61 @@ const closeBetaModal = () => {
 /**
  * Exporta todos os dados para um arquivo JSON
  */
+/**************************************************
+ * CONFIG
+ **************************************************/
+const STORAGE_KEY = "meta_up_data";
+
+/**************************************************
+ * SALVAR DADOS NO DISPOSITIVO (JSON)
+ **************************************************/
+const saveData = () => {
+  const data = {
+    goalAmount: currentGoal,
+    goalDescription: currentDescription,
+    goalDeadline: currentDeadline,
+    goalStartDate: currentStartDate,
+    deposits,
+    calcHistory: history,
+    app: "Meta_up",
+    savedAt: new Date().toISOString(),
+  };
+
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+};
+
+/**************************************************
+ * CARREGAR DADOS DO DISPOSITIVO (AUTO)
+ **************************************************/
+const loadData = () => {
+  const savedData = localStorage.getItem(STORAGE_KEY);
+  if (!savedData) return;
+
+  try {
+    const data = JSON.parse(savedData);
+
+    if (data.app !== "Meta_up") return;
+
+    currentGoal = data.goalAmount || 0;
+    currentDescription = data.goalDescription || "";
+    currentDeadline = data.goalDeadline || "";
+    currentStartDate = data.goalStartDate || "";
+    deposits = data.deposits || [];
+    history = data.calcHistory || [];
+
+    updateGoalUI();
+    renderHistory();
+    toggleGoalEdit(currentGoal === 0);
+  } catch (err) {
+    console.error("Erro ao carregar dados:", err);
+  }
+};
+
+
+
+/**************************************************
+ * EXPORTAR BACKUP (OPCIONAL)
+ **************************************************/
 const exportData = () => {
   const data = {
     goalAmount: currentGoal,
@@ -855,10 +869,9 @@ const exportData = () => {
   showSuccessMessage("Backup exportado com sucesso!");
 };
 
-/**
- * Importa dados de um arquivo JSON
- * @param {Event} event - Evento do input de arquivo
- */
+/**************************************************
+ * IMPORTAR BACKUP (OPCIONAL)
+ **************************************************/
 const importData = (event) => {
   const file = event.target.files[0];
   if (!file) return;
@@ -894,6 +907,35 @@ const importData = (event) => {
 
   reader.readAsText(file);
 };
+
+/**************************************************
+ * RESETAR DADOS (OPCIONAL)
+ **************************************************/
+const resetData = () => {
+  if (!confirm("Deseja apagar todos os dados?")) return;
+
+  localStorage.removeItem(STORAGE_KEY);
+
+  currentGoal = 0;
+  currentDescription = "";
+  currentDeadline = "";
+  currentStartDate = "";
+  deposits = [];
+  history = [];
+
+  updateGoalUI();
+  renderHistory();
+  toggleGoalEdit(true);
+
+  showSuccessMessage("Dados apagados com sucesso!");
+};
+
+/**************************************************
+ * AUTO LOAD AO ABRIR O APP
+ **************************************************/
+window.addEventListener("load", loadData);
+
+
 
 // ============================================================
 // BLOQUEIO DE ZOOM (REMOVIDO - Função não presente no HTML)
@@ -966,3 +1008,32 @@ window.closeBetaModal = closeBetaModal;
 
 // Inicializa quando o DOM estiver carregado
 document.addEventListener("DOMContentLoaded", initializeApp);
+const migrateBackupData = (data) => {
+  let migrated = { ...data };
+
+  /* ===============================
+     MIGRAÇÃO <= 2.1.x
+     =============================== */
+  if (!migrated.goalStartDate) {
+    migrated.goalStartDate = "";
+  }
+
+  /* ===============================
+     MIGRAÇÃO <= 2.2.0
+     =============================== */
+  if (!Array.isArray(migrated.calcHistory)) {
+    migrated.calcHistory = [];
+  }
+
+  if (!Array.isArray(migrated.deposits)) {
+    migrated.deposits = [];
+  }
+
+  /* ===============================
+     GARANTIAS FINAIS
+     =============================== */
+  migrated.app = APP_NAME;
+  migrated.version = APP_VERSION;
+
+  return migrated;
+};
