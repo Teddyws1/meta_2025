@@ -13,13 +13,7 @@
     --verde-principal: #48C337;
     --azul-tab: #1F2A7F;
 
-    /* Calculadora */
-    --calc-bg: #1f2428;
-    --calc-display: #161b22;
-    --btn-default: #30363d;
-    --btn-operator: #6f42c1;
-    --btn-equal: #2ecc71;
-    --btn-clear: #e74c3c;
+
 }
 
 /* =====================================================================
@@ -234,28 +228,65 @@ body {
 }
 
 /*fundo da meta lado da verão*/
+.version-sample {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Texto da versão */
+.version-sample .version-text {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #a1a1aa; /* cinza moderno */
+    margin: 0;
+    letter-spacing: 0.15px;
+}
+
+/* Badge Beta — moderno e clean */
 .version-sample .beta-text {
-    font-size: 0.65rem;
+    font-size: 0.6rem;
     font-weight: 700;
-    color: #ffffff;
-    background: #48C337;
-    padding: 2px 6px;
-    border-radius: 5px;
-    border: 1px solid #0f1a61;
-    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+
+    color: #16a34a; /* verde moderno */
+    background: rgba(22, 163, 74, 0.12);
+
+    padding: 4px 8px;
+    border-radius: 999px;
+
+    border: 1px solid rgba(22, 163, 74, 0.35);
+
     margin: 0;
     white-space: nowrap;
 
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease,
+        color 0.2s ease;
 }
 
+/* Interação sutil */
+.version-sample .beta-text:hover {
+    background: rgba(22, 163, 74, 0.18);
+    transform: translateY(-1px);
+}
 @media (max-width: 400px) {
+    .version-sample {
+        gap: 8px;
+    }
+
     .version-sample .version-text {
         font-size: 0.8rem;
     }
 
     .version-sample .beta-text {
-        font-size: 0.6rem;
-        padding: 1px 4px;
+        font-size: 0.55rem;
+        padding: 3px 7px;
     }
 }
 
@@ -312,45 +343,46 @@ body {
 
 /* fundo do modal */
 .modal-card {
-    /* Posicionamento */
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) scale(0.8);
 
-    /* Dimensões */
-    width: 90%;
+    transform: translate(-50%, -50%) scale(0.94);
+
+    width: 92%;
     max-width: 420px;
-    padding: 25px;
+    padding: 28px 26px;
 
-    /* Visual */
-    background-color: #48C337;
+    background: linear-gradient(135deg, #4fd13c, #3abf2b);
     color: #ffffff;
-    font-size: 17.5px;
-    text-align: center;
-    border-radius: 14px;
-    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
 
-    /* Estado inicial (fechado) */
+    font-size: 16.5px;
+    line-height: 1.4;
+    text-align: center;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 12px 35px rgba(0, 0, 0, 0.3),
+        0 4px 10px rgba(0, 0, 0, 0.2);
+
     opacity: 0;
     pointer-events: none;
 
-    /* Animação */
     transition:
-        opacity 0.3s ease,
-        transform 0.3s ease;
+        opacity 0.35s ease,
+        transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 
-    /* Camada */
     z-index: 999;
 }
-
-
 .modal-card.show {
     opacity: 1;
     pointer-events: auto;
     transform: translate(-50%, -50%) scale(1);
 }
-
+.modal-overlay.hide {
+    opacity: 0;
+}
 
 /*fundo do BOTÃO FECHAR modal meta*/
 .close-btn {
@@ -472,172 +504,10 @@ Sem descrição	Editar Excluir */
     color: #ffffff
 }
 
-/* fundo da calculadora */
-.calculator-container {
-    background-color: var(--calc-bg);
-    border-radius: 1rem;
-    padding: 1rem;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-    max-width: 320px;
-    margin: auto;
-}
 
-/* div que mostra ao digita os numeros */
-#calc-expression {
-    color: #8b949e;
-    font-size: 1.2rem;
-    height: 1.5rem;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    overflow: hidden;
-    white-space: nowrap;
-}
 
-/* painel da calculadora */
-#calc-display {
-    background-color: var(--calc-display);
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
-    min-height: 4rem;
-    text-align: right;
-    font-size: 3rem;
-    font-weight: 300;
-    margin-bottom: 0.75rem;
-    overflow-x: auto;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-}
 
-/* butões da calculadora */
 
-.calc-btn {
-    text-align: center;
-    background-color: var(--btn-default);
-    color: white;
-    font-size: 1.5rem;
-    font-weight: 600;
-    border-radius: 0.75rem;
-    padding: 0.75rem;
-    transition: background-color 0.1s, transform 0.1s;
-    cursor: pointer;
-    height: 60px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-/* cor dos botões ao passa mouse em cima ou dedo */
-.calc-btn:hover {
-    opacity: 0.9;
-}
-
-.calc-btn:active {
-    transform: scale(0.95);
-}
-
-/* botão de (%,÷,x,-,+) */
-.calc-operator {
-    text-align: center;
-    background-color: var(--azul-tab);
-}
-
-/* butão de (=) */
-.calc-equal {
-    text-align: center;
-    background-color: var(--btn-equal);
-}
-
-/* botões de (AC,)(←-) */
-.calc-clear {
-    text-align: center;
-    background-color: var(--btn-clear);
-}
-
-/* começo de cal caluc */
-/* input de fundo do histórico de cálculos */
-/* ===========================================
-   LISTA DE HISTÓRICO — COMPATÍVEL MULTI-BROWSER
-=========================================== */
-
-#calc-history-list {
-    max-height: 260px;
-    overflow-y: auto;
-    padding: 12px;
-    border-radius: 16px;
-
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-
-    /* Glassmorphism cross-browser */
-    -webkit-backdrop-filter: blur(12px);
-    backdrop-filter: blur(12px);
-
-    /* Sombras compatíveis */
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
-}
-
-/* ===========================================
-   ITEM DO HISTÓRICO — CROSS-BROWSER
-=========================================== */
-
-.history-item {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 12px;
-    align-items: center;
-
-    padding: 14px 16px;
-    margin-bottom: 10px;
-    border-radius: 14px;
-
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-
-    /* Safari + Chrome */
-    -webkit-backdrop-filter: blur(12px);
-    backdrop-filter: blur(8px);
-
-    /* Transição compatível */
-    transition: all 0.25s ease;
-}
-
-.history-item:hover {
-    background: rgba(255, 255, 255, 0.1);
-    transform: translateX(6px);
-}
-
-/* EXPRESSÃO */
-.history-expression {
-    color: #b8c2cc;
-    font-size: 0.92rem;
-    font-weight: 500;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-/* RESULTADO */
-.history-result {
-    color: white;
-    font-weight: 700;
-    font-size: 1rem;
-    min-width: 72px;
-    text-align: right;
-
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco,
-        "Roboto Mono", "Courier New", monospace;
-}
-
-/* "=" ANTES DO RESULTADO */
-.history-result::before {
-    content: "";
-    margin-right: 8px;
-    opacity: 0.85;
-
-    font-weight: 700;
-    text-shadow: 0 0 6px rgba(255, 255, 255, 0.35);
-}
 
 /* ===========================================
    INPUTS MODERNOS — GLASS / MOBILE PREMIUM
@@ -686,73 +556,6 @@ input::placeholder {
 }
 
 
-
-/* ===========================================
-   BOTÃO DE APAGAR HISTÓRICO — PREMIUM
-=========================================== */
-
-.btn-clear-history {
-    width: 54%;
-    padding: 14px;
-    border-radius: 14px;
-    border: none;
-    margin-top: 14px;
-
-    font-size: 1.1rem;
-    font-weight: 700;
-
-    background: rgba(255, 70, 70, 0.25);
-    border: 1px solid rgba(255, 70, 70, 0.4);
-    -webkit-backdrop-filter: blur(12px);
-    backdrop-filter: blur(10px);
-    color: white;
-    cursor: pointer;
-    transition: 0.25s ease;
-}
-
-.btn-clear-history:hover {
-    background: rgba(255, 70, 70, 0.4);
-    box-shadow: 0 0 12px rgba(255, 70, 70, 0.6);
-    transform: translateY(-2px);
-}
-
-.btn-clear-history:active {
-    transform: scale(0.97);
-}
-
-/* ===========================================
-   RESPONSIVO — MOBILE FIRST
-=========================================== */
-
-@media (max-width: 480px) {
-    #calc-history-list {
-        max-height: 220px;
-        padding: 10px;
-    }
-
-    .history-item {
-        padding: 12px;
-    }
-
-    .history-result {
-        min-width: 56px;
-        font-size: 1rem;
-    }
-
-    input,
-    textarea,
-    select {
-        font-size: 1rem;
-        padding: 12px;
-    }
-
-    .btn-clear-history {
-        padding: 12px;
-        font-size: 1rem;
-    }
-}
-
-
 /* =====================================================================
    BOTÕES ESPECIAIS
    ===================================================================== */
@@ -776,42 +579,6 @@ input::placeholder {
     opacity: 0.9;
 }
 
-/* cor de fundo do botão de apaga historico */
-.btn-clear-history {
-    width: 100%;
-    padding: 0.5rem 0;
-    margin-top: 1rem;
-    border-radius: 0.5rem;
-    font-weight: bold;
-    background-color: var(--btn-clear);
-    color: #fff;
-    cursor: pointer;
-    transition: opacity 0.2s;
-}
-
-/* cor de fundo ao passa maouse em cima do button de apaga historico */
-.btn-clear-history:hover {
-    opacity: 0.9;
-}
-
-/* Botão de limpar tabela */
-.btn-clear-deposits {
-    color: #e74c3c;
-    border: 1px solid #e74c3c;
-    font-size: 0.75rem;
-    font-weight: 600;
-    padding: 0.25rem 0.75rem;
-    border-radius: 0.5rem;
-    background-color: transparent;
-    margin: 5px;
-    transition: background-color 0.15s, color 0.15s;
-
-}
-
-.btn-clear-deposits:hover {
-    background-color: rgba(231, 76, 60, 0.15);
-    color: #f1c40f;
-}
 
 /* =====================================================================
    UTILITÁRIOS
@@ -952,54 +719,66 @@ input::placeholder {
     background-image: url("https://icons.iconarchive.com/icons/iconoir-team/iconoir/24/safe-arrow-left-icon.png");
 }
 
-/* Calculadora */
-.calculadora-tab::before {
-    background-image: url("https://icons.iconarchive.com/icons/pictogrammers/material/24/calculator-variant-icon.png");
-}
-
-/* DEIXAR ÍCONE BRANCO QUANDO ATIVO */
-.tab-button.active::before {
-    filter: brightness(0) invert(1);
-}
-
-
-/* ---------------------------
-   SUPER RESPONSIVO
----------------------------- */
-@media (max-width: 480px) {
-    .tab-button {
-        flex: 1;
-        justify-content: center;
-        padding: 10px 8px;
-        font-size: 14px;
-    }
-
-    .tab-button::before {
-        width: 20px;
-        height: 20px;
-    }
-}
 
 
 /* versãodo modalll */
-.versao-box {
-    color: #ffffff;
-    opacity: 0.4;
-    position: absolute;
-    left: 8px;
-    bottom: 1px;
-    font-size: 12px;
-    /* funciona em todos */
-    line-height: 1.2;
-    /* evita corte do texto */
-    font-family: Arial, Helvetica, sans-serif;
-    /* universal */
+@keyframes versaoEnter {
+    from {
+        opacity: 0;
+        transform: translateY(4px);
+    }
+    to {
+        opacity: 0.85;
+        transform: translateY(0);
+    }
 }
 
-/* aba lateral */
-/* ===============================
-   SIDEBAR (ABA LATERAL)
-================================ */
+.versao-box {
+    position: absolute;
+    left: 12px;
+    bottom: 8px;
+    z-index: 10;
+
+    display: inline-flex;
+    align-items: center;
+
+    font-size: 12px;
+    line-height: 1;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+
+    padding: 4px 8px;
+    border-radius: 999px;
+
+    color: #d1d5db;
+    background: rgba(255, 255, 255, 0.06);
+
+    font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", Roboto, Arial, Helvetica, sans-serif;
+
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+
+    opacity: 0;
+    animation: versaoEnter 0.5s ease-out 0.2s forwards;
+
+    user-select: none;
+    pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .versao-box {
+        animation: none;
+        opacity: 0.85;
+        transform: none;
+    }
+}
+
+
+
 
 /* Botão hamburguer */
 .sidebar-toggle {
@@ -1016,4 +795,4 @@ input::placeholder {
     cursor: pointer;
 }
 
-/* Sidebar */
+/* nov sisteama */

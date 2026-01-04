@@ -1,3 +1,4 @@
+
 // ============================================================
 // VARIÁVEIS GLOBAIS E ESTADO
 // ============================================================
@@ -7,9 +8,6 @@ let currentDescription = "";
 let currentDeadline = "";
 let currentStartDate = "";
 let deposits = [];
-let currentExpression = "0";
-let currentInput = "0";
-let history = [];
 
 // ============================================================
 // REFERÊNCIAS DOM
@@ -52,10 +50,6 @@ const duracaoTotalCard = document.getElementById("duracao-total-card");
 const depositsList = document.getElementById("deposits-list");
 const depositForm = document.getElementById("deposit-form");
 
-// Calculadora
-const calcDisplay = document.getElementById("calc-display");
-const calcExpression = document.getElementById("calc-expression");
-const calcHistoryList = document.getElementById("calc-history-list");
 
 // Abas
 const tabButtonsContainer = document.getElementById("tab-buttons-container");
@@ -524,17 +518,12 @@ const setupTabs = () => {
       });
       document.getElementById(`tab-${targetTab}`).classList.remove("hidden");
 
-      // Se for calculadora, atualiza display
-      if (targetTab === "calculadora") {
-        updateDisplay();
-      }
+     
+  
     });
   });
 };
 
-// ============================================================
-// FUNÇÕES DA CALCULADORA
-// ============================================================
 
 /**
  * Atualiza o display da calculadora
@@ -558,205 +547,6 @@ const updateDisplay = () => {
   }
 };
 
-/**
- * Limpa apenas o input atual da calculadora
- */
-const calcClear = () => {
-  currentInput = "0";
-  updateDisplay();
-};
-
-/**
- * Limpa completamente a calculadora
- */
-const calcClearAll = () => {
-  currentExpression = "0";
-  currentInput = "0";
-  updateDisplay();
-};
-
-/**
- * Remove o último caractere do input
- */
-const calcDelete = () => {
-  if (currentInput === "0" || currentInput === "") return;
-
-  if (currentInput.length > 1) {
-    currentInput = currentInput.slice(0, -1);
-  } else {
-    currentInput = "0";
-  }
-  updateDisplay();
-};
-
-/**
- * Adiciona um caractere ao input da calculadora
- * @param {string} value - Valor a ser adicionado
- */
-const calcAppend = (value) => {
-  const isOperator = ["+", "-", "*", "/", "%"].includes(value);
-  const isDot = value === ".";
-
-  if (currentInput === currentExpression.replace(",", ".")) {
-    if (isOperator) {
-      currentInput += value;
-    } else {
-      currentInput = value;
-    }
-    currentExpression = "";
-  } else if (currentInput === "0" && !isOperator && !isDot) {
-    currentInput = value;
-  } else {
-    const lastChar = currentInput.slice(-1);
-    const isLastCharOperator = ["+", "-", "*", "/", "%"].includes(lastChar);
-
-    if (isOperator && isLastCharOperator) {
-      currentInput = currentInput.slice(0, -1) + value;
-    } else if (isDot) {
-      const currentNumber = currentInput.split(/[\+\-\*\/%]/g).pop();
-      if (currentNumber.includes(".")) {
-        return;
-      } else if (isLastCharOperator) {
-        currentInput += "0.";
-      } else {
-        currentInput += value;
-      }
-    } else {
-      currentInput += value;
-    }
-  }
-
-  if (currentInput === "") currentInput = "0";
-  updateDisplay();
-};
-
-/**
- * Realiza o cálculo da expressão atual
- */
-const calcCalculate = () => {
-  let finalExpression = currentInput;
-
-  try {
-    finalExpression = finalExpression.replace(/[\+\-\*\/%]+$/, "");
-    if (finalExpression === "") finalExpression = "0";
-
-    let evaluated = finalExpression;
-
-    // Processa operações de porcentagem
-    while (evaluated.includes("%")) {
-      const percentMatch = evaluated.match(
-        /(\d+\.?\d*)\s*([+\-*\/])\s*(\d+\.?\d*)\s*%/
-      );
-      if (percentMatch) {
-        const [, base, operator, percentage] = percentMatch;
-        const baseVal = parseFloat(base);
-        const percentVal = parseFloat(percentage);
-        let result;
-
-        if (operator === "+") result = baseVal + baseVal * (percentVal / 100);
-        else if (operator === "-")
-          result = baseVal - baseVal * (percentVal / 100);
-        else if (operator === "*") result = baseVal * (percentVal / 100);
-        else if (operator === "/") result = baseVal / (percentVal / 100);
-
-        evaluated = evaluated.replace(percentMatch[0], result);
-      } else {
-        const simplePercentMatch = evaluated.match(/^(\d+\.?\d*)\s*%$/);
-        if (simplePercentMatch) {
-          evaluated = parseFloat(simplePercentMatch[1]) / 100;
-        } else {
-          break;
-        }
-      }
-    }
-
-    let result = eval(evaluated);
-
-    if (result === Infinity || isNaN(result)) {
-      calcDisplay.textContent = "Erro";
-      currentInput = "0";
-      currentExpression = "0";
-    } else {
-      result = parseFloat(result.toFixed(8));
-
-      // Adiciona ao histórico
-      history.push({
-        expression: finalExpression,
-        result: result.toLocaleString("pt-BR"),
-      });
-
-      if (history.length > 10) {
-        history.shift();
-      }
-      saveData();
-      renderHistory();
-
-      currentExpression = result.toLocaleString("pt-BR");
-      currentInput = result.toString();
-      calcDisplay.textContent = currentExpression;
-      calcExpression.textContent =
-        finalExpression.replace(/\*/g, "x").replace(/\//g, "÷") + " =";
-    }
-  } catch (error) {
-    calcDisplay.textContent = "Erro";
-    calcExpression.textContent =
-      finalExpression.replace(/\*/g, "x").replace(/\//g, "÷") + " =";
-    currentInput = "0";
-    currentExpression = "0";
-  }
-};
-
-// ============================================================
-// FUNÇÕES DO HISTÓRICO DA CALCULADORA
-// ============================================================
-
-/**
- * Renderiza o histórico de cálculos
- */
-const renderHistory = () => {
-  calcHistoryList.innerHTML = "";
-  if (history.length === 0) {
-    calcHistoryList.innerHTML = `
-      <p class="text-center text-[#8b949e] py-2" id="empty-history-message">
-        Nenhum cálculo registrado.
-      </p>
-    `;
-    return;
-  }
-
-  history
-    .slice()
-    .reverse()
-    .forEach((item, index) => {
-      const historyItem = document.createElement("div");
-      historyItem.className = "history-item";
-      historyItem.innerHTML = `
-      <div class="history-expression">${item.expression
-        .replace(/\*/g, "x")
-        .replace(/\//g, "÷")}</div>
-      <div class="history-result">= ${item.result}</div>
-    `;
-      historyItem.onclick = () => {
-        calcClearAll();
-        currentInput = item.result.replace(",", ".");
-        updateDisplay();
-      };
-      calcHistoryList.appendChild(historyItem);
-    });
-};
-
-/**
- * Limpa o histórico de cálculos
- */
-const clearHistory = () => {
-  if (confirm("Tem certeza que deseja apagar todo o histórico de cálculos?")) {
-    history = [];
-    saveData();
-    renderHistory();
-    showSuccessMessage("Histórico de cálculos apagado!");
-  }
-};
-
 // ============================================================
 // FUNÇÕES DO MODAL BETA
 // ============================================================
@@ -777,13 +567,7 @@ const closeBetaModal = () => {
   overlay.classList.remove("show");
 };
 
-// ============================================================
-// FUNÇÕES DE EXPORTAÇÃO/IMPORTAÇÃO
-// ============================================================
 
-/**
- * Exporta todos os dados para um arquivo JSON
- */
 /**************************************************
  * CONFIG
  **************************************************/
@@ -799,7 +583,6 @@ const saveData = () => {
     goalDeadline: currentDeadline,
     goalStartDate: currentStartDate,
     deposits,
-    calcHistory: history,
     app: "Meta_up",
     savedAt: new Date().toISOString(),
   };
@@ -824,7 +607,7 @@ const loadData = () => {
     currentDeadline = data.goalDeadline || "";
     currentStartDate = data.goalStartDate || "";
     deposits = data.deposits || [];
-    history = data.calcHistory || [];
+  
 
     updateGoalUI();
     renderHistory();
@@ -892,7 +675,7 @@ const importData = (event) => {
       currentDeadline = data.goalDeadline || "";
       currentStartDate = data.goalStartDate || "";
       deposits = data.deposits || [];
-      history = data.calcHistory || [];
+     
 
       saveData();
       updateGoalUI();
@@ -921,7 +704,7 @@ const resetData = () => {
   currentDeadline = "";
   currentStartDate = "";
   deposits = [];
-  history = [];
+ 
 
   updateGoalUI();
   renderHistory();
@@ -990,13 +773,6 @@ window.deleteDeposit = deleteDeposit;
 window.openEditModal = openEditModal;
 window.closeEditModal = closeEditModal;
 window.clearAllDeposits = clearAllDeposits;
-window.calcAppend = calcAppend;
-window.calcClear = calcClear;
-window.calcClearAll = calcClearAll;
-window.calcCalculate = calcCalculate;
-window.calcDelete = calcDelete;
-window.clearHistory = clearHistory;
-window.renderHistory = renderHistory;
 window.exportData = exportData;
 window.importData = importData;
 window.openBetaModal = openBetaModal;

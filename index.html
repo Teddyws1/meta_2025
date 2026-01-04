@@ -7,7 +7,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
-    <title>Meta_up 2025</title>
+    <title>Meta_up 2026</title>
 
     <!-- ===================== PWA CONFIG ===================== -->
     <link rel="manifest" href="manifest.json" />
@@ -69,12 +69,7 @@
           </button>
 
           <!-- ABA: CALCULADORA -->
-          <button
-            class="tab-button inactive-tab ml-2 calculadora-tab"
-            data-tab="calculadora"
-          >
-            Calculadora
-          </button>
+      
         </div>
       </div>
 
@@ -429,106 +424,6 @@
         </div>
       </div>
 
-      <!-- ============================================================
-             ABA: CALCULADORA
-        ============================================================ -->
-      <div id="tab-calculadora" class="tab-content hidden">
-        <!-- TÍTULO DA ABA -->
-        <h2 class="text-xl font-bold text-white mb-4 text-center">
-          Calculadora Profissional
-        </h2>
-
-        <!-- CONTAINER DA CALCULADORA -->
-        <div class="calculator-container">
-          <!-- DISPLAY DA CALCULADORA -->
-          <div id="calc-screen" class="p-2">
-            <div id="calc-expression">0</div>
-            <div id="calc-display">0</div>
-          </div>
-
-          <!-- BOTÕES DA CALCULADORA -->
-          <div class="grid grid-cols-4 gap-3">
-            <!-- LINHA 1 -->
-            <div class="calc-btn calc-clear" onclick="calcClearAll()">AC</div>
-            <div class="calc-btn calc-operator" onclick="calcAppend('%')">
-              %
-            </div>
-            <div class="calc-btn calc-operator" onclick="calcAppend('/')">
-              ÷
-            </div>
-            <div class="calc-btn calc-clear" onclick="calcDelete()">←</div>
-
-            <!-- LINHA 2 -->
-            <div class="calc-btn" onclick="calcAppend('7')">7</div>
-            <div class="calc-btn" onclick="calcAppend('8')">8</div>
-            <div class="calc-btn" onclick="calcAppend('9')">9</div>
-            <div class="calc-btn calc-operator" onclick="calcAppend('*')">
-              x
-            </div>
-
-            <!-- LINHA 3 -->
-            <div class="calc-btn" onclick="calcAppend('4')">4</div>
-            <div class="calc-btn" onclick="calcAppend('5')">5</div>
-            <div class="calc-btn" onclick="calcAppend('6')">6</div>
-            <div class="calc-btn calc-operator" onclick="calcAppend('-')">
-              -
-            </div>
-
-            <!-- LINHA 4 -->
-            <div class="calc-btn" onclick="calcAppend('1')">1</div>
-            <div class="calc-btn" onclick="calcAppend('2')">2</div>
-            <div class="calc-btn" onclick="calcAppend('3')">3</div>
-            <div class="calc-btn calc-operator" onclick="calcAppend('+')">
-              +
-            </div>
-
-            <!-- LINHA 5 -->
-            <div class="calc-btn col-span-2" onclick="calcAppend('0')">0</div>
-            <div class="calc-btn" onclick="calcAppend('.')">.</div>
-            <div class="calc-btn calc-equal" onclick="calcCalculate()">=</div>
-          </div>
-        </div>
-
-        <!-- SEÇÃO: HISTÓRICO DA CALCULADORA -->
-        <h3 class="text-lg font-bold text-white mt-8 mb-3 text-center">
-          Histórico de Cálculos
-        </h3>
-
-        <div class="calculator-container p-4">
-          <!-- LISTA DE HISTÓRICO -->
-          <div id="calc-history-list">
-            <p
-              id="empty-history-message"
-              class="text-center text-[#8b949e] py-2"
-            >
-              Nenhum cálculo registrado.
-            </p>
-          </div>
-
-          <!-- BOTÃO: APAGAR HISTÓRICO -->
-          <button onclick="clearHistory()" class="btn-clear-history">
-            Apagar Histórico
-          </button>
-
-          <!-- ================= MODAL DO HISTÓRICO ================= -->
-          <div id="historyModal" class="modal-background hidden">
-            <div class="modal-card">
-              <h2 class="modal-title">Detalhes do Cálculo</h2>
-
-              <p class="modal-expression" id="modalExpression"></p>
-              <p class="modal-result" id="modalResult"></p>
-
-              <div class="modal-buttons">
-                <button id="useResultBtn" class="btn-primary">
-                  Usar Resultado
-                </button>
-                <button id="closeModalBtn" class="btn-secondary">Fechar</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <!-- ===================== RODAPÉ E UTILITÁRIOS ===================== -->
 
@@ -565,8 +460,7 @@
         Estamos em fase de desenvolvimento e pedimos a compreensão de todos.”
       </p>
       <div class="versao-box">
-        Versão: <span id="app-version">3.3.34v</span>
-      <p>beta</p>
+        <span id="app-version">v 4.4.35</span>
         </ul>
       </div>
     </div>
