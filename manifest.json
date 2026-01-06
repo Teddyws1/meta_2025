@@ -1,7 +1,7 @@
 {
-  "name": "Meta_up 2025",
-  "short_name": "Meta_up 2025",
-  "version": "2.2.32",
+  "name": "Meta_up 2026",
+  "short_name": "Meta_up 2026",
+  "version": "2.2.36",
   "start_url": "https://teddyws1.github.io/meta_2025/",
   "scope": "/",
   "display": "standalone",
@@ -10,13 +10,13 @@
   "icons": [
     
     {
-      "src": "https://i.postimg.cc/HkPdyn7G/Gemini-Generated-Image-7m1x1h7m1x1h7m1x.png",
+      "src": "https://i.postimg.cc/rsdDtZRn/android-chrome-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "https://i.postimg.cc/HkPdyn7G/Gemini-Generated-Image-7m1x1h7m1x1h7m1x.png",
+      "src": "https://i.postimg.cc/MKCQ1wDR/android-chrome-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"

@@ -547,10 +547,6 @@ const updateDisplay = () => {
   }
 };
 
-// ============================================================
-// FUNÇÕES DO MODAL BETA
-// ============================================================
-
 /**
  * Abre o modal de informações beta
  */
@@ -629,9 +625,13 @@ const exportData = () => {
     goalDeadline: currentDeadline,
     goalStartDate: currentStartDate,
     deposits,
-    calcHistory: history,
     exportedAt: new Date().toISOString(),
     app: "Meta_up",
+
+  ///==============================///
+  message: "Obrigado por confiar no Meta_up. Backup dos seus dados. Guarde com cuidado."
+
+
   };
 
   const blob = new Blob([JSON.stringify(data, null, 2)], {
