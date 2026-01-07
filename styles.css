@@ -204,44 +204,48 @@ body {
 
 /* =====versao===== */
 /* CSS vai aqui */
+/* Caixa da versão */
 .version-sample {
     background: #111827;
-    padding: 10px 14px;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    border-radius: 16px 16px;
-    border: 1px solid #1f2937;
-    margin: 20px auto;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
-    max-width: 90%;
-    width: fit-content;
-}
+    padding: 10px 16px;
 
-/* fundo da versão */
-.version-sample .version-text {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #cccbcb;
-    margin: 0;
-    white-space: nowrap;
-}
-
-/*fundo da meta lado da verão*/
-.version-sample {
     display: inline-flex;
     align-items: center;
     gap: 10px;
+
+    border-radius: 16px;
+    border: 1px solid #1f2937;
+
+    margin: 20px auto;
+    max-width: 90%;
+    width: fit-content;
+
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
 }
 
-/* Texto da versão */
-.version-sample .version-text {
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: #a1a1aa; /* cinza moderno */
+/* Texto */
+.version-text {
     margin: 0;
-    letter-spacing: 0.15px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #e5e7eb;
+
+    line-height: 1.4;
+    text-align: center;
 }
+
+/* Subtexto */
+.version-text span {
+    display: block;
+    margin-top: 2px;
+
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: #a1a1aa;
+
+    letter-spacing: 0.2px;
+}
+
 
 /* Badge Beta — moderno e clean */
 .version-sample .beta-text {
@@ -344,27 +348,21 @@ body {
 /* fundo do modal */
 .modal-card {
     position: fixed;
-    top: 50%;
+    top: 72%;
     left: 50%;
-
-    transform: translate(-50%, -50%) scale(0.94);
-
+    transform: translate(-50%, -50%) scale(0.95);
     width: 92%;
     max-width: 420px;
-    padding: 28px 26px;
-
-    background: linear-gradient(135deg, #4fd13c, #3abf2b);
-    color: #ffffff;
-
-    font-size: 16.5px;
-    line-height: 1.4;
-    text-align: center;
-
+    padding: 26px 24px;
+    background: linear-gradient(135deg, #4fd13c, #2fae22);
+    color: #000000;
+    font-size: 16px;
+    line-height: 1.6;
+    text-align: left;
     border-radius: 18px;
-
     box-shadow:
-        0 12px 35px rgba(0, 0, 0, 0.3),
-        0 4px 10px rgba(0, 0, 0, 0.2);
+        0 14px 40px rgba(0, 0, 0, 0.35),
+        0 6px 14px rgba(0, 0, 0, 0.25);
 
     opacity: 0;
     pointer-events: none;
@@ -375,14 +373,120 @@ body {
 
     z-index: 999;
 }
+
+/* Quando estiver ativo */
 .modal-card.show {
     opacity: 1;
     pointer-events: auto;
     transform: translate(-50%, -50%) scale(1);
 }
-.modal-overlay.hide {
-    opacity: 0;
+
+/* =========================
+   TÍTULO BETA
+========================= */
+.titulo-beta {
+    margin: 0 0 14px;
+
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+
+    text-align: center;
+    color: #0f172a; /* preto moderno */
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
 }
+
+/* =========================
+   ÍCONE DO TÍTULO
+========================= */
+.titulo-beta ion-icon {
+    font-size: 24px;
+    color: #06b6d4; /* azul destaque */
+
+    /* sombra realista */
+    filter: drop-shadow(0 4px 6px rgba(6, 182, 212, 0.45));
+
+    /* leve efeito 3D */
+    transform: translateY(0) scale(1);
+    transition: 
+        transform .25s ease,
+        filter .25s ease;
+}
+
+/* 🎯 Efeito ao passar o mouse */
+.titulo-beta:hover ion-icon {
+    transform: translateY(-2px) scale(1.1);
+    filter: drop-shadow(0 8px 12px rgba(6, 182, 212, 0.7));
+}
+
+/* Lista de avisos */
+.avisos-lista {
+    list-style: none;
+    padding: 0;
+    margin: 14px 0 18px;
+}
+
+.avisos-lista li {
+    background: rgb(255, 255, 255);
+    padding: 10px 12px;
+    border-radius: 10px;
+    margin-bottom: 8px;
+
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+
+    font-size: 14.5px;
+    line-height: 1.5;
+}
+
+.avisos-lista li span {
+    font-size: 24px;
+    color: #000000;
+    line-height: 1;
+}
+/* animção icone */
+/* Ícone base */
+.avisos-lista li span {
+    font-size: 24px;
+    line-height: 1;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #000000;
+
+    /* efeito 3D */
+    text-shadow:
+        0 1px 0 rgba(0,0,0,.15),
+        0 2px 4px rgba(0,0,0,.25);
+
+    transform: perspective(600px) rotateX(0deg) rotateY(0deg) scale(1);
+    transition: 
+        transform .35s cubic-bezier(.16,1,.3,1),
+        text-shadow .35s ease,
+        color .3s ease;
+}
+
+/* 🎯 Efeito ao passar o mouse */
+.avisos-lista li:hover span {
+    color: #31ec18; /* muda a cor no hover */
+
+    transform: 
+        perspective(600px)
+        rotateX(12deg)
+        rotateY(-12deg)
+        scale(1.15);
+
+    text-shadow:
+        0 6px 12px rgba(0,0,0,.35);
+}
+
 
 /*fundo do BOTÃO FECHAR modal meta*/
 .close-btn {
@@ -787,7 +891,7 @@ input::placeholder {
     left: -9px;
     z-index: 1001;
     font-size: 22px;
-    background: #48C337;
+    background: #752f4a;
     color: #fff;
     border: none;
     padding: 8px 14px;
@@ -795,4 +899,4 @@ input::placeholder {
     cursor: pointer;
 }
 
-/* nov sisteama */
+/* icones color */

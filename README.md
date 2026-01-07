@@ -1,6 +1,6 @@
 # meta_2026
 
-versão do sst 4.4.36v
+versão do sst 4.5.37v
 controle de CDG 32.16V
  
  versão em testes

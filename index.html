@@ -16,7 +16,7 @@
     <!-- ===================== FAVICONS ===================== -->
     <link
       rel="shortcut icon"
-      href="imgs/img_logo_sem__fundo_favicon/favicon.ico"
+      href="imgs/sem_fundo_mt_natal/favicon.ico"
       type="image/x-icon"
     />
     <link id="dynamic-favicon" rel="icon" href="/icon-v2.png" />
@@ -28,6 +28,8 @@
     <!-- ===================== ARQUIVOS JS ===================== -->
     <script src="script.js" defer></script>
   </head>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
   <!-- ============================================================
      CORPO DA APLICAÇÃO
@@ -41,7 +43,7 @@
         <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
 
         <!-- TÍTULO -->
-        <h1 class="titulo-metatup">Meta<span>_up</span> 2026</h1>
+        <h1 class="titulo-metatup">Meta<span>_up</span></h1>
 
         <!-- SUBTÍTULO -->
         <p class="subtitulo">
@@ -444,26 +446,66 @@
 
     <!-- VERSÃO BETA -->
     <div class="version-sample">
-      <h5 class="version-text">versão em testes</h5>
+    <h5 class="version-text">
+  Ver mais sobre a versão
+  <span>Clique em “BETA”</span>
+</h5>
+
       <abbr title="ver mais">
         <h6 class="beta-text" id="openCard">Beta</h6>
       </abbr>
     </div>
 
-    <!-- MODAL: INFORMAÇÕES BETA -->
-    <div id="overlay" class="overlay"></div>
-    <div id="card" class="modal-card">
-      <button id="closeCard" class="close-btn">✕</button>
-      <h2>Informações Beta</h2>
-      <p>
-        “Esta é uma versão beta, portanto alguns bugs e erros podem ocorrer.
-        Estamos em fase de desenvolvimento e pedimos a compreensão de todos.”
-      </p>
-      <div class="versao-box">
-        <span id="app-version">v 4.4.36</span>
-        </ul>
-      </div>
-    </div>
+ <!-- MODAL: INFORMAÇÕES BETA -->
+<div id="overlay" class="overlay"></div>
+
+<div id="card" class="modal-card">
+  <button id="closeCard" class="close-btn">✕</button>
+
+ <h2 class="titulo-beta">
+  <ion-icon name="flask-outline"></ion-icon>
+  Informações Beta
+</h2>
+
+
+
+<ul class="avisos-lista">
+
+  <li class="item beta">
+    <span class="icon icon-beta">
+      <ion-icon name="alert-outline"></ion-icon>
+    </span>
+    Esta é uma versão beta, portanto alguns bugs e erros podem ocorrer.
+  </li>
+
+  <li class="item desenvolvimento">
+    <span class="icon icon-desenvolvimento">
+      <ion-icon name="hammer-outline"></ion-icon>
+    </span>
+    O sistema ainda está em fase de desenvolvimento.
+  </li>
+
+  <li class="item recomendacao">
+    <span class="icon icon-recomendacao">
+      <ion-icon name="bulb-outline"></ion-icon>
+    </span>
+    Recomendamos limpar o cache do navegador para garantir que você receba as atualizações mais recentes do sistema.
+  </li>
+
+  <li class="item aviso">
+    <span class="icon icon-aviso">
+      <ion-icon name="warning-outline"></ion-icon>
+    </span>
+    Pedimos a compreensão de todos durante esse período.
+  </li>
+
+</ul>
+
+  <div class="versao-box">
+    <span id="app-version">v 4.5.37</span>
+  </div>
+</div>
+
 
     <!-- ===================== COMPONENTES FLUTUANTES ===================== -->
 
