@@ -665,8 +665,9 @@ const importData = (event) => {
     try {
       const data = JSON.parse(e.target.result);
 
-      if (data.app !== "Meta_up") {
-        alert("Arquivo inválido para este sistema.");
+      // ✅ validação correta
+      if (!data.name || !data.name.includes("Meta_up")) {
+        alert("❌ Arquivo inválido para este sistema.");
         return;
       }
 
@@ -675,16 +676,16 @@ const importData = (event) => {
       currentDeadline = data.goalDeadline || "";
       currentStartDate = data.goalStartDate || "";
       deposits = data.deposits || [];
-     
 
       saveData();
       updateGoalUI();
       renderHistory();
       toggleGoalEdit(currentGoal === 0);
 
-      showSuccessMessage("Dados importados com sucesso!");
+      showSuccessMessage("✅ Dados importados com sucesso!");
     } catch (err) {
-      alert("Erro ao importar o arquivo.");
+      console.error("Erro ao importar:", err);
+      alert("❌ Erro ao importar o arquivo.\nVerifique se ele é um backup válido.");
     }
   };
 
