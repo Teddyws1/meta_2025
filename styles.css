@@ -27,6 +27,14 @@ body {
 
 }
 
+/* bloqueio de scroll do modal  */
+
+body.no-scroll {
+    overflow: hidden;
+    height: 100vh;
+}
+
+
 /* fundo do sistema */
 .container-bg {
     background-color: #000000;
@@ -85,6 +93,11 @@ body {
 
 }
 
+#save-goal-btn ion-icon {
+  font-size: 20px;
+}
+
+
 /* sisitema de cor ativa ao não usar */
 
 .tab-button:not(.active),
@@ -135,6 +148,8 @@ body {
     -webkit-transition: width 0.25s ease;
     transition: width 0.25s ease;
 }
+
+
 
 /* Estado ativo */
 .tab-button.active {
@@ -254,7 +269,8 @@ body {
     text-transform: uppercase;
     letter-spacing: 0.8px;
 
-    color: #16a34a; /* verde moderno */
+    color: #16a34a;
+    /* verde moderno */
     background: rgba(22, 163, 74, 0.12);
 
     padding: 4px 8px;
@@ -279,6 +295,7 @@ body {
     background: rgba(22, 163, 74, 0.18);
     transform: translateY(-1px);
 }
+
 @media (max-width: 400px) {
     .version-sample {
         gap: 8px;
@@ -392,7 +409,8 @@ body {
     letter-spacing: 0.4px;
 
     text-align: center;
-    color: #0f172a; /* preto moderno */
+    color: #0f172a;
+    /* preto moderno */
 
     display: flex;
     align-items: center;
@@ -405,14 +423,15 @@ body {
 ========================= */
 .titulo-beta ion-icon {
     font-size: 24px;
-    color: #06b6d4; /* azul destaque */
+    color: #06b6d4;
+    /* azul destaque */
 
     /* sombra realista */
     filter: drop-shadow(0 4px 6px rgba(6, 182, 212, 0.45));
 
     /* leve efeito 3D */
     transform: translateY(0) scale(1);
-    transition: 
+    transition:
         transform .25s ease,
         filter .25s ease;
 }
@@ -449,6 +468,7 @@ body {
     color: #000000;
     line-height: 1;
 }
+
 /* animção icone */
 /* Ícone base */
 .avisos-lista li span {
@@ -463,28 +483,26 @@ body {
 
     /* efeito 3D */
     text-shadow:
-        0 1px 0 rgba(0,0,0,.15),
-        0 2px 4px rgba(0,0,0,.25);
+        0 1px 0 rgba(0, 0, 0, .15),
+        0 2px 4px rgba(0, 0, 0, .25);
 
     transform: perspective(600px) rotateX(0deg) rotateY(0deg) scale(1);
-    transition: 
-        transform .35s cubic-bezier(.16,1,.3,1),
+    transition:
+        transform .35s cubic-bezier(.16, 1, .3, 1),
         text-shadow .35s ease,
         color .3s ease;
 }
 
 /* 🎯 Efeito ao passar o mouse */
 .avisos-lista li:hover span {
-    color: #31ec18; /* muda a cor no hover */
+    color: #31ec18;
+    /* muda a cor no hover */
 
-    transform: 
-        perspective(600px)
-        rotateX(12deg)
-        rotateY(-12deg)
-        scale(1.15);
+    transform:
+        perspective(600px) rotateX(12deg) rotateY(-12deg) scale(1.15);
 
     text-shadow:
-        0 6px 12px rgba(0,0,0,.35);
+        0 6px 12px rgba(0, 0, 0, .35);
 }
 
 
@@ -683,6 +701,24 @@ input::placeholder {
     opacity: 0.9;
 }
 
+.btn-edit-goal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Ícone */
+.btn-edit-goal ion-icon {
+  font-size: 20px;
+}
+
 
 /* =====================================================================
    UTILITÁRIOS
@@ -831,6 +867,7 @@ input::placeholder {
         opacity: 0;
         transform: translateY(4px);
     }
+
     to {
         opacity: 0.85;
         transform: translateY(0);
@@ -899,4 +936,17 @@ input::placeholder {
     cursor: pointer;
 }
 
-/* icones color */
+/* icones das (P) */
+.info-card ion-icon {
+  font-size: 17px;
+  color: #48C337; /* azul moderno */
+}
+.value-meta    ~ ion-icon { color: #facc15; } /* meta */
+.value-saved   ~ ion-icon { color: #22c55e; } /* arrecadado */
+.percent-complete ~ ion-icon { color: #0ea5e9; } /* porcentagem */
+.value-remaining ~ ion-icon { color: #ef4444; } /* restante */
+
+/* botão de editar metas*/
+.btn-edit-goal ion-icon {
+  font-size: 20px;
+}

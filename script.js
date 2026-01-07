@@ -524,44 +524,28 @@ const setupTabs = () => {
   });
 };
 
-
-/**
- * Atualiza o display da calculadora
- */
-const updateDisplay = () => {
-  if (currentInput === currentExpression.replace(",", ".")) {
-    calcDisplay.textContent = currentExpression.replace(".", ",");
-    calcExpression.textContent = "";
-  } else {
-    calcExpression.textContent = currentInput
-      .replace(/\*/g, "x")
-      .replace(/\//g, "÷");
-    const parts = currentInput.split(/[\+\-\*\/%]/).filter((p) => p.length > 0);
-    const displayValue = parts.length > 0 ? parts[parts.length - 1] : "0";
-    calcDisplay.textContent = displayValue.replace(".", ",");
-  }
-
-  if (currentInput === "0") {
-    calcDisplay.textContent = "0";
-    calcExpression.textContent = "";
-  }
-};
-
 /**
  * Abre o modal de informações beta
  */
 const openBetaModal = () => {
   card.classList.add("show");
   overlay.classList.add("show");
+
+  // 🔒 bloqueia o scroll da página
+  document.body.classList.add("no-scroll");
 };
 
 /**
- * Fecha o modal de informações beta
+ * Fecha o modal
  */
 const closeBetaModal = () => {
   card.classList.remove("show");
   overlay.classList.remove("show");
+
+  // 🔓 libera o scroll da página
+  document.body.classList.remove("no-scroll");
 };
+
 
 
 /**************************************************
@@ -665,9 +649,8 @@ const importData = (event) => {
     try {
       const data = JSON.parse(e.target.result);
 
-      // ✅ validação correta
-      if (!data.name || !data.name.includes("Meta_up")) {
-        alert("❌ Arquivo inválido para este sistema.");
+      if (data.app !== "Meta_up") {
+        alert("Arquivo inválido para este sistema.");
         return;
       }
 
@@ -682,10 +665,9 @@ const importData = (event) => {
       renderHistory();
       toggleGoalEdit(currentGoal === 0);
 
-      showSuccessMessage("✅ Dados importados com sucesso!");
+      showSuccessMessage("Dados importados com sucesso!");
     } catch (err) {
-      console.error("Erro ao importar:", err);
-      alert("❌ Erro ao importar o arquivo.\nVerifique se ele é um backup válido.");
+      alert("Erro ao importar o arquivo.");
     }
   };
 

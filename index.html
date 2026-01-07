@@ -166,12 +166,14 @@
               </div>
 
               <!-- BOTÃO: SALVAR META -->
-              <button
-                id="save-goal-btn"
-                class="w-full text-white font-bold py-3 rounded-lg primary-button text-lg"
-              >
-                Salvar Meta
-              </button>
+            <button
+  id="save-goal-btn"
+  class="w-full text-white font-bold py-3 rounded-lg primary-button text-lg flex items-center justify-center gap-2"
+>
+  Salvar Meta
+   <ion-icon name="save-outline"></ion-icon>
+</button>
+
             </div>
           </div>
 
@@ -191,9 +193,11 @@
               class="text-xs text-yellow-400 font-bold mb-4"
             ></p>
 
-            <button onclick="toggleGoalEdit(true)" class="btn-edit-goal">
-              Editar Meta
-            </button>
+          <button onclick="toggleGoalEdit(true)" class="btn-edit-goal flex items-center justify-center gap-2">
+  <ion-icon name="create-outline"></ion-icon>
+  Editar
+</button>
+
           </div>
         </section>
 
@@ -240,64 +244,87 @@
         <hr class="border-[var(--border-color)] my-8" />
 
         <!-- ===================== SEÇÃO: CARDS RESUMO ===================== -->
-        <section class="grid grid-cols-2 gap-4 mb-8">
-          <!-- CARD: META TOTAL -->
-          <div class="info-card p-4 text-center">
-            <p class="text-xs text-[#8b949e] mb-1">Meta Total</p>
-            <p id="meta-total-card" class="text-lg font-bold value-meta">
-              R$ 0.00
-            </p>
-          </div>
+     <section class="grid grid-cols-2 gap-4 mb-8">
 
-          <!-- CARD: VALOR ARRECADADO -->
-          <div class="info-card p-4 text-center">
-            <p class="text-xs text-[#8b949e] mb-1">Valor Arrecadado</p>
-            <p id="valor-arrecadado-card" class="text-lg font-bold value-saved">
-              R$ 0.00
-            </p>
-          </div>
+  <!-- CARD: META TOTAL -->
+  <div class="info-card p-4 text-center">
+    <p class="text-xs text-[#8b949e] mb-1 flex items-center justify-center gap-1">
+      <ion-icon name="trophy-outline"></ion-icon>
+      Meta Total
+    </p>
+    <p id="meta-total-card" class="text-lg font-bold value-meta">
+      R$ 0.00
+    </p>
+  </div>
 
-          <!-- CARD: PORCENTAGEM CONCLUÍDA -->
-          <div class="info-card p-4 text-center">
-            <p class="text-xs text-[#8b949e] mb-1">Porcentagem Concluída</p>
-            <p
-              id="percent-complete-card"
-              class="text-lg font-bold percent-complete"
-            >
-              0%
-            </p>
-          </div>
+  <!-- CARD: VALOR ARRECADADO -->
+  <div class="info-card p-4 text-center">
+    <p class="text-xs text-[#8b949e] mb-1 flex items-center justify-center gap-1">
+      <ion-icon name="wallet-outline"></ion-icon>
+      Valor Arrecadado
+    </p>
+    <p id="valor-arrecadado-card" class="text-lg font-bold value-saved">
+      R$ 0.00
+    </p>
+  </div>
 
-          <!-- CARD: VALOR RESTANTE -->
-          <div class="info-card p-4 text-center">
-            <p class="text-xs text-[#8b949e] mb-1">Valor Restante</p>
-            <p
-              id="valor-restante-card"
-              class="text-lg font-bold value-remaining"
-            >
-              R$ 0.00
-            </p>
-          </div>
-        </section>
+  <!-- CARD: PORCENTAGEM CONCLUÍDA -->
+  <div class="info-card p-4 text-center">
+    <p class="text-xs text-[#8b949e] mb-1 flex items-center justify-center gap-1">
+      <ion-icon name="stats-chart-outline"></ion-icon>
+      Porcentagem Concluída
+    </p>
+    <p
+      id="percent-complete-card"
+      class="text-lg font-bold percent-complete"
+    >
+      0%
+    </p>
+  </div>
+
+  <!-- CARD: VALOR RESTANTE -->
+  <div class="info-card p-4 text-center">
+    <p class="text-xs text-[#8b949e] mb-1 flex items-center justify-center gap-1">
+      <ion-icon name="cash-outline"></ion-icon>
+      Valor Restante
+    </p>
+    <p
+      id="valor-restante-card"
+      class="text-lg font-bold value-remaining"
+    >
+      R$ 0.00
+    </p>
+  </div>
+
+</section>
+
 
         <!-- ===================== SEÇÃO: TEMPO ===================== -->
-        <section class="grid grid-cols-2 gap-4">
-          <!-- CARD: DIAS RESTANTES -->
-          <div class="info-card p-4 text-center">
-            <p class="text-xs text-[#8b949e] mb-1">Dias Restantes</p>
-            <p id="dias-restantes-card" class="text-lg font-bold text-red-400">
-              --
-            </p>
-          </div>
+       <section class="grid grid-cols-2 gap-4">
 
-          <!-- CARD: DURAÇÃO TOTAL -->
-          <div class="info-card p-4 text-center">
-            <p class="text-xs text-[#8b949e] mb-1">Duração Total (Dias)</p>
-            <p id="duracao-total-card" class="text-lg font-bold text-blue-400">
-              --
-            </p>
-          </div>
-        </section>
+  <!-- CARD: DIAS RESTANTES -->
+  <div class="info-card p-4 text-center">
+    <p class="text-xs text-[#8b949e] mb-1 flex items-center justify-center gap-1">
+      <ion-icon name="hourglass-outline"></ion-icon>
+      Dias Restantes
+    </p>
+    <p id="dias-restantes-card" class="text-lg font-bold text-red-400">
+      --
+    </p>
+  </div>
+
+  <!-- CARD: DURAÇÃO TOTAL -->
+  <div class="info-card p-4 text-center">
+    <p class="text-xs text-[#8b949e] mb-1 flex items-center justify-center gap-1">
+      <ion-icon name="calendar-outline"></ion-icon>
+      Duração Total (Dias)
+    </p>
+    <p id="duracao-total-card" class="text-lg font-bold text-blue-400">
+      --
+    </p>
+  </div>
+
+</section>
       </div>
 
       <!-- ============================================================
@@ -431,14 +458,18 @@
 
     <!-- BOTÕES: EXPORTAR/IMPORTAR DADOS -->
     <div class="flex gap-3 mt-6 justify-center">
-      <button onclick="exportData()" class="btn-edit-goal">
-        Exportar Dados
-      </button>
+      <button onclick="exportData()" class="btn-edit-goal btn-export">
+ <ion-icon name="cloud-download-outline"></ion-icon>
 
-      <label class="btn-edit-goal">
-        Importar Dados
-        <input type="file" accept=".json" onchange="importData(event)" hidden />
-      </label>
+  Exportar Dados
+</button>
+
+<label class="btn-edit-goal btn-import">
+  <ion-icon name="cloud-upload-outline"></ion-icon>
+  Importar Dados
+  <input type="file" accept=".json" onchange="importData(event)" hidden />
+</label>
+
     </div>
 
     <!-- SEPARADOR -->
@@ -502,7 +533,7 @@
 </ul>
 
   <div class="versao-box">
-    <span id="app-version">v 4.5.37</span>
+    <span id="app-version">v 4.6.38</span>
   </div>
 </div>
 
