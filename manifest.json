@@ -1,15 +1,16 @@
 {
   "name": "Meta_up 2026",
-   "app": "Meta_up",
+  "app": "Meta_up",
   "version": "4.6.38",
+
   "start_url": "https://teddyws1.github.io/meta_2026/",
   "scope": "/",
   "display": "standalone",
+
   "background_color": "#000000",
   "theme_color": "#000000",
-  "icons": 
-  [
-    
+
+  "icons": [
     {
       "src": "https://i.postimg.cc/rsdDtZRn/android-chrome-192x192.png",
       "sizes": "192x192",
