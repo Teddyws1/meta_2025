@@ -10,7 +10,7 @@
 
     /* Cores principais */
     --green-primary: #238636;
-    --verde-principal: #48C337;
+    --verde-principal: #3ed928;
     --azul-tab: #1F2A7F;
 
 
@@ -957,7 +957,7 @@ input::placeholder {
 .value-meta    ~ ion-icon { color: #facc15; } /* meta */
 .value-saved   ~ ion-icon { color: #22c55e; } /* arrecadado */
 .percent-complete ~ ion-icon { color: #0ea5e9; } /* porcentagem */
-.value-remaining ~ ion-icon { color: #ef4444; } /* restante */
+.value-remaining ~ ion-icon { color: #000000; } /* restante */
 
 /* botão de editar metas*/
 .btn-edit-goal ion-icon {
