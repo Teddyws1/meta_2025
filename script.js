@@ -301,10 +301,10 @@ const updateGoalUI = () => {
   // Estiliza barra de progresso
   if (visualPercentage >= 100) {
     progressBarFill.style.backgroundImage =
-      "linear-gradient(to right, #2ecc71, #2ecc71)";
+      "linear-gradient(to right, #ffffffff, #f0f0f0ff)";
   } else {
     progressBarFill.style.backgroundImage =
-      "linear-gradient(to right, #27ae60, #2ecc71)";
+      "linear-gradient(to right, #48C337, #48C337)";
   }
 
   // Atualiza cálculo de prazo
@@ -702,13 +702,11 @@ const resetData = () => {
 window.addEventListener("load", loadData);
 
 
+//bloqueio de copia
 
-// ============================================================
-// BLOQUEIO DE ZOOM (REMOVIDO - Função não presente no HTML)
-// ============================================================
-// O código de bloqueio de zoom foi removido pois não há referências
-// no HTML fornecido para essa funcionalidade
 
+
+//fim bloqueio de copia
 // ============================================================
 // INICIALIZAÇÃO
 // ============================================================
@@ -796,3 +794,89 @@ const migrateBackupData = (data) => {
 
   return migrated;
 };
+
+//bloqueio de copia
+// ===============================
+// SISTEMA DE BLOQUEIO DE CÓPIA
+// ===============================
+
+// 1. Bloquear clique direito
+document.addEventListener("contextmenu", function (e) {
+  e.preventDefault();
+});
+
+// 2. Bloquear seleção de texto
+document.addEventListener("selectstart", function (e) {
+  e.preventDefault();
+});
+
+// 3. Bloquear arrastar texto/imagem
+document.addEventListener("dragstart", function (e) {
+  e.preventDefault();
+});
+
+// 4. Bloquear copiar
+document.addEventListener("copy", function (e) {
+  e.preventDefault();
+  mostrarAviso("⚠️ Cópia desativada neste site.");
+});
+
+// 5. Bloquear atalhos de teclado
+document.addEventListener("keydown", function (e) {
+  const key = e.key.toLowerCase();
+
+  // Lista de combinações bloqueadas
+  const bloqueios = [
+    e.ctrlKey && key === "c", // copiar
+    e.ctrlKey && key === "x", // recortar
+    e.ctrlKey && key === "v", // colar
+    e.ctrlKey && key === "u", // ver código-fonte
+    e.ctrlKey && e.shiftKey && key === "i", // devtools
+    e.ctrlKey && e.shiftKey && key === "j", // console
+    e.ctrlKey && e.shiftKey && key === "c", // inspect
+    key === "f12" // devtools
+  ];
+
+  if (bloqueios.some(Boolean)) {
+    e.preventDefault();
+    mostrarAviso("🔒 Ação bloqueada.");
+  }
+});
+
+// 6. Bloquear impressão
+document.addEventListener("beforeprint", function () {
+  mostrarAviso("🖨️ Impressão desativada.");
+  window.stop();
+});
+
+// ===============================
+// FUNÇÃO DE AVISO
+// ===============================
+function mostrarAviso(texto) {
+  let aviso = document.getElementById("aviso-bloqueio");
+
+  if (!aviso) {
+    aviso = document.createElement("div");
+    aviso.id = "aviso-bloqueio";
+    aviso.style.position = "fixed";
+    aviso.style.bottom = "20px";
+    aviso.style.right = "20px";
+    aviso.style.background = "rgba(31,36,40,0.95)";
+    aviso.style.color = "#fff";
+    aviso.style.padding = "12px 16px";
+    aviso.style.borderRadius = "10px";
+    aviso.style.fontSize = "14px";
+    aviso.style.zIndex = "9999";
+    aviso.style.boxShadow = "0 6px 16px rgba(0,0,0,.6)";
+    aviso.style.border = "1px solid #333";
+    document.body.appendChild(aviso);
+  }
+
+  aviso.textContent = texto;
+  aviso.style.opacity = "1";
+
+  clearTimeout(aviso._timer);
+  aviso._timer = setTimeout(() => {
+    aviso.style.opacity = "0";
+  }, 2000);
+}
