@@ -65,7 +65,7 @@ body.no-scroll {
 
 /* butão de adicinar */
 .primary-button {
-    background-color: #48C337;
+    background: linear-gradient(135deg, #48C337, #197c0c);
     box-shadow: 0 2px 9px -1px #238636;
     transition: opacity 0.2s, transform 0.2s;
 }
@@ -199,18 +199,18 @@ body.no-scroll {
 /* infomação de cards */
 
 .info-card, .section-box {
-  background-color: rgba(31, 36, 40, 0.9);
-  border: 1px solid var(--border-color);
-  border-radius: 0.75rem;
+    background-color: rgba(31, 36, 40, 0.9);
+    border: 1px solid var(--border-color);
+    border-radius: 0.75rem;
 
-  -webkit-backdrop-filter: blur(5px);
-  backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
 }
 
 .info-card:hover,
 .section-box:hover {
-  background-color: rgba(31, 36, 40, 1);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
+    background-color: rgba(31, 36, 40, 1);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
 }
 
 /* divisoria */
@@ -694,7 +694,7 @@ input::placeholder {
     font-weight: bold;
     color: white;
     border-radius: 0.5rem;
-    background-color: #48C337;
+    background: linear-gradient(135deg, #48C337, #197c0c);
     text-align: center;
     cursor: pointer;
     font-size: 104%;
@@ -769,8 +769,8 @@ input::placeholder {
 
 /* cor da palavra "tup" */
 .titulo-metatup span {
-    color: #48C337;
-    /* verde usado no seu layout */
+    color: #2a9e1b;
+
 }
 
 /* subtítulo */
@@ -791,7 +791,6 @@ input::placeholder {
     color: #ffffff;
     font-weight: 600;
 }
-
 
 /* button de div minha meta meus deposito calculadora */
 /* ---------------------------
@@ -848,7 +847,7 @@ input::placeholder {
    ABA ATIVA
 ---------------------------- */
 .tab-button.active {
-    background: #48C337;
+    background: linear-gradient(135deg, #48C337, #197c0c);
     color: #fff;
     opacity: 1;
     transform: translateY(-1px);
@@ -1014,3 +1013,6 @@ input::placeholder {
     background-color: rgba(31, 36, 40, 1);
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
 }
+
+/* sisteam nova */
+

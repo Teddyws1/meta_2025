@@ -1,4 +1,3 @@
-
 // ============================================================
 // VARIÁVEIS GLOBAIS E ESTADO
 // ============================================================
@@ -49,7 +48,6 @@ const duracaoTotalCard = document.getElementById("duracao-total-card");
 // Depósitos
 const depositsList = document.getElementById("deposits-list");
 const depositForm = document.getElementById("deposit-form");
-
 
 // Abas
 const tabButtonsContainer = document.getElementById("tab-buttons-container");
@@ -491,7 +489,6 @@ const saveEditedDeposit = (event) => {
   showSuccessMessage("Depósito Editado com Sucesso!");
 };
 
-
 /**
  * Configura o sistema de abas
  */
@@ -517,9 +514,6 @@ const setupTabs = () => {
         content.classList.add("hidden");
       });
       document.getElementById(`tab-${targetTab}`).classList.remove("hidden");
-
-     
-  
     });
   });
 };
@@ -545,8 +539,6 @@ const closeBetaModal = () => {
   // 🔓 libera o scroll da página
   document.body.classList.remove("no-scroll");
 };
-
-
 
 /**************************************************
  * CONFIG
@@ -587,7 +579,6 @@ const loadData = () => {
     currentDeadline = data.goalDeadline || "";
     currentStartDate = data.goalStartDate || "";
     deposits = data.deposits || [];
-  
 
     updateGoalUI();
     renderHistory();
@@ -596,8 +587,6 @@ const loadData = () => {
     console.error("Erro ao carregar dados:", err);
   }
 };
-
-
 
 /**************************************************
  * EXPORTAR BACKUP (OPCIONAL)
@@ -612,10 +601,9 @@ const exportData = () => {
     exportedAt: new Date().toISOString(),
     app: "Meta_up",
 
-  ///==============================///
-  message: "Obrigado por confiar no Meta_up. Backup dos seus dados. Guarde com cuidado."
-
-
+    ///==============================///
+    message:
+      "Obrigado por confiar no Meta_up. Backup dos seus dados. Guarde com cuidado.",
   };
 
   const blob = new Blob([JSON.stringify(data, null, 2)], {
@@ -687,7 +675,6 @@ const resetData = () => {
   currentDeadline = "";
   currentStartDate = "";
   deposits = [];
- 
 
   updateGoalUI();
   renderHistory();
@@ -701,10 +688,7 @@ const resetData = () => {
  **************************************************/
 window.addEventListener("load", loadData);
 
-
 //bloqueio de copia
-
-
 
 //fim bloqueio de copia
 // ============================================================
@@ -834,12 +818,12 @@ document.addEventListener("keydown", function (e) {
     e.ctrlKey && e.shiftKey && key === "i", // devtools
     e.ctrlKey && e.shiftKey && key === "j", // console
     e.ctrlKey && e.shiftKey && key === "c", // inspect
-    key === "f12" // devtools
+    key === "f12", // devtools
   ];
 
   if (bloqueios.some(Boolean)) {
     e.preventDefault();
-    mostrarAviso("🔒 Ação bloqueada.");
+    mostrarAviso("🔒 Ação bloqueada por sistema.");
   }
 });
 
@@ -857,7 +841,7 @@ function mostrarAviso(texto) {
 
   if (!aviso) {
     aviso = document.createElement("div");
-    aviso.id = "aviso-bloqueio";
+    aviso.id = "aviso-blboqueio";
     aviso.style.position = "fixed";
     aviso.style.bottom = "20px";
     aviso.style.right = "20px";
@@ -880,3 +864,195 @@ function mostrarAviso(texto) {
     aviso.style.opacity = "0";
   }, 2000);
 }
+
+//sisteam nova
+
+const list = document.getElementById("json-list");
+const input = document.getElementById("json-import-input");
+const NO_SCROLL_CLASS = "no-scroll";
+
+let jsonFiles = JSON.parse(localStorage.getItem("jsonFiles")) || [];
+
+/* SIDEBAR CONTROLE */
+document.getElementById("open-json-sidebar").onclick = () => openSidebar();
+document.getElementById("close-json-sidebar").onclick = closeSidebar;
+overlay.onclick = closeSidebar;
+
+function openSidebar() {
+  sidebar.classList.add("open");
+  overlay.classList.add("active");
+}
+
+function closeSidebar() {
+  sidebar.classList.remove("open");
+  overlay.classList.remove("active");
+}
+
+/* IMPORTAÇÃO */
+input.addEventListener("change", (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      const data = JSON.parse(reader.result);
+      jsonFiles.push({
+        id: Date.now(),
+        name: file.name.replace(".json", ""),
+        data
+      });
+      save();
+      render();
+    } catch {
+      alert("JSON inválido");
+    }
+  };
+  reader.readAsText(file);
+});
+
+/* RENDER */
+function render() {
+  list.innerHTML = "";
+  jsonFiles.forEach((item, index) => {
+    const li = document.createElement("li");
+    li.className = "json-item";
+
+    li.innerHTML = `
+      <input value="${item.name}" />
+      <div class="json-actions">
+        <button onclick="loadJSON(${index})">Usar</button>
+        <button onclick="removeJSON(${index})">Excluir</button>
+      </div>
+    `;
+
+    li.querySelector("input").oninput = (e) => {
+      item.name = e.target.value;
+      save();
+    };
+
+    list.appendChild(li);
+  });
+}
+
+/* AÇÕES */
+function removeJSON(index) {
+  jsonFiles.splice(index, 1);
+  save();
+  render();
+}
+
+function loadJSON(index) {
+  const json = jsonFiles[index].data;
+  console.log("JSON carregado:", json);
+  // 👉 aqui você conecta com seu sistema (metas, depósitos, etc)
+}
+
+
+
+function save() {
+  localStorage.setItem("jsonFiles", JSON.stringify(jsonFiles));
+}
+
+render();
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && sidebar.classList.contains("open")) {
+    closeSidebar();
+  }
+  
+});
+function openSidebar() {
+  sidebar.classList.add("open");
+  overlay.classList.add("active");
+
+  document.body.classList.add(NO_SCROLL_CLASS);
+}
+
+function closeSidebar() {
+  sidebar.classList.remove("open");
+  overlay.classList.remove("active");
+
+  document.body.classList.remove(NO_SCROLL_CLASS);
+}
+document.addEventListener("click", (e) => {
+  if (!sidebar.classList.contains("open")) return;
+
+  // Se clicou DENTRO da sidebar, não fecha
+  if (sidebar.contains(e.target)) return;
+
+  // Se clicou no botão de abrir, não fecha
+  if (e.target.closest("#open-json-sidebar")) return;
+
+  // 👉 Clique fora
+  closeSidebar();
+});
+//fim bloqueio de copia
+
+//sisteam de aba lateral
+
+// ============================================================
+// SISTEMA DE SIDEBAR LATERAL
+// ============================================================
+
+const sidebar = document.getElementById("sidebar");
+const sidebarOverlay = document.getElementById("sidebar-overlay");
+
+
+
+// ------------------------------------------------------------
+// TOGGLE SIDEBAR (ABRE / FECHA)
+// ------------------------------------------------------------
+function toggleSidebar() {
+  const isOpen = sidebar.classList.contains("active");
+
+  if (isOpen) {
+    closeSidebar();
+  } else {
+    openSidebar();
+  }
+}
+
+// ------------------------------------------------------------
+// ABRIR SIDEBAR
+// ------------------------------------------------------------
+function openSidebar() {
+  sidebar.classList.add("active");
+  sidebarOverlay.classList.add("active");
+  document.body.classList.add(NO_SCROLL_CLASS);
+}
+
+// ------------------------------------------------------------
+// FECHAR SIDEBAR
+// ------------------------------------------------------------
+function closeSidebar() {
+  sidebar.classList.remove("active");
+  sidebarOverlay.classList.remove("active");
+  document.body.classList.remove(NO_SCROLL_CLASS);
+}
+
+// ------------------------------------------------------------
+// FECHAR AO CLICAR FORA (SEGURANÇA EXTRA)
+// ------------------------------------------------------------
+document.addEventListener("click", (e) => {
+  if (!sidebar.classList.contains("active")) return;
+
+  // Clique dentro da sidebar → não fecha
+  if (sidebar.contains(e.target)) return;
+
+  // Clique no botão toggle → não fecha
+  if (e.target.closest(".sidebar-toggle")) return;
+
+  closeSidebar();
+});
+
+// ------------------------------------------------------------
+// FECHAR COM ESC
+// ------------------------------------------------------------
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && sidebar.classList.contains("active")) {
+    closeSidebar();
+  }
+});
+
+
+//fim sisteam de aba lateral
