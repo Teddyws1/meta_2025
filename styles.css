@@ -1016,3 +1016,106 @@ input::placeholder {
 
 /* sisteam nova */
 
+/* ===============================
+   CARD – ATUALIZAÇÃO EM BREVE
+   (PADRÃO META_UP)
+================================ */
+
+/* Overlay */
+.update-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+/* Card */
+.update-card {
+    background: rgba(31, 36, 40, 0.92); /* igual info-card */
+    border: 1px solid var(--border-color);
+    padding: 26px 24px;
+    max-width: 420px;
+    width: 92%;
+    border-radius: 18px;
+    text-align: center;
+
+    color: var(--text-light);
+
+    box-shadow:
+        0 20px 50px rgba(0, 0, 0, 0.6),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+
+    animation: updateFadeUp 0.4s ease;
+}
+
+/* Título */
+.update-card h2 {
+    margin-bottom: 12px;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #ffffff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* Texto */
+.update-card p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #a1a1aa;
+    margin-bottom: 22px;
+}
+
+/* Botão */
+.update-card button {
+    background: linear-gradient(135deg, #48C337, #197c0c);
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 12px;
+    cursor: pointer;
+
+    font-size: 0.9rem;
+    font-weight: 600;
+
+    box-shadow: 0 2px 9px -1px #238636;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+/* Hover */
+.update-card button:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+}
+
+/* Active */
+.update-card button:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+/* Animação */
+@keyframes updateFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(16px) scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+.update-card strong {
+    color: var(--verde-principal);
+    font-weight: 700;
+    border-bottom: 2px solid rgba(72, 195, 55, 0.4);
+    padding-bottom: 1px;
+}

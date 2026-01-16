@@ -1056,3 +1056,11 @@ document.addEventListener("keydown", (e) => {
 
 
 //fim sisteam de aba lateral
+ function closeUpdateCard() {
+    document.getElementById("update-overlay").style.display = "none";
+    document.body.classList.remove("no-scroll");
+  }
+
+  // Bloqueia scroll quando abrir
+  document.body.classList.add("no-scroll");
+  
