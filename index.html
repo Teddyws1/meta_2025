@@ -496,6 +496,11 @@
       <abbr title="ver mais">
         <h6 class="beta-text" id="openCard">Beta</h6>
       </abbr>
+     <div id="abbr-block-toast">
+  <span class="icon">⚠️</span>
+  <span class="mensagem">Este recurso foi desativado.&#x1F622;</span>
+</div>
+
     </div>
 
     <!-- MODAL: INFORMAÇÕES BETA -->
@@ -656,18 +661,85 @@
         </form>
       </div>
     </div>
-    <!--sisteam nova-->
-<!-- CARD DE ATUALIZAÇÃO -->
-<div id="update-overlay" class="update-overlay">
-  <div class="update-card">
-    <h2>🚀 Atualização em breve</h2>
-    <p>
-      Estamos preparando novidades e melhorias para você.
-      <strong>Fique atento</strong>, em breve teremos uma nova versão disponível!
-    </p>
-    <button onclick="closeUpdateCard()">Entendi</button>
-  </div>
-</div>
+    <div id="btnAbrirStatus" class="btn-status-sistema">
+      <ion-icon name="alert-circle-outline"></ion-icon>
+      <span class="notificacao-dot"></span>
+    </div>
 
+    <div id="metaup-freeze-overlay" class="metaup-freeze-overlay">
+      <div class="metaup-freeze-card" role="dialog" aria-modal="true">
+        <header class="metaup-freeze-header">
+          <ion-icon name="alert-circle-outline" class="header-icon"></ion-icon>
+          <h2>⛔ Recurso descontinuado</h2>
+          <span class="metaup-freeze-version">Status técnico do sistema</span>
+        </header>
+
+        <section class="metaup-freeze-content">
+          <p>
+            Este sistema <strong>não receberá mais atualizações</strong> a
+            partir de <strong>20/01/2026</strong>.
+          </p>
+
+          <p>
+            <strong>Importante:</strong> o sistema <u>continua funcional</u> e
+            pode ser utilizado normalmente, sem restrições de uso.
+          </p>
+
+          <p>
+            A interrupção das atualizações foi uma decisão técnica, baseada nos
+            seguintes fatores:
+          </p>
+
+          <ul>
+            <li>
+              <ion-icon name="construct-outline"></ion-icon> Arquitetura legada
+              com limitações estruturais
+            </li>
+            <li>
+              <ion-icon name="warning-outline"></ion-icon> Alto risco de
+              regressões ao alterar componentes estáveis
+            </li>
+            <li>
+              <ion-icon name="shield-checkmark-outline"></ion-icon> Estabilidade
+              atual considerada satisfatória
+            </li>
+            <li>
+              <ion-icon name="cash-outline"></ion-icon> Baixo custo-benefício em
+              novas correções
+            </li>
+          </ul>
+
+          <p>
+            Para evitar impactos negativos na estabilidade, optou-se por manter
+            esta versão congelada.
+          </p>
+
+          <p>
+            Paralelamente, um novo projeto está em desenvolvimento e
+            <strong
+              >um WebApp mais moderno substituirá este sistema futuramente
+              (Meta_up 2026)</strong
+            >.
+          </p>
+          <p class="aviso-desativado">Alguns recursos foram desativados</p>
+
+          <p class="metaup-freeze-note">
+            Ao continuar, você confirma que está ciente de que este sistema
+            permanecerá operacional, porém sem novas atualizações ou melhorias.
+          </p>
+ <p id="avissso">
+  Alguns recursos foram desativados.
+  <span class="desculpas">
+    Pedimos desculpas pelo ocorrido. Estamos fazendo o máximo para trazer o novo Web App o mais rápido possível, com performance otimizada e novos recursos. Agradecemos a sua compreensão.
+  </span>
+</p>
+
+        </section>
+
+        <button id="metaup-freeze-accept" class="metaup-freeze-btn">
+          Entendi e continuar
+        </button>
+      </div>
+    </div>
   </body>
 </html>
