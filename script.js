@@ -7,6 +7,27 @@ let currentDescription = "";
 let currentDeadline = "";
 let currentStartDate = "";
 let deposits = [];
+// Espera o DOM carregar
+document.addEventListener('DOMContentLoaded', () => {
+  const openBtn = document.getElementById('openCardBtn');
+  const overlay = document.getElementById('metaup-freeze-overlay');
+  const acceptBtn = document.getElementById('metaup-freeze-accept');
+
+  // Abre o card
+  openBtn.addEventListener('click', () => {
+    overlay.style.display = 'flex';
+    document.body.classList.add('modal-open');
+  });
+
+  // Fecha o card ao clicar no botão "Entendi e continuar"
+  acceptBtn.addEventListener('click', () => {
+    overlay.style.display = 'none';
+    document.body.classList.remove('modal-open');
+  });
+
+ 
+});
+
 
 // ============================================================
 // REFERÊNCIAS DOM
@@ -315,6 +336,90 @@ const updateGoalUI = () => {
 // ============================================================
 // FUNÇÕES DE DEPÓSITOS
 // ============================================================
+// ===============================
+// SISTEMA DE BLOQUEIO DE CÓPIA
+// ===============================
+
+// 1. Bloquear clique direito
+document.addEventListener("contextmenu", function (e) {
+  e.preventDefault();
+});
+
+// 2. Bloquear seleção de texto
+document.addEventListener("selectstart", function (e) {
+  e.preventDefault();
+});
+
+// 3. Bloquear arrastar texto/imagem
+document.addEventListener("dragstart", function (e) {
+  e.preventDefault();
+});
+
+// 4. Bloquear copiar
+document.addEventListener("copy", function (e) {
+  e.preventDefault();
+  mostrarAviso("⚠️ Cópia desativada neste site.");
+});
+
+// 5. Bloquear atalhos de teclado
+document.addEventListener("keydown", function (e) {
+  const key = e.key.toLowerCase();
+
+  // Lista de combinações bloqueadas
+  const bloqueios = [
+    e.ctrlKey && key === "c", // copiar
+    e.ctrlKey && key === "x", // recortar
+    e.ctrlKey && key === "v", // colar
+    e.ctrlKey && key === "u", // ver código-fonte
+    e.ctrlKey && e.shiftKey && key === "i", // devtools
+    e.ctrlKey && e.shiftKey && key === "j", // console
+    e.ctrlKey && e.shiftKey && key === "c", // inspect
+    key === "f12", // devtools
+  ];
+
+  if (bloqueios.some(Boolean)) {
+    e.preventDefault();
+    mostrarAviso("🔒 Ação bloqueada por sistema.");
+  }
+});
+
+// 6. Bloquear impressão
+document.addEventListener("beforeprint", function () {
+  mostrarAviso("🖨️ Impressão desativada.");
+  window.stop();
+});
+
+// ===============================
+// FUNÇÃO DE AVISO
+// ===============================
+function mostrarAviso(texto) {
+  let aviso = document.getElementById("aviso-bloqueio");
+
+  if (!aviso) {
+    aviso = document.createElement("div");
+    aviso.id = "aviso-blboqueio";
+    aviso.style.position = "fixed";
+    aviso.style.bottom = "20px";
+    aviso.style.right = "20px";
+    aviso.style.background = "rgba(31,36,40,0.95)";
+    aviso.style.color = "#fff";
+    aviso.style.padding = "12px 16px";
+    aviso.style.borderRadius = "10px";
+    aviso.style.fontSize = "14px";
+    aviso.style.zIndex = "9999";
+    aviso.style.boxShadow = "0 6px 16px rgba(0,0,0,.6)";
+    aviso.style.border = "1px solid #333";
+    document.body.appendChild(aviso);
+  }
+
+  aviso.textContent = texto;
+  aviso.style.opacity = "1";
+
+  clearTimeout(aviso._timer);
+  aviso._timer = setTimeout(() => {
+    aviso.style.opacity = "0";
+  }, 2000);
+}
 
 /**
  * Renderiza a lista de depósitos na tabela
@@ -780,90 +885,6 @@ const migrateBackupData = (data) => {
 };
 
 //bloqueio de copia
-// ===============================
-// SISTEMA DE BLOQUEIO DE CÓPIA
-// ===============================
-
-// 1. Bloquear clique direito
-document.addEventListener("contextmenu", function (e) {
-  e.preventDefault();
-});
-
-// 2. Bloquear seleção de texto
-document.addEventListener("selectstart", function (e) {
-  e.preventDefault();
-});
-
-// 3. Bloquear arrastar texto/imagem
-document.addEventListener("dragstart", function (e) {
-  e.preventDefault();
-});
-
-// 4. Bloquear copiar
-document.addEventListener("copy", function (e) {
-  e.preventDefault();
-  mostrarAviso("⚠️ Cópia desativada neste site.");
-});
-
-// 5. Bloquear atalhos de teclado
-document.addEventListener("keydown", function (e) {
-  const key = e.key.toLowerCase();
-
-  // Lista de combinações bloqueadas
-  const bloqueios = [
-    e.ctrlKey && key === "c", // copiar
-    e.ctrlKey && key === "x", // recortar
-    e.ctrlKey && key === "v", // colar
-    e.ctrlKey && key === "u", // ver código-fonte
-    e.ctrlKey && e.shiftKey && key === "i", // devtools
-    e.ctrlKey && e.shiftKey && key === "j", // console
-    e.ctrlKey && e.shiftKey && key === "c", // inspect
-    key === "f12", // devtools
-  ];
-
-  if (bloqueios.some(Boolean)) {
-    e.preventDefault();
-    mostrarAviso("🔒 Ação bloqueada por sistema.");
-  }
-});
-
-// 6. Bloquear impressão
-document.addEventListener("beforeprint", function () {
-  mostrarAviso("🖨️ Impressão desativada.");
-  window.stop();
-});
-
-// ===============================
-// FUNÇÃO DE AVISO
-// ===============================
-function mostrarAviso(texto) {
-  let aviso = document.getElementById("aviso-bloqueio");
-
-  if (!aviso) {
-    aviso = document.createElement("div");
-    aviso.id = "aviso-blboqueio";
-    aviso.style.position = "fixed";
-    aviso.style.bottom = "20px";
-    aviso.style.right = "20px";
-    aviso.style.background = "rgba(31,36,40,0.95)";
-    aviso.style.color = "#fff";
-    aviso.style.padding = "12px 16px";
-    aviso.style.borderRadius = "10px";
-    aviso.style.fontSize = "14px";
-    aviso.style.zIndex = "9999";
-    aviso.style.boxShadow = "0 6px 16px rgba(0,0,0,.6)";
-    aviso.style.border = "1px solid #333";
-    document.body.appendChild(aviso);
-  }
-
-  aviso.textContent = texto;
-  aviso.style.opacity = "1";
-
-  clearTimeout(aviso._timer);
-  aviso._timer = setTimeout(() => {
-    aviso.style.opacity = "0";
-  }, 2000);
-}
 
 //sisteam nova
 
@@ -988,79 +1009,4 @@ document.addEventListener("click", (e) => {
 });
 //fim bloqueio de copia
 
-//sisteam de aba lateral
-
-// ============================================================
-// SISTEMA DE SIDEBAR LATERAL
-// ============================================================
-
-const sidebar = document.getElementById("sidebar");
-const sidebarOverlay = document.getElementById("sidebar-overlay");
-
-
-
-// ------------------------------------------------------------
-// TOGGLE SIDEBAR (ABRE / FECHA)
-// ------------------------------------------------------------
-function toggleSidebar() {
-  const isOpen = sidebar.classList.contains("active");
-
-  if (isOpen) {
-    closeSidebar();
-  } else {
-    openSidebar();
-  }
-}
-
-// ------------------------------------------------------------
-// ABRIR SIDEBAR
-// ------------------------------------------------------------
-function openSidebar() {
-  sidebar.classList.add("active");
-  sidebarOverlay.classList.add("active");
-  document.body.classList.add(NO_SCROLL_CLASS);
-}
-
-// ------------------------------------------------------------
-// FECHAR SIDEBAR
-// ------------------------------------------------------------
-function closeSidebar() {
-  sidebar.classList.remove("active");
-  sidebarOverlay.classList.remove("active");
-  document.body.classList.remove(NO_SCROLL_CLASS);
-}
-
-// ------------------------------------------------------------
-// FECHAR AO CLICAR FORA (SEGURANÇA EXTRA)
-// ------------------------------------------------------------
-document.addEventListener("click", (e) => {
-  if (!sidebar.classList.contains("active")) return;
-
-  // Clique dentro da sidebar → não fecha
-  if (sidebar.contains(e.target)) return;
-
-  // Clique no botão toggle → não fecha
-  if (e.target.closest(".sidebar-toggle")) return;
-
-  closeSidebar();
-});
-
-// ------------------------------------------------------------
-// FECHAR COM ESC
-// ------------------------------------------------------------
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape" && sidebar.classList.contains("active")) {
-    closeSidebar();
-  }
-});
-
-
-//fim sisteam de aba lateral
- function closeUpdateCard() {
-    document.getElementById("update-overlay").style.display = "none";
-    document.body.classList.remove("no-scroll");
-  }
-
-  // Bloqueia scroll quando abrir
-  document.body.classList.add("no-scroll");
-  
+//bloqueio de atualização

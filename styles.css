@@ -1014,108 +1014,164 @@ input::placeholder {
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
 }
 
-/* sisteam nova */
-
-/* ===============================
-   CARD – ATUALIZAÇÃO EM BREVE
-   (PADRÃO META_UP)
-================================ */
-
-/* Overlay */
-.update-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.75);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
+/* bloqueio de atualização */
+/* Overlay do modal */
+.metaup-freeze-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0,0,0,0.8);
+  display: none; /* começa escondido */
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  backdrop-filter: blur(4px);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Card */
-.update-card {
-    background: rgba(31, 36, 40, 0.92); /* igual info-card */
-    border: 1px solid var(--border-color);
-    padding: 26px 24px;
-    max-width: 420px;
-    width: 92%;
-    border-radius: 18px;
-    text-align: center;
-
-    color: var(--text-light);
-
-    box-shadow:
-        0 20px 50px rgba(0, 0, 0, 0.6),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.02);
-
-    animation: updateFadeUp 0.4s ease;
+.metaup-freeze-card {
+  background: #fff;
+  width: 90%;
+  max-width: 550px;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  border-top: 5px solid #d32f2f;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
-/* Título */
-.update-card h2 {
-    margin-bottom: 12px;
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: #ffffff;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
+/* Header */
+.metaup-freeze-header h2 {
+  margin: 0;
+  color: #d32f2f;
 }
 
-/* Texto */
-.update-card p {
-    font-size: 0.95rem;
-    line-height: 1.5;
-    color: #a1a1aa;
-    margin-bottom: 22px;
+.metaup-freeze-version {
+  font-size: 12px;
+  color: #777;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-/* Botão */
-.update-card button {
-    background: linear-gradient(135deg, #48C337, #197c0c);
-    color: #ffffff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 12px;
-    cursor: pointer;
-
-    font-size: 0.9rem;
-    font-weight: 600;
-
-    box-shadow: 0 2px 9px -1px #238636;
-    transition: opacity 0.2s ease, transform 0.2s ease;
+/* Conteúdo */
+.metaup-freeze-content {
+  margin: 20px 0;
+  line-height: 1.5;
+  color: #444;
 }
 
-/* Hover */
-.update-card button:hover {
-    opacity: 0.9;
-    transform: translateY(-1px);
+.metaup-freeze-content ul {
+  background: #f9f9f9;
+  padding: 15px 15px 15px 35px;
+  border-radius: 5px;
+  list-style-type: square;
 }
 
-/* Active */
-.update-card button:active {
-    transform: translateY(0);
-    box-shadow: none;
+.metaup-freeze-note {
+  font-size: 13px;
+  color: #d32f2f;
+  background: #fff3f3;
+  padding: 10px;
+  border-left: 3px solid #d32f2f;
+  border-radius: 4px;
+  margin-top: 10px;
 }
 
-/* Animação */
-@keyframes updateFadeUp {
-    from {
-        opacity: 0;
-        transform: translateY(16px) scale(0.96);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-    }
+.avisode {
+  font-style: italic;
+  color: #555;
+  margin-top: 5px;
 }
-.update-card strong {
-    color: var(--verde-principal);
-    font-weight: 700;
-    border-bottom: 2px solid rgba(72, 195, 55, 0.4);
-    padding-bottom: 1px;
+
+#descuspa {
+  display: block;
+  margin-top: 10px;
+  background: #fff3f3;
+  padding: 8px;
+  border-left: 3px solid #d32f2f;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #d32f2f;
+}
+
+/* Botão modal */
+.metaup-freeze-btn {
+  width: 100%;
+  padding: 15px;
+  background-color: #1a73e8;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: background 0.2s;
+}
+
+.metaup-freeze-btn:hover {
+  background-color: #0d47a1;
+}
+
+/* Botão que abre o card - estilo moderno e de aviso */
+.open-card-btn {
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  background: linear-gradient(135deg, #ff4c4c, #ff6f6f); /* gradiente vermelho chamativo */
+  color: #fff;
+  border: none;
+  border-radius: 12px; /* cantos mais arredondados */
+  margin: 20px;
+  box-shadow: 0 4px 12px rgba(255, 76, 76, 0.5);
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+}
+
+/* Hover - animação suave e destaque */
+.open-card-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(255, 76, 76, 0.6);
+  background: linear-gradient(135deg, #ff6f6f, #ff8c8c);
+}
+
+/* Bloqueia scroll quando modal aberto */
+body.modal-open {
+  overflow: hidden;
+}
+/* Botão de aviso moderno baseado nas cores do sistema */
+#buttondeaviso {
+  display: inline-block;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, var(--verde-principal), var(--green-primary));
+  color: #000; /* texto contrastante */
+  font-weight: bold;
+  font-size: 14px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(62, 217, 40, 0.5); /* sombra verde */
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Hover - efeito de destaque */
+#buttondeaviso:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(62, 217, 40, 0.6);
+  background: linear-gradient(135deg, var(--green-primary), var(--verde-principal));
+  color: #fff; /* muda o texto para branco no hover */
+}
+
+/* Animação de pulso suave para chamar atenção */
+@keyframes pulse-alert {
+  0% { box-shadow: 0 0 0 0 rgba(62, 217, 40, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(62, 217, 40, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(62, 217, 40, 0); }
+}
+
+#buttondeaviso {
+  animation: pulse-alert 2s infinite;
 }

@@ -12,7 +12,6 @@
 
     <!-- ===================== PWA CONFIG ===================== -->
     <link rel="manifest" href="manifest.json" />
-
     <!-- ===================== FAVICONS ===================== -->
     <link
       rel="shortcut icon"
@@ -94,6 +93,10 @@
         >
           Definir Nova Meta
         </h2>
+<span id="buttondeaviso">
+  Role para baixo para ver um botão de aviso sobre o que está acontecendo com o sistema.
+</span>
+
 
         <!-- ÁREA DE INPUTS PARA CADASTRAR META -->
         <div id="goal-input-section">
@@ -493,7 +496,7 @@
         <span>Clique em “BETA”</span>
       </h5>
 
-      <abbr title="ver mais">
+      <abbr title="modal bloqueado">
         <h6 class="beta-text" id="openCard">Beta</h6>
       </abbr>
     </div>
@@ -656,16 +659,40 @@
         </form>
       </div>
     </div>
-    <!--sisteam nova-->
-<!-- CARD DE ATUALIZAÇÃO -->
-<div id="update-overlay" class="update-overlay">
-  <div class="update-card">
-    <h2>🚀 Atualização em breve</h2>
-    <p>
-      Estamos preparando novidades e melhorias para você.
-      <strong>Fique atento</strong>, em breve teremos uma nova versão disponível!
-    </p>
-    <button onclick="closeUpdateCard()">Entendi</button>
+<!--bloqueio de atualização-->
+<!-- Botão para abrir o card -->
+<button id="openCardBtn" class="open-card-btn">Abrir aviso Importante
+
+</button>
+
+<!-- Card modal -->
+<div id="metaup-freeze-overlay" class="metaup-freeze-overlay">
+  <div class="metaup-freeze-card" role="dialog" aria-modal="true">
+    <header class="metaup-freeze-header">
+      <h2>⛔ Recurso descontinuado</h2>
+      <span class="metaup-freeze-version">Status técnico do sistema</span>
+    </header>
+
+    <section class="metaup-freeze-content">
+      <p>Este sistema <strong>não receberá mais atualizações</strong> a partir de <strong>20/01/2026</strong>.</p>
+      <p><strong>Importante:</strong> o sistema <u>continua funcional</u> e pode ser utilizado normalmente, sem restrições de uso.</p>
+      <p>A interrupção das atualizações foi uma decisão técnica, baseada nos seguintes fatores:</p>
+      <ul>
+        <li>Arquitetura legada com limitações estruturais</li>
+        <li>Alto risco de regressões ao alterar componentes estáveis</li>
+        <li>Estabilidade atual considerada satisfatória</li>
+        <li>Baixo custo-benefício em novas correções</li>
+      </ul>
+      <p>Para evitar impactos negativos na estabilidade, optou-se por manter esta versão congelada.</p>
+      <p>Paralelamente, um novo projeto está em desenvolvimento e <strong>um WebApp mais moderno substituirá este sistema futuramente (Meta_up 2026)</strong>.</p>
+      <p class="metaup-freeze-note">Ao continuar, você confirma que está ciente de que este sistema permanecerá operacional, porém sem novas atualizações ou melhorias.</p>
+      <p class="avisode">Alguns funções estão desativadas</p>
+      <span id="descuspa">Peço a compreensão de todos e desculpas pela Meta_up passar por isso.</span>
+    </section>
+
+    <button id="metaup-freeze-accept" class="metaup-freeze-btn">
+      Entendi e continuar
+    </button>
   </div>
 </div>
 
