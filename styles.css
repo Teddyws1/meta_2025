@@ -1017,161 +1017,389 @@ input::placeholder {
 /* bloqueio de atualização */
 /* Overlay do modal */
 .metaup-freeze-overlay {
-  position: fixed;
-  inset: 0;
-  background-color: rgba(0,0,0,0.8);
-  display: none; /* começa escondido */
-  justify-content: center;
-  align-items: center;
-  z-index: 10000;
-  backdrop-filter: blur(4px);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: none;
+    /* começa escondido */
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    backdrop-filter: blur(4px);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Card */
 .metaup-freeze-card {
-  background: #fff;
-  width: 90%;
-  max-width: 550px;
-  padding: 25px;
-  border-radius: 8px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-  border-top: 5px solid #d32f2f;
-  max-height: 90vh;
-  overflow-y: auto;
+    background: #fff;
+    width: 90%;
+    max-width: 550px;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    border-top: 5px solid #d32f2f;
+    max-height: 90vh;
+    overflow-y: auto;
 }
 
 /* Header */
 .metaup-freeze-header h2 {
-  margin: 0;
-  color: #d32f2f;
+    margin: 0;
+    color: #d32f2f;
 }
 
 .metaup-freeze-version {
-  font-size: 12px;
-  color: #777;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+    font-size: 12px;
+    color: #777;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 /* Conteúdo */
 .metaup-freeze-content {
-  margin: 20px 0;
-  line-height: 1.5;
-  color: #444;
+    margin: 20px 0;
+    line-height: 1.5;
+    color: #444;
 }
 
 .metaup-freeze-content ul {
-  background: #f9f9f9;
-  padding: 15px 15px 15px 35px;
-  border-radius: 5px;
-  list-style-type: square;
+    background: #f9f9f9;
+    padding: 15px 15px 15px 35px;
+    border-radius: 5px;
+    list-style-type: square;
 }
 
 .metaup-freeze-note {
-  font-size: 13px;
-  color: #d32f2f;
-  background: #fff3f3;
-  padding: 10px;
-  border-left: 3px solid #d32f2f;
-  border-radius: 4px;
-  margin-top: 10px;
+    font-size: 13px;
+    color: #d32f2f;
+    background: #fff3f3;
+    padding: 10px;
+    border-left: 3px solid #d32f2f;
+    border-radius: 4px;
+    margin-top: 10px;
 }
 
 .avisode {
-  font-style: italic;
-  color: #555;
-  margin-top: 5px;
+    font-style: italic;
+    color: #555;
+    margin-top: 5px;
 }
 
 #descuspa {
-  display: block;
-  margin-top: 10px;
-  background: #fff3f3;
-  padding: 8px;
-  border-left: 3px solid #d32f2f;
-  border-radius: 4px;
-  font-size: 14px;
-  color: #d32f2f;
+    display: block;
+    margin-top: 10px;
+    background: #fff3f3;
+    padding: 8px;
+    border-left: 3px solid #d32f2f;
+    border-radius: 4px;
+    font-size: 14px;
+    color: #d32f2f;
 }
 
 /* Botão modal */
 .metaup-freeze-btn {
-  width: 100%;
-  padding: 15px;
-  background-color: #1a73e8;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  font-weight: bold;
-  font-size: 16px;
-  cursor: pointer;
-  margin-top: 15px;
-  transition: background 0.2s;
+    width: 100%;
+    padding: 15px;
+    background-color: #1a73e8;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background 0.2s;
 }
 
 .metaup-freeze-btn:hover {
-  background-color: #0d47a1;
+    background-color: #0d47a1;
 }
 
-/* Botão que abre o card - estilo moderno e de aviso */
+/* Botão moderno que abre o card */
 .open-card-btn {
-  padding: 12px 24px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  background: linear-gradient(135deg, #ff4c4c, #ff6f6f); /* gradiente vermelho chamativo */
-  color: #fff;
-  border: none;
-  border-radius: 12px; /* cantos mais arredondados */
-  margin: 20px;
-  box-shadow: 0 4px 12px rgba(255, 76, 76, 0.5);
-  transition: all 0.3s ease;
-  text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    /* espaço para ícone se quiser */
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+
+    /* cores do sistema */
+    background: linear-gradient(135deg, var(--verde-principal), var(--green-primary));
+    color: #000;
+    /* texto contrastante */
+    border: none;
+    border-radius: 8px;
+
+    margin: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+
+    /* sombra e transição moderna */
+    box-shadow: 0 4px 10px rgba(62, 217, 40, 0.4);
+    transition: all 0.3s ease;
 }
 
-/* Hover - animação suave e destaque */
+/* Hover */
 .open-card-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(255, 76, 76, 0.6);
-  background: linear-gradient(135deg, #ff6f6f, #ff8c8c);
+    background: linear-gradient(135deg, var(--green-primary), var(--verde-principal));
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(62, 217, 40, 0.6);
 }
+
+/* Active / clique */
+.open-card-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 10px rgba(62, 217, 40, 0.4);
+}
+
+/* Animação de pulso suave (opcional) */
+@keyframes pulse-button {
+    0% {
+        box-shadow: 0 0 0 0 rgba(62, 217, 40, 0.5);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(62, 217, 40, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(62, 217, 40, 0);
+    }
+}
+
+.open-card-btn {
+    animation: pulse-button 2.5s infinite;
+}
+
 
 /* Bloqueia scroll quando modal aberto */
 body.modal-open {
-  overflow: hidden;
+    overflow: hidden;
 }
+
 /* Botão de aviso moderno baseado nas cores do sistema */
 #buttondeaviso {
-  display: inline-block;
-  padding: 10px 20px;
-  background: linear-gradient(135deg, var(--verde-principal), var(--green-primary));
-  color: #000; /* texto contrastante */
-  font-weight: bold;
-  font-size: 14px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(62, 217, 40, 0.5); /* sombra verde */
-  transition: all 0.3s ease;
-  cursor: pointer;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+    display: inline-block;
+    padding: 10px 20px;
+    background: linear-gradient(135deg, var(--verde-principal), var(--green-primary));
+    color: #000;
+    /* texto contrastante */
+    font-weight: bold;
+    font-size: 14px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(62, 217, 40, 0.5);
+    /* sombra verde */
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 /* Hover - efeito de destaque */
 #buttondeaviso:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(62, 217, 40, 0.6);
-  background: linear-gradient(135deg, var(--green-primary), var(--verde-principal));
-  color: #fff; /* muda o texto para branco no hover */
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(62, 217, 40, 0.6);
+    background: linear-gradient(135deg, var(--green-primary), var(--verde-principal));
+    color: #fff;
+    /* muda o texto para branco no hover */
 }
 
 /* Animação de pulso suave para chamar atenção */
 @keyframes pulse-alert {
-  0% { box-shadow: 0 0 0 0 rgba(62, 217, 40, 0.7); }
-  70% { box-shadow: 0 0 0 10px rgba(62, 217, 40, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(62, 217, 40, 0); }
+    0% {
+        box-shadow: 0 0 0 0 rgba(62, 217, 40, 0.7);
+    }
+
+    70% {
+        box-shadow: 0 0 0 10px rgba(62, 217, 40, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(62, 217, 40, 0);
+    }
 }
 
 #buttondeaviso {
-  animation: pulse-alert 2s infinite;
+    animation: pulse-alert 2s infinite;
+}
+
+#sairs {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    background: linear-gradient(135deg, #4fd13c, #2fae22);
+    /* verde moderno do sistema */
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    user-select: none;
+}
+
+#sairs:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.5);
+}
+
+/* ===========================
+   ABR/Mensagem Bloqueada
+=========================== */
+
+/* Estilo base do abbr */
+abbr[title] {
+    position: relative;
+    cursor: not-allowed;
+    /* mostra que está desabilitado */
+    font-weight: 600;
+    color: #1F2A7F;
+    /* cor do sistema */
+    text-decoration: underline;
+    transition: color 0.3s, transform 0.2s;
+}
+
+/* Efeito hover sutil */
+abbr[title]:hover {
+    color: #2e9fcc;
+    transform: scale(1.05);
+}
+
+/* Tooltip principal */
+abbr[title]::after {
+    content: attr(title);
+    /* pega a mensagem do title */
+    position: absolute;
+    bottom: 130%;
+    /* acima do abbr */
+    left: 50%;
+    transform: translateX(-50%);
+    background: #238636;
+    /* verde do sistema */
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 999;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Triângulo da tooltip */
+abbr[title]::before {
+    content: "";
+    position: absolute;
+    bottom: 120%;
+    /* posicionamento do triângulo */
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: #238636 transparent transparent transparent;
+    /* triângulo verde */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+/* Mostra tooltip ao passar o mouse */
+abbr[title]:hover::after,
+abbr[title]:hover::before {
+    opacity: 1;
+}
+
+/* Estilo para abbr */
+abbr[title] {
+    cursor: not-allowed;
+    color: #1F2A7F;
+    font-weight: bold;
+    text-decoration: underline;
+    transition: color 0.3s, transform 0.2s;
+}
+
+abbr[title]:hover {
+    color: #2e9fcc;
+    transform: scale(1.05);
+}
+
+/* Tooltip */
+abbr[title]::after {
+    content: attr(title);
+    position: absolute;
+    bottom: 130%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #238636;
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 999;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+abbr[title]::before {
+    content: "";
+    position: absolute;
+    bottom: 120%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: #238636 transparent transparent transparent;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+abbr[title]:hover::after,
+abbr[title]:hover::before {
+    opacity: 1;
+}
+
+/* Efeito leve de pulso para chamar atenção (opcional) */
+@keyframes pulse-tooltip {
+    0% {
+        transform: translateX(-50%) scale(1);
+    }
+
+    50% {
+        transform: translateX(-50%) scale(1.05);
+    }
+
+    100% {
+        transform: translateX(-50%) scale(1);
+    }
+}
+
+abbr[title]:hover::after {
+    animation: pulse-tooltip 1s ease-in-out infinite;
+}
+
+/* Responsivo: reduz tooltip em telas pequenas */
+@media (max-width: 400px) {
+    abbr[title]::after {
+        font-size: 11px;
+        padding: 6px 10px;
+    }
+
+    abbr[title]::before {
+        border-width: 4px;
+    }
 }

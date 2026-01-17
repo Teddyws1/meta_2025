@@ -8,26 +8,23 @@ let currentDeadline = "";
 let currentStartDate = "";
 let deposits = [];
 // Espera o DOM carregar
-document.addEventListener('DOMContentLoaded', () => {
-  const openBtn = document.getElementById('openCardBtn');
-  const overlay = document.getElementById('metaup-freeze-overlay');
-  const acceptBtn = document.getElementById('metaup-freeze-accept');
+document.addEventListener("DOMContentLoaded", () => {
+  const openBtn = document.getElementById("openCardBtn");
+  const overlay = document.getElementById("metaup-freeze-overlay");
+  const acceptBtn = document.getElementById("metaup-freeze-accept");
 
   // Abre o card
-  openBtn.addEventListener('click', () => {
-    overlay.style.display = 'flex';
-    document.body.classList.add('modal-open');
+  openBtn.addEventListener("click", () => {
+    overlay.style.display = "flex";
+    document.body.classList.add("modal-open");
   });
 
   // Fecha o card ao clicar no botão "Entendi e continuar"
-  acceptBtn.addEventListener('click', () => {
-    overlay.style.display = 'none';
-    document.body.classList.remove('modal-open');
+  acceptBtn.addEventListener("click", () => {
+    overlay.style.display = "none";
+    document.body.classList.remove("modal-open");
   });
-
- 
 });
-
 
 // ============================================================
 // REFERÊNCIAS DOM
@@ -43,17 +40,17 @@ const goalInputSection = document.getElementById("goal-input-section");
 const goalDisplaySection = document.getElementById("goal-display-section");
 const displayGoalAmount = document.getElementById("display-goal-amount");
 const displayGoalDescription = document.getElementById(
-  "display-goal-description"
+  "display-goal-description",
 );
 const displayGoalDeadline = document.getElementById("display-goal-deadline");
 const goalSectionTitle = document.getElementById("goal-section-title");
 
 // Progresso
 const progressPercentDisplay = document.getElementById(
-  "progress-percent-display"
+  "progress-percent-display",
 );
 const savedAmountDisplayTop = document.getElementById(
-  "saved-amount-display-top"
+  "saved-amount-display-top",
 );
 const progressBarFill = document.getElementById("progress-bar-fill");
 const endLabel = document.getElementById("end-label");
@@ -104,7 +101,7 @@ const formatDate = (dateString) => {
   if (!dateString) return "--/--/----";
   const date = new Date(dateString);
   const offsetDate = new Date(
-    date.getTime() + date.getTimezoneOffset() * 60000
+    date.getTime() + date.getTimezoneOffset() * 60000,
   );
   return new Intl.DateTimeFormat("pt-BR").format(offsetDate);
 };
@@ -263,7 +260,7 @@ const calculateDeadline = (remainingAmount) => {
   deadlineDate.setHours(0, 0, 0, 0);
 
   let diffDays = Math.ceil(
-    (deadlineDate.getTime() - today.getTime()) / ONE_DAY
+    (deadlineDate.getTime() - today.getTime()) / ONE_DAY,
   );
 
   if (diffDays <= 0) {
@@ -276,7 +273,7 @@ const calculateDeadline = (remainingAmount) => {
   diasRestantesCard.classList.remove(
     "text-red-600",
     "text-yellow-400",
-    "text-red-400"
+    "text-red-400",
   );
   if (diffDays === "Expirado") {
     diasRestantesCard.classList.add("text-red-600");
@@ -310,7 +307,7 @@ const updateGoalUI = () => {
 
   // Atualiza cards
   savedAmountDisplayTop.textContent = `Arrecadado: ${formatCurrency(
-    savedTotal
+    savedTotal,
   )}`;
   metaTotalCard.textContent = formatCurrency(currentGoal);
   valorArrecadadoCard.textContent = formatCurrency(savedTotal);
@@ -336,90 +333,6 @@ const updateGoalUI = () => {
 // ============================================================
 // FUNÇÕES DE DEPÓSITOS
 // ============================================================
-// ===============================
-// SISTEMA DE BLOQUEIO DE CÓPIA
-// ===============================
-
-// 1. Bloquear clique direito
-document.addEventListener("contextmenu", function (e) {
-  e.preventDefault();
-});
-
-// 2. Bloquear seleção de texto
-document.addEventListener("selectstart", function (e) {
-  e.preventDefault();
-});
-
-// 3. Bloquear arrastar texto/imagem
-document.addEventListener("dragstart", function (e) {
-  e.preventDefault();
-});
-
-// 4. Bloquear copiar
-document.addEventListener("copy", function (e) {
-  e.preventDefault();
-  mostrarAviso("⚠️ Cópia desativada neste site.");
-});
-
-// 5. Bloquear atalhos de teclado
-document.addEventListener("keydown", function (e) {
-  const key = e.key.toLowerCase();
-
-  // Lista de combinações bloqueadas
-  const bloqueios = [
-    e.ctrlKey && key === "c", // copiar
-    e.ctrlKey && key === "x", // recortar
-    e.ctrlKey && key === "v", // colar
-    e.ctrlKey && key === "u", // ver código-fonte
-    e.ctrlKey && e.shiftKey && key === "i", // devtools
-    e.ctrlKey && e.shiftKey && key === "j", // console
-    e.ctrlKey && e.shiftKey && key === "c", // inspect
-    key === "f12", // devtools
-  ];
-
-  if (bloqueios.some(Boolean)) {
-    e.preventDefault();
-    mostrarAviso("🔒 Ação bloqueada por sistema.");
-  }
-});
-
-// 6. Bloquear impressão
-document.addEventListener("beforeprint", function () {
-  mostrarAviso("🖨️ Impressão desativada.");
-  window.stop();
-});
-
-// ===============================
-// FUNÇÃO DE AVISO
-// ===============================
-function mostrarAviso(texto) {
-  let aviso = document.getElementById("aviso-bloqueio");
-
-  if (!aviso) {
-    aviso = document.createElement("div");
-    aviso.id = "aviso-blboqueio";
-    aviso.style.position = "fixed";
-    aviso.style.bottom = "20px";
-    aviso.style.right = "20px";
-    aviso.style.background = "rgba(31,36,40,0.95)";
-    aviso.style.color = "#fff";
-    aviso.style.padding = "12px 16px";
-    aviso.style.borderRadius = "10px";
-    aviso.style.fontSize = "14px";
-    aviso.style.zIndex = "9999";
-    aviso.style.boxShadow = "0 6px 16px rgba(0,0,0,.6)";
-    aviso.style.border = "1px solid #333";
-    document.body.appendChild(aviso);
-  }
-
-  aviso.textContent = texto;
-  aviso.style.opacity = "1";
-
-  clearTimeout(aviso._timer);
-  aviso._timer = setTimeout(() => {
-    aviso.style.opacity = "0";
-  }, 2000);
-}
 
 /**
  * Renderiza a lista de depósitos na tabela
@@ -446,7 +359,7 @@ const renderDeposits = () => {
       </td>
       <td>
         <span class="value-saved font-bold">${formatCurrency(
-          dep.amount
+          dep.amount,
         )}</span><br>
         <span class="text-xs text-[#8b949e]">${
           dep.description || "Sem descrição"
@@ -474,7 +387,7 @@ const addDeposit = (event) => {
   const depositAmountInput = document.getElementById("deposit-amount");
   const depositDateInput = document.getElementById("deposit-date");
   const depositDescriptionInput = document.getElementById(
-    "deposit-description"
+    "deposit-description",
   );
 
   const amount = parseFloat(depositAmountInput.value);
@@ -484,7 +397,7 @@ const addDeposit = (event) => {
 
   if (currentGoal === 0) {
     alert(
-      "Recomendamos definir um valor para sua meta antes de adicionar um depósito, para acompanhar o progresso."
+      "Recomendamos definir um valor para sua meta antes de adicionar um depósito, para acompanhar o progresso.",
     );
   }
 
@@ -523,7 +436,7 @@ const clearAllDeposits = () => {
   }
 
   const confirmation = confirm(
-    "🚨 AVISO: Você tem certeza que deseja EXCLUIR PERMANENTEMENTE TODAS as transações de depósito? \n\nEsta ação não pode ser desfeita e zerará o seu 'Valor Arrecadado'."
+    "🚨 AVISO: Você tem certeza que deseja EXCLUIR PERMANENTEMENTE TODAS as transações de depósito? \n\nEsta ação não pode ser desfeita e zerará o seu 'Valor Arrecadado'.",
   );
 
   if (confirmation) {
@@ -578,7 +491,7 @@ const saveEditedDeposit = (event) => {
 
   if (isNaN(newAmount) || newAmount <= 0 || !newDate || !newTime) {
     alert(
-      "Por favor, preencha todos os campos obrigatórios (Valor, Data, Hora)."
+      "Por favor, preencha todos os campos obrigatórios (Valor, Data, Hora).",
     );
     return;
   }
@@ -921,7 +834,7 @@ input.addEventListener("change", (e) => {
       jsonFiles.push({
         id: Date.now(),
         name: file.name.replace(".json", ""),
-        data
+        data,
       });
       save();
       render();
@@ -969,8 +882,6 @@ function loadJSON(index) {
   // 👉 aqui você conecta com seu sistema (metas, depósitos, etc)
 }
 
-
-
 function save() {
   localStorage.setItem("jsonFiles", JSON.stringify(jsonFiles));
 }
@@ -980,7 +891,6 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "Escape" && sidebar.classList.contains("open")) {
     closeSidebar();
   }
-  
 });
 function openSidebar() {
   sidebar.classList.add("open");

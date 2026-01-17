@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
   <head>
     <!-- ===================== METADADOS ===================== -->
@@ -93,10 +93,10 @@
         >
           Definir Nova Meta
         </h2>
-<span id="buttondeaviso">
-  Role para baixo para ver um botão de aviso sobre o que está acontecendo com o sistema.
-</span>
-
+        <span id="buttondeaviso">
+          Role para baixo para ver um botão de aviso sobre o que está
+          acontecendo com o sistema.
+        </span>
 
         <!-- ÁREA DE INPUTS PARA CADASTRAR META -->
         <div id="goal-input-section">
@@ -489,65 +489,6 @@
     <!-- SEPARADOR -->
     <hr class="divider-gradient" />
 
-    <!-- VERSÃO BETA -->
-    <div class="version-sample">
-      <h5 class="version-text">
-        Ver mais sobre a versão
-        <span>Clique em “BETA”</span>
-      </h5>
-
-      <abbr title="modal bloqueado">
-        <h6 class="beta-text" id="openCard">Beta</h6>
-      </abbr>
-    </div>
-
-    <!-- MODAL: INFORMAÇÕES BETA -->
-    <div id="overlay" class="overlay"></div>
-
-    <div id="card" class="modal-card">
-      <button id="closeCard" class="close-btn">✕</button>
-
-      <h2 class="titulo-beta">
-        <ion-icon name="flask-outline"></ion-icon>
-        Informações Beta
-      </h2>
-
-      <ul class="avisos-lista">
-        <li class="item beta">
-          <span class="icon icon-beta">
-            <ion-icon name="alert-outline"></ion-icon>
-          </span>
-          Esta é uma versão beta, portanto alguns bugs e erros podem ocorrer.
-        </li>
-
-        <li class="item desenvolvimento">
-          <span class="icon icon-desenvolvimento">
-            <ion-icon name="hammer-outline"></ion-icon>
-          </span>
-          O sistema ainda está em fase de desenvolvimento.
-        </li>
-
-        <li class="item recomendacao">
-          <span class="icon icon-recomendacao">
-            <ion-icon name="bulb-outline"></ion-icon>
-          </span>
-          Recomendamos limpar o cache do navegador para garantir que você receba
-          as atualizações mais recentes do sistema.
-        </li>
-
-        <li class="item aviso">
-          <span class="icon icon-aviso">
-            <ion-icon name="warning-outline"></ion-icon>
-          </span>
-          Pedimos a compreensão de todos durante esse período.
-        </li>
-      </ul>
-
-      <div class="versao-box">
-        <span id="app-version">v 4.6.40</span>
-      </div>
-    </div>
-
     <!-- ===================== COMPONENTES FLUTUANTES ===================== -->
 
     <!-- TOAST DE SUCESSO -->
@@ -659,42 +600,66 @@
         </form>
       </div>
     </div>
-<!--bloqueio de atualização-->
-<!-- Botão para abrir o card -->
-<button id="openCardBtn" class="open-card-btn">Abrir aviso Importante
-
-</button>
-
-<!-- Card modal -->
-<div id="metaup-freeze-overlay" class="metaup-freeze-overlay">
-  <div class="metaup-freeze-card" role="dialog" aria-modal="true">
-    <header class="metaup-freeze-header">
-      <h2>⛔ Recurso descontinuado</h2>
-      <span class="metaup-freeze-version">Status técnico do sistema</span>
-    </header>
-
-    <section class="metaup-freeze-content">
-      <p>Este sistema <strong>não receberá mais atualizações</strong> a partir de <strong>20/01/2026</strong>.</p>
-      <p><strong>Importante:</strong> o sistema <u>continua funcional</u> e pode ser utilizado normalmente, sem restrições de uso.</p>
-      <p>A interrupção das atualizações foi uma decisão técnica, baseada nos seguintes fatores:</p>
-      <ul>
-        <li>Arquitetura legada com limitações estruturais</li>
-        <li>Alto risco de regressões ao alterar componentes estáveis</li>
-        <li>Estabilidade atual considerada satisfatória</li>
-        <li>Baixo custo-benefício em novas correções</li>
-      </ul>
-      <p>Para evitar impactos negativos na estabilidade, optou-se por manter esta versão congelada.</p>
-      <p>Paralelamente, um novo projeto está em desenvolvimento e <strong>um WebApp mais moderno substituirá este sistema futuramente (Meta_up 2026)</strong>.</p>
-      <p class="metaup-freeze-note">Ao continuar, você confirma que está ciente de que este sistema permanecerá operacional, porém sem novas atualizações ou melhorias.</p>
-      <p class="avisode">Alguns funções estão desativadas</p>
-      <span id="descuspa">Peço a compreensão de todos e desculpas pela Meta_up passar por isso.</span>
-    </section>
-
-    <button id="metaup-freeze-accept" class="metaup-freeze-btn">
-      Entendi e continuar
+    <!--bloqueio de atualização-->
+    <!-- Botão para abrir o card -->
+    <button id="openCardBtn" class="open-card-btn">
+      Abrir aviso Importante
     </button>
-  </div>
-</div>
 
+    <!-- Card modal -->
+    <div id="metaup-freeze-overlay" class="metaup-freeze-overlay">
+      <div class="metaup-freeze-card" role="dialog" aria-modal="true">
+        <header class="metaup-freeze-header">
+          <h2>⛔ Recurso descontinuado</h2>
+          <span class="metaup-freeze-version">Status técnico do sistema</span>
+          <span id="sairs">Role para baixo para sair do modal</span>
+        </header>
+
+        <section class="metaup-freeze-content">
+          <p>
+            Este sistema <strong>não receberá mais atualizações</strong> a
+            partir de <strong>20/01/2026</strong>.
+          </p>
+          <p>
+            <strong>Importante:</strong> o sistema <u>continua funcional</u> e
+            pode ser utilizado normalmente, sem restrições de uso.
+          </p>
+          <p>
+            A interrupção das atualizações foi uma decisão técnica, baseada nos
+            seguintes fatores:
+          </p>
+          <ul>
+            <li>Arquitetura legada com limitações estruturais</li>
+            <li>Alto risco de regressões ao alterar componentes estáveis</li>
+            <li>Estabilidade atual considerada satisfatória</li>
+            <li>Baixo custo-benefício em novas correções</li>
+          </ul>
+          <p>
+            Para evitar impactos negativos na estabilidade, optou-se por manter
+            esta versão congelada.
+          </p>
+          <p>
+            Paralelamente, um novo projeto está em desenvolvimento e
+            <strong
+              >um WebApp mais moderno substituirá este sistema futuramente
+              (Meta_up 2026)</strong
+            >.
+          </p>
+          <p class="metaup-freeze-note">
+            Ao continuar, você confirma que está ciente de que este sistema
+            permanecerá operacional, porém sem novas atualizações ou melhorias.
+          </p>
+          <p class="avisode">Alguns funções estão desativadas</p>
+          <span id="descuspa"
+            >Peço a compreensão de todos e desculpas pela Meta_up passar por
+            isso.</span
+          >
+        </section>
+
+        <button id="metaup-freeze-accept" class="metaup-freeze-btn">
+          Entendi e sair
+        </button>
+      </div>
+    </div>
   </body>
 </html>
