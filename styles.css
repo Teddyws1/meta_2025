@@ -15,6 +15,29 @@
 
 
 }
+/* toast simples no canto inferior */
+#abbr-block-toast {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #333;
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  opacity: 0;
+  pointer-events: none; /* não interfere em cliques */
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 10000;
+}
+
+/* mostrar o toast */
+#abbr-block-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
 
 /* =====================================================================
    ESTILOS GERAIS DO BODY E CONTAINERS
@@ -1014,108 +1037,505 @@ input::placeholder {
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
 }
 
-/* sisteam nova */
+/* não a atualizaão */
+/* =========================================================
+   Variáveis de tema — ajuste só aqui se quiser mudar cor
+   ========================================================= */
+:root {
+    --verde: #4CAF50;
+    /* cor base do botão / destaques */
+    --verde-hover: #45a049;
+    /* hover do botão */
+    --azul-alerta: #2196F3;
+    /* bolinha de notificação */
+    --texto-claro: #e5e7eb;
+    --texto-sec: #bbb;
+    --fundo-card: #121212;
+    /* fundo do cartão/modal */
+    --fundo-overlay: rgba(0, 0, 0, 0.9);
+    --borda-card: #333;
+    --destaque-note: #ffcc00;
+    /* cor de destaque para notas */
+    --fonte-base: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
-/* ===============================
-   CARD – ATUALIZAÇÃO EM BREVE
-   (PADRÃO META_UP)
-================================ */
+/* =========================================================
+   BOTÃO FLUTUANTE
+   ========================================================= */
+.btn-status-sistema,
+.floating-btn {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    /* se quiser canto direito, use right:20px */
+    width: 55px;
+    height: 55px;
+    background-color: var(--verde);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    z-index: 998;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
 
-/* Overlay */
-.update-overlay {
+.btn-status-sistema:hover,
+.floating-btn:hover {
+    background: var(--verde-hover);
+    transform: scale(1.08);
+}
+
+.btn-status-sistema:focus-visible,
+.floating-btn:focus-visible {
+    outline: 3px solid var(--azul-alerta);
+    outline-offset: 2px;
+}
+
+/* Ícone dentro do botão */
+.btn-status-sistema ion-icon,
+.floating-btn ion-icon {
+    color: #fff;
+    /* melhor contraste */
+    font-size: 30px;
+    line-height: 1;
+}
+
+/* =========================================================
+   ESTILO DO BOTÃO (Com ajuste de profundidade)
+   ========================================================= */
+.btn-status-sistema,
+.floating-btn {
+    position: fixed;
+    bottom: 25px;
+    left: 25px;
+    width: 58px;
+    height: 58px;
+  background: linear-gradient(135deg, #48C337, #197c0c);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), inset 0 2px 2px rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    z-index: 998;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.btn-status-sistema:hover,
+.floating-btn:hover {
+    transform: scale(1.1) translateY(-5px);
+    background-color: var(--verde-hover);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+}
+
+/* =========================================================
+   BOLINHA DE NOTIFICAÇÃO (Efeito Radar Otimizado)
+   ========================================================= */
+.btn-status-sistema .notificacao-dot,
+.floating-btn .dot {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    width: 14px;
+    height: 14px;
+    background-color: var(--azul-alerta);
+    border-radius: 50%;
+    border: 2.5px solid var(--verde);
+    /* Borda um pouco mais grossa para destacar */
+    z-index: 2;
+}
+
+/* Criando o efeito de onda (Ripple) usando um pseudo-elemento */
+.btn-status-sistema .notificacao-dot::after,
+.floating-btn .dot::after {
+    content: '';
+    position: absolute;
+    top: -2.5px;
+    /* Compensa a borda do elemento pai */
+    left: -2.5px;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: var(--azul-alerta);
+    border: 1px solid var(--azul-alerta);
+    z-index: -1;
+    animation: radar-pulse 2s infinite cubic-bezier(0.25, 0, 0, 1);
+}
+
+/* Animação Radar: A onda cresce e desaparece sem mover a bolinha central */
+@keyframes radar-pulse {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: scale(3.5);
+        opacity: 0;
+    }
+}
+
+/* Melhora o ícone para não ficar torto */
+.btn-status-sistema ion-icon,
+.floating-btn ion-icon {
+    color: #000;
+    font-size: 32px;
+    display: block;
+}
+
+/* =========================================================
+   OVERLAY DO MODAL
+   ========================================================= */
+.metaup-freeze-overlay {
+    display: none;
+    /* começa oculto */
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.75);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    /* top:0; right:0; bottom:0; left:0; */
+    background: var(--fundo-overlay);
     z-index: 9999;
+    font-family: var(--fonte-base);
+    justify-content: center;
+    align-items: center;
+    padding: 12px;
+    /* evita colar no canto em mobile */
+    overflow-y: auto;
 }
 
-/* Card */
-.update-card {
-    background: rgba(31, 36, 40, 0.92); /* igual info-card */
-    border: 1px solid var(--border-color);
-    padding: 26px 24px;
-    max-width: 420px;
+/* =========================================================
+   CARD DO MODAL
+   ========================================================= */
+/* =========================================================
+   CARD DO MODAL (ESTILO PREMIUM V2026)
+   ========================================================= */
+.metaup-freeze-card {
+    /* Gradiente mais rico com leve variação de ângulo */
+    background: linear-gradient(165deg, #1a1a1a 0%, #0d0d0d 100%);
+    color: var(--texto-claro);
+
     width: 92%;
-    border-radius: 18px;
-    text-align: center;
+    /* Ajuste leve para margens mobile */
+    max-width: 480px;
+    padding: 32px;
+    /* Mais respiro para o conteúdo */
 
-    color: var(--text-light);
+    /* Bordas mais arredondadas e modernas */
+    border-radius: 24px;
 
+    /* Borda interna (Glow de borda) para dar profundidade */
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    text-align: left;
+    max-height: 85vh;
+    /* Mais equilibrado visualmente */
+    overflow-y: auto;
+
+    /* Sombra em camadas (Shadow Layering) para parecer flutuar */
     box-shadow:
-        0 20px 50px rgba(0, 0, 0, 0.6),
-        inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+        0 10px 15px -3px rgba(0, 0, 0, 0.5),
+        0 4px 6px -2px rgba(0, 0, 0, 0.2),
+        inset 0 1px 1px rgba(255, 255, 255, 0.05);
+    /* Brilho na borda superior */
 
-    animation: updateFadeUp 0.4s ease;
+    /* Transição mais fluida com curva de elasticidade */
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+        opacity 0.3s ease;
+
+    /* Scrollbar para Firefox */
+    scrollbar-width: thin;
+    scrollbar-color: var(--verde) transparent;
+
+    /* Suavização de renderização */
+    -webkit-font-smoothing: antialiased;
 }
 
-/* Título */
-.update-card h2 {
-    margin-bottom: 12px;
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: #ffffff;
+/* Scroll interno personalizado para WebKit (Chrome/Edge/Safari) - Mais discreto */
+.metaup-freeze-card::-webkit-scrollbar {
+    width: 5px;
+}
 
+.metaup-freeze-card::-webkit-scrollbar-track {
+    background: transparent;
+    /* Fundo transparente fica mais elegante */
+}
+
+.metaup-freeze-card::-webkit-scrollbar-thumb {
+    background: rgba(175, 76, 162, 0.3);
+    /* Verde sutil, só destaca no hover */
+    border-radius: 10px;
+    transition: background 0.3s;
+}
+
+.metaup-freeze-card::-webkit-scrollbar-thumb:hover {
+    background: var(--verde);
+    /* Brilha ao interagir */
+}
+
+/* Efeito extra: Quando o modal abre, ele ganha uma leve iluminação de fundo */
+.metaup-freeze-overlay {
+    backdrop-filter: blur(12px) brightness(0.8);
+}
+
+/* Scroll interno personalizado para WebKit */
+.metaup-freeze-card::-webkit-scrollbar {
+    width: 8px;
+}
+
+.metaup-freeze-card::-webkit-scrollbar-track {
+    background: #1f2937;
+    border-radius: 8px;
+}
+
+.metaup-freeze-card::-webkit-scrollbar-thumb {
+    background-color: var(--verde);
+    border-radius: 8px;
+    border: 2px solid #1f2937;
+}
+
+.metaup-freeze-card::-webkit-scrollbar-thumb:hover {
+    background-color: #166e0e;
+}
+
+/* =========================================================
+   HEADER DO CARD
+   ========================================================= */
+.metaup-freeze-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.header-icon {
+    font-size: 40px;
+    color: var(--destaque-note);
+    display: inline-block;
+    margin-bottom: 8px;
+}
+
+/* subtexto de versão */
+.metaup-freeze-version {
+    font-size: 0.8rem;
+    color: #777;
+    display: block;
+    margin-top: 4px;
+}
+
+/* =========================================================
+   CONTEÚDO
+   ========================================================= */
+.metaup-freeze-content p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 15px;
+}
+
+.metaup-freeze-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 12px 0;
+}
+
+.metaup-freeze-content li {
     display: flex;
     align-items: center;
-    justify-content: center;
     gap: 10px;
+    margin-bottom: 10px;
+    font-size: 0.85rem;
+    color: var(--texto-sec);
 }
 
-/* Texto */
-.update-card p {
-    font-size: 0.95rem;
-    line-height: 1.5;
-    color: #a1a1aa;
-    margin-bottom: 22px;
+.metaup-freeze-content li ion-icon {
+    color: var(--verde);
+    min-width: 20px;
+    font-size: 18px;
 }
 
-/* Botão */
-.update-card button {
-    background: linear-gradient(135deg, #48C337, #197c0c);
-    color: #ffffff;
+/* nota / alerta dentro do card */
+.metaup-freeze-note {
+    background: #222;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    border-left: 4px solid #2a9e1b;
+    margin-top: 15px;
+    color: #ddd;
+}
+
+/* =========================================================
+   BOTÃO PRINCIPAL
+   ========================================================= */
+.metaup-freeze-btn {
+    width: 100%;
+    padding: 14px;
+    margin-top: 20px;
+   background: linear-gradient(135deg, #48C337, #197c0c);
     border: none;
-    padding: 10px 20px;
-    border-radius: 12px;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 8px;
     cursor: pointer;
-
-    font-size: 0.9rem;
-    font-weight: 600;
-
-    box-shadow: 0 2px 9px -1px #238636;
-    transition: opacity 0.2s ease, transform 0.2s ease;
+    font-size: 1rem;
+    transition: background 0.3s, transform 0.15s;
 }
 
-/* Hover */
-.update-card button:hover {
-    opacity: 0.9;
-    transform: translateY(-1px);
+.metaup-freeze-btn:hover {
+    background: var(--verde-hover);
+    transform: translateY(-2px);
 }
 
-/* Active */
-.update-card button:active {
-    transform: translateY(0);
-    box-shadow: none;
+.metaup-freeze-btn:active {
+    transform: scale(0.97);
 }
 
-/* Animação */
-@keyframes updateFadeUp {
+.metaup-freeze-btn:focus-visible {
+    outline: 3px solid var(--azul-alerta);
+    outline-offset: 2px;
+}
+
+/* =========================================================
+   RESPONSIVO
+   ========================================================= */
+@media (max-width: 600px) {
+    .metaup-freeze-card {
+        max-width: 95%;
+        padding: 18px;
+    }
+
+    .header-icon {
+        font-size: 32px;
+    }
+
+    .metaup-freeze-btn {
+        padding: 12px;
+        font-size: 0.95rem;
+    }
+
+    .metaup-freeze-content li {
+        font-size: 0.82rem;
+        gap: 8px;
+    }
+
+    .metaup-freeze-content li ion-icon {
+        font-size: 16px;
+        min-width: 18px;
+    }
+}
+
+@media (max-width: 400px) {
+
+    .btn-status-sistema,
+    .floating-btn {
+        width: 48px;
+        height: 48px;
+    }
+
+    .btn-status-sistema ion-icon,
+    .floating-btn ion-icon {
+        font-size: 24px;
+    }
+}
+/* Estilo moderno para mensagem de aviso */
+.aviso-desativado {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(90deg, #fff4e5, #ffe3b8); /* gradiente suave */
+    color: #663c00;
+    border-left: 5px solid #2a9e1b;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-weight: 500;
+    font-family: Arial, sans-serif;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+    animation: fadeIn 0.5s ease-out;
+}
+
+#abbr-block-toast {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(90deg, #fff4e5, #ffe3b8); /* fundo amarelo suave */
+  color: #663c00; /* texto escuro */
+  border-left: 5px solid #2a9e1b; /* barra lateral laranja */
+  padding: 12px 16px;
+  border-radius: 8px;
+  max-width: 400px;
+  margin: 20px auto;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  animation: toastFadeIn 0.5s ease-out;
+  line-height: 1.4;
+}
+
+/* Animação suave de entrada */
+@keyframes toastFadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Ícone de aviso usando pseudo-elemento */
+.aviso-desativado::before {
+    content: "⚠️"; /* ícone de aviso */
+    font-size: 1.2em;
+}
+
+/* Animação suave de entrada */
+@keyframes fadeIn {
     from {
         opacity: 0;
-        transform: translateY(16px) scale(0.96);
+        transform: translateY(-5px);
     }
     to {
         opacity: 1;
-        transform: translateY(0) scale(1);
+        transform: translateY(0);
     }
 }
-.update-card strong {
-    color: var(--verde-principal);
-    font-weight: 700;
-    border-bottom: 2px solid rgba(72, 195, 55, 0.4);
-    padding-bottom: 1px;
+/* Container principal do aviso */
+#avissso {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(90deg, #8a8c8d, #737374); /* fundo gradiente azul suave */
+  color: #ffffff;
+  border-left: 6px solid #2a9e1b;
+  padding: 20px 24px;
+  border-radius: 10px;
+  max-width: 600px;
+  margin: 20px auto;
+  font-weight: 600;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  animation: fadeIn 0.6s ease-out;
+  position: relative;
+}
+
+/* Mensagem de desculpas (span) */
+.desculpas {
+  display: block;
+  font-size: 0.95rem;
+  color: #000000;
+  font-weight: 400;
+  line-height: 1.6;
+  margin-top: 8px;
+}
+
+/* Ícone ⚡ para simbolizar novidade e velocidade */
+#avissso::before {
+  content: "⚡";
+  font-size: 1.4rem;
+  line-height: 1;
+  margin-right: 10px;
+  position: absolute;
+  left: 16px;
+  top: 16px;
+}
+
+/* Espaçamento do texto para não colidir com o ícone */
+#avissso {
+  padding-left: 50px; /* espaço para o ícone */
+}
+
+/* Animação suave de entrada */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
